@@ -1,0 +1,152 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+}
+
+.headerCard {
+  pointer-events: auto;
+  position: absolute;
+  top: clamp(20px, 3vh, 36px);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: rgba(14, 18, 37, 0.88);
+  border: 1px solid rgba(232, 200, 114, 0.38);
+  border-radius: 24px;
+  padding: 16px 32px;
+  backdrop-filter: blur(28px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(232, 200, 114, 0.12);
+  width: min(540px, 92vw);
+}
+
+.badge {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #f2b5a5;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(20px, 3vw, 24px);
+  font-weight: 400;
+  color: #ffe5a4;
+  margin: 4px 0;
+}
+
+.subtitle {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: #cfc5b3;
+  margin: 0 0 10px;
+}
+
+.counterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(232, 200, 114, 0.15);
+  border: 1px solid rgba(232, 200, 114, 0.4);
+  border-radius: 999px;
+  padding: 5px 18px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #cfc5b3;
+}
+
+.counterNum {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 16px;
+  color: #ffe5a4;
+  font-weight: bold;
+}
+
+.starsField {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+}
+
+/* ── Large Glowing Star Node ── */
+.floatingStar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(255, 229, 164, 0.35) 0%, rgba(232, 200, 114, 0.1) 60%, transparent 80%);
+  border: 1.5px solid rgba(232, 200, 114, 0.6);
+  border-radius: 50%;
+  color: #ffe5a4;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(232, 200, 114, 0.5), inset 0 0 12px rgba(255, 229, 164, 0.4);
+  backdrop-filter: blur(4px);
+  user-select: none;
+  transition: all 0.25s ease;
+}
+
+.floatingStar:hover {
+  background: radial-gradient(circle, rgba(255, 229, 164, 0.6) 0%, rgba(232, 200, 114, 0.3) 70%, transparent 90%);
+  border-color: #fff2cc;
+  box-shadow: 0 0 35px rgba(255, 229, 164, 0.9), 0 0 15px rgba(232, 200, 114, 0.8);
+}
+
+.starGlyph {
+  font-size: 26px;
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(255, 229, 164, 0.9);
+}
+
+.starHalo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(232, 200, 114, 0.4);
+  pointer-events: none;
+  animation: rotateHalo 12s linear infinite;
+}
+
+@keyframes rotateHalo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.completeModal {
+  pointer-events: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(14, 18, 37, 0.94);
+  border: 1.5px solid #ffe5a4;
+  border-radius: 28px;
+  padding: 30px 40px;
+  backdrop-filter: blur(36px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(232, 200, 114, 0.4);
+  width: min(450px, 90vw);
+}
+
+.completeTitle {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 26px;
+  color: #ffe5a4;
+  margin: 0 0 8px;
+}
+
+.completeText {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  color: #cfc5b3;
+  line-height: 1.6;
+  margin: 0;
+}
+

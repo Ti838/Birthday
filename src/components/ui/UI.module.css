@@ -1,0 +1,251 @@
+/* ── Top Controls Dock (Sound & Celestial Lighting) ──────────── */
+.topDock {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dockBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 200, 114, 0.35);
+  background: rgba(14, 18, 37, 0.8);
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(232, 200, 114, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dockBtn:hover {
+  transform: scale(1.08);
+  background: rgba(232, 200, 114, 0.18);
+  border-color: rgba(232, 200, 114, 0.7);
+  box-shadow: 0 8px 25px rgba(232, 200, 114, 0.3);
+}
+
+/* ── Caption Layer ────────────────────────────────────────────── */
+.captionLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 15vh;
+  pointer-events: none;
+}
+
+.caption {
+  font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #ffe5a4;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(232, 200, 114, 0.3);
+  font-size: clamp(22px, 3.5vw, 36px);
+  text-align: center;
+  max-width: min(84vw, 700px);
+  line-height: 1.45;
+  white-space: pre-line;
+  margin: 0;
+  filter: drop-shadow(0 2px 15px rgba(232, 200, 114, 0.25));
+}
+
+/* ── Floating Instruction Dock (Prominent On-Screen Guide) ────────── */
+.instructionDock {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(24px, 5.5vh, 48px);
+  z-index: 50;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: auto;
+  max-width: min(92vw, 620px);
+}
+
+.instructionCard {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(14, 18, 37, 0.92);
+  border: 1.5px solid rgba(232, 200, 114, 0.5);
+  border-radius: 999px;
+  padding: 12px 28px;
+  backdrop-filter: blur(28px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(232, 200, 114, 0.22),
+    inset 0 1px 1px rgba(255, 229, 164, 0.4);
+  animation: cardFloating 3s ease-in-out infinite alternate;
+}
+
+@keyframes cardFloating {
+  0% {
+    transform: translateY(0px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(232, 200, 114, 0.2);
+  }
+  100% {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 32px rgba(232, 200, 114, 0.35);
+  }
+}
+
+.instructionPulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e8c872;
+  box-shadow: 0 0 12px #ffe5a4;
+  flex-shrink: 0;
+  animation: pulseGlow 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+    box-shadow: 0 0 18px #ffe5a4;
+  }
+}
+
+.instructionText {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(14px, 1.8vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #ffe5a4;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ── Continue Button ──────────────────────────────────────────── */
+.continueButton {
+  background: linear-gradient(135deg, #ffe5a4 0%, #e8c872 50%, #f2b5a5 100%);
+  border: none;
+  backdrop-filter: blur(24px);
+  border-radius: 999px;
+  padding: 13px 36px;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(13.5px, 1.6vw, 15px);
+  font-weight: 700;
+  color: #070913;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(232, 200, 114, 0.4);
+}
+
+.continueButton:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(232, 200, 114, 0.6);
+}
+
+/* ── Loader ───────────────────────────────────────────────────── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #070913;
+}
+
+.loaderContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.loaderMonogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 200, 114, 0.25) 0%, rgba(14, 18, 37, 0.85) 100%);
+  border: 1px solid rgba(232, 200, 114, 0.55);
+  box-shadow: 0 0 30px rgba(232, 200, 114, 0.35);
+  animation: monogramBreathe 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes monogramBreathe {
+  0% { transform: scale(0.95); box-shadow: 0 0 20px rgba(232, 200, 114, 0.2); }
+  100% { transform: scale(1.06); box-shadow: 0 0 35px rgba(232, 200, 114, 0.5); }
+}
+
+.loaderMonogramLetter {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #ffe5a4;
+  text-shadow: 0 0 12px rgba(232, 200, 114, 0.6);
+}
+
+.loaderText {
+  font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: #ffe5a4;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(232, 200, 114, 0.3);
+}
+
+.loaderDots {
+  display: flex;
+  gap: 8px;
+}
+
+.loaderDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e8c872;
+  box-shadow: 0 0 8px rgba(232, 200, 114, 0.8);
+  display: block;
+}
+
+/* ── Wish bubble ──────────────────────────────────────────────── */
+.wishBubble {
+  position: fixed;
+  z-index: 25;
+  pointer-events: none;
+  font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.2vw, 22px);
+  color: #ffe5a4;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(232, 200, 114, 0.5);
+  white-space: nowrap;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 6px 18px;
+  background: rgba(14, 18, 37, 0.75);
+  border: 1px solid rgba(232, 200, 114, 0.35);
+  border-radius: 999px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}

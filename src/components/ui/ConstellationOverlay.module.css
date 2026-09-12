@@ -1,0 +1,115 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(20px, 4vh, 40px) 16px;
+  pointer-events: none;
+}
+
+.promptCard {
+  pointer-events: auto;
+  text-align: center;
+  background: rgba(14, 18, 37, 0.88);
+  border: 1px solid rgba(232, 200, 114, 0.38);
+  border-radius: 24px;
+  padding: 16px 32px;
+  backdrop-filter: blur(28px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(232, 200, 114, 0.1);
+  width: min(560px, 94vw);
+}
+
+.badge {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #f2b5a5;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(20px, 3vw, 25px);
+  font-weight: 400;
+  color: #ffe5a4;
+  margin: 4px 0 2px;
+}
+
+.subtitle {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: #cfc5b3;
+  margin: 0;
+}
+
+.starsGrid {
+  pointer-events: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2.5vw, 24px);
+  max-width: 720px;
+  margin: auto 0;
+}
+
+.starNode {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: clamp(96px, 18vw, 120px);
+  height: clamp(96px, 18vw, 120px);
+  background: rgba(14, 18, 37, 0.85);
+  border: 1.5px solid rgba(232, 200, 114, 0.35);
+  border-radius: 50%;
+  color: #cfc5b3;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(232, 200, 114, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.starNode:hover {
+  border-color: #ffe5a4;
+  box-shadow: 0 0 30px rgba(232, 200, 114, 0.5), inset 0 0 16px rgba(255, 229, 164, 0.25);
+}
+
+.starCollected {
+  background: radial-gradient(circle, rgba(232, 200, 114, 0.35) 0%, rgba(14, 18, 37, 0.95) 100%);
+  border-color: #ffe5a4;
+  color: #ffe5a4;
+  box-shadow: 0 0 35px rgba(232, 200, 114, 0.65), inset 0 0 20px rgba(255, 229, 164, 0.4);
+}
+
+.starIcon {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.starLabel {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.completedToast {
+  pointer-events: auto;
+  background: linear-gradient(135deg, #ffe5a4 0%, #e8c872 50%, #f2b5a5 100%);
+  color: #070913;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 12px 28px;
+  border-radius: 999px;
+  box-shadow: 0 10px 35px rgba(232, 200, 114, 0.5);
+}
+

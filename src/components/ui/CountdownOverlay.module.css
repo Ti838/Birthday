@@ -1,0 +1,312 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(14, 18, 37, 0.92) 0%, rgba(7, 9, 19, 0.98) 100%);
+  backdrop-filter: blur(28px);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.ambientGlow {
+  position: absolute;
+  width: min(450px, 85vw);
+  height: min(450px, 85vw);
+  background: radial-gradient(circle, rgba(232, 200, 114, 0.12) 0%, rgba(242, 181, 165, 0.05) 50%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(40px);
+  animation: pulseGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.9) translate(-10px, -10px); opacity: 0.6; }
+  100% { transform: scale(1.15) translate(10px, 10px); opacity: 1; }
+}
+
+.card {
+  position: relative;
+  width: min(500px, 92vw);
+  background: rgba(14, 18, 37, 0.86);
+  border: 1px solid rgba(232, 200, 114, 0.32);
+  border-radius: 22px;
+  padding: clamp(24px, 3.5vw, 34px) clamp(20px, 3vw, 30px);
+  text-align: center;
+  box-shadow:
+    0 25px 60px -15px rgba(0, 0, 0, 0.85),
+    0 0 25px 0 rgba(232, 200, 114, 0.1),
+    inset 0 1px 1px 0 rgba(255, 229, 164, 0.3);
+  backdrop-filter: blur(36px);
+  z-index: 2;
+  margin: auto;
+}
+
+.monogramSeal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 200, 114, 0.25) 0%, rgba(14, 18, 37, 0.85) 100%);
+  border: 1px solid rgba(232, 200, 114, 0.5);
+  box-shadow: 0 0 18px rgba(232, 200, 114, 0.25);
+  margin-bottom: 12px;
+}
+
+.monogramLetter {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffe5a4;
+  text-shadow: 0 0 10px rgba(232, 200, 114, 0.6);
+}
+
+.eyebrowBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: rgba(242, 181, 165, 0.1);
+  border: 1px solid rgba(242, 181, 165, 0.25);
+  font-family: 'Manrope', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f2b5a5;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  font-size: clamp(20px, 3.2vw, 28px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #ffe5a4 40%, #e8c872 80%, #f2b5a5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(12px, 1.4vw, 14px);
+  font-weight: 300;
+  line-height: 1.5;
+  color: #cfc5b3;
+  max-width: 420px;
+  margin: 0 auto clamp(16px, 2.5vw, 24px);
+}
+
+/* Countdown Grid */
+.timerGrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.2vw, 10px);
+  margin-bottom: clamp(18px, 2.8vw, 26px);
+}
+
+.timeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(9, 13, 32, 0.7);
+  border: 1px solid rgba(232, 200, 114, 0.25);
+  border-radius: 12px;
+  padding: clamp(8px, 1.5vw, 12px) clamp(8px, 1.8vw, 14px);
+  min-width: clamp(54px, 12vw, 68px);
+  box-shadow: 0 8px 18px -4px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+}
+
+.timeNumber {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 400;
+  line-height: 1;
+  color: #ffe5a4;
+  text-shadow: 0 0 12px rgba(232, 200, 114, 0.4);
+}
+
+.timeLabel {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 1vw, 10px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #cfc5b3;
+  margin-top: 4px;
+}
+
+.colon {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 20px;
+  color: rgba(232, 200, 114, 0.6);
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+/* Dual Action Buttons Row */
+.actionRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.vipBtn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffe5a4 0%, #e8c872 50%, #f2b5a5 100%);
+  color: #070913;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(232, 200, 114, 0.35);
+  transition: all 0.25s ease;
+}
+
+.vipBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(232, 200, 114, 0.5);
+}
+
+.guestBtn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(232, 200, 114, 0.3);
+  color: #ffe5a4;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.guestBtn:hover {
+  background: rgba(232, 200, 114, 0.15);
+  border-color: rgba(232, 200, 114, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Passcode Modal */
+.passcodeModal {
+  position: relative;
+  background: rgba(9, 13, 32, 0.9);
+  border: 1px solid rgba(232, 200, 114, 0.35);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-top: 12px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.passcodePrompt {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 14px;
+  color: #ffe5a4;
+  margin: 0 0 10px;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.passInput {
+  background: rgba(7, 9, 19, 0.7);
+  border: 1px solid rgba(232, 200, 114, 0.35);
+  border-radius: 999px;
+  padding: 8px 16px;
+  color: #ffe5a4;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  text-align: center;
+  outline: none;
+  width: 150px;
+  transition: border-color 0.2s ease;
+}
+
+.passInput:focus {
+  border-color: #ffe5a4;
+  box-shadow: 0 0 12px rgba(232, 200, 114, 0.3);
+}
+
+.unlockSubmitBtn {
+  background: linear-gradient(135deg, #ffe5a4 0%, #e8c872 100%);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #070913;
+  cursor: pointer;
+}
+
+.errorMsg {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  color: #f2b5a5;
+  margin: 6px 0 0;
+}
+
+.cancelLink {
+  background: none;
+  border: none;
+  color: #cfc5b3;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  margin-top: 8px;
+  cursor: pointer;
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.cancelLink:hover {
+  opacity: 1;
+}
+
+.bottomStatus {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  color: rgba(207, 197, 179, 0.7);
+}
+
+.bottomStatusDot {
+  color: #e8c872;
+  font-size: 8px;
+}
