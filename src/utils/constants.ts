@@ -24,13 +24,12 @@ export const PALETTE = {
   },
 } as const;
 
-// ─── Constellation Stars (Stage 05) ──────────────────────────────
 export const CONSTELLATION_STARS = [
-  { id: 'happiness', name: 'Happiness', icon: '✨', pos: [-2.2, 3.2, 0] },
-  { id: 'adventure', name: 'Adventure', icon: '🧭', pos: [-0.9, 4.4, -0.5] },
-  { id: 'success',   name: 'Success',   icon: '🌟', pos: [0.8, 4.8, 0.2] },
-  { id: 'laughter',  name: 'Laughter',  icon: '😄', pos: [2.2, 3.6, -0.4] },
-  { id: 'memories',  name: 'Memories',  icon: '📷', pos: [1.1, 2.2, 0.5] },
+  { id: 'happiness', name: 'Joy & Light', subtitle: 'Warmth in every step', type: 'joy' },
+  { id: 'adventure', name: 'Adventure', subtitle: 'Journeys full of wonder', type: 'compass' },
+  { id: 'success',   name: 'Ambition', subtitle: 'Reaching new heights', type: 'zenith' },
+  { id: 'laughter',  name: 'Laughter', subtitle: 'Moments of pure smile', type: 'bloom' },
+  { id: 'memories',  name: 'Keepsakes', subtitle: 'Treasures of time', type: 'prism' },
 ] as const;
 
 // ─── Five Tactile Birthday Balloons (Stage 06) ───────────────────

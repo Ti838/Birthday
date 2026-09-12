@@ -6,55 +6,104 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: clamp(20px, 4vh, 40px) 16px;
+  padding: clamp(20px, 4vh, 36px) 16px;
   pointer-events: none;
 }
 
 .promptCard {
   pointer-events: auto;
   text-align: center;
-  background: rgba(14, 18, 37, 0.88);
-  border: 1px solid rgba(232, 200, 114, 0.38);
+  background: radial-gradient(120% 120% at 50% 0%, rgba(20, 26, 54, 0.92) 0%, rgba(10, 13, 28, 0.94) 100%);
+  border: 1px solid rgba(232, 200, 114, 0.35);
   border-radius: 24px;
-  padding: 16px 32px;
+  padding: 16px 36px;
   backdrop-filter: blur(28px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(232, 200, 114, 0.1);
-  width: min(560px, 94vw);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(232, 200, 114, 0.12);
+  width: min(580px, 94vw);
+}
+
+.badgeRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.badgeLine {
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 200, 114, 0.7), transparent);
 }
 
 .badge {
   font-family: 'Manrope', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: #f2b5a5;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #e8c872;
   text-transform: uppercase;
 }
 
 .title {
   font-family: 'Bodoni Moda', Georgia, serif;
-  font-size: clamp(20px, 3vw, 25px);
-  font-weight: 400;
-  color: #ffe5a4;
+  font-size: clamp(20px, 3.2vw, 26px);
+  font-weight: 500;
+  color: #fff6df;
   margin: 4px 0 2px;
+  letter-spacing: 0.02em;
 }
 
 .subtitle {
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
-  color: #cfc5b3;
+  color: #c9c3b8;
   margin: 0;
 }
 
-.starsGrid {
+/* ─── Constellation Map Area ─────────────────────────────────────── */
+.constellationMap {
+  position: relative;
   pointer-events: auto;
+  width: min(920px, 96vw);
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.connectionsSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+}
+
+.starlightTrack {
+  fill: none;
+  stroke: rgba(232, 200, 114, 0.22);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+  transition: all 0.8s ease;
+}
+
+.starlightTrackComplete {
+  stroke: rgba(255, 229, 164, 0.85);
+  stroke-width: 2.2;
+  stroke-dasharray: none;
+  filter: drop-shadow(0 0 10px #ffe5a4);
+}
+
+.starsGrid {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: clamp(14px, 2.5vw, 24px);
-  max-width: 720px;
-  margin: auto 0;
+  gap: clamp(12px, 2.2vw, 22px);
 }
 
 .starNode {
@@ -63,41 +112,97 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: clamp(96px, 18vw, 120px);
-  height: clamp(96px, 18vw, 120px);
-  background: rgba(14, 18, 37, 0.85);
-  border: 1.5px solid rgba(232, 200, 114, 0.35);
-  border-radius: 50%;
+  width: clamp(100px, 16vw, 130px);
+  min-height: clamp(110px, 17vw, 138px);
+  padding: 12px 8px;
+  background: radial-gradient(130% 130% at 50% 10%, rgba(20, 26, 54, 0.88) 0%, rgba(10, 13, 28, 0.94) 100%);
+  border: 1px solid rgba(232, 200, 114, 0.28);
+  border-radius: 20px;
   color: #cfc5b3;
   cursor: pointer;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(232, 200, 114, 0.1);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .starNode:hover {
   border-color: #ffe5a4;
-  box-shadow: 0 0 30px rgba(232, 200, 114, 0.5), inset 0 0 16px rgba(255, 229, 164, 0.25);
+  box-shadow: 0 0 32px rgba(232, 200, 114, 0.4), inset 0 0 16px rgba(255, 229, 164, 0.15);
 }
 
 .starCollected {
-  background: radial-gradient(circle, rgba(232, 200, 114, 0.35) 0%, rgba(14, 18, 37, 0.95) 100%);
+  background: radial-gradient(130% 130% at 50% 10%, rgba(42, 50, 92, 0.95) 0%, rgba(14, 18, 40, 0.98) 100%);
   border-color: #ffe5a4;
-  color: #ffe5a4;
-  box-shadow: 0 0 35px rgba(232, 200, 114, 0.65), inset 0 0 20px rgba(255, 229, 164, 0.4);
+  color: #fff6df;
+  box-shadow: 0 0 36px rgba(232, 200, 114, 0.55), inset 0 0 20px rgba(232, 200, 114, 0.25);
 }
 
-.starIcon {
-  font-size: 32px;
-  margin-bottom: 4px;
+.haloRing {
+  position: absolute;
+  inset: -4px;
+  border-radius: 24px;
+  border: 1px solid rgba(232, 200, 114, 0);
+  pointer-events: none;
+  transition: border-color 0.4s ease;
+}
+
+.starCollected .haloRing {
+  border-color: rgba(232, 200, 114, 0.35);
+}
+
+.iconWrapper {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.starSvg {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  transition: transform 0.4s ease;
+}
+
+.starNode:hover .starSvg {
+  transform: scale(1.1);
+}
+
+.starCollected .starSvg {
+  filter: drop-shadow(0 0 10px rgba(255, 229, 164, 0.8));
 }
 
 .starLabel {
   font-family: 'Manrope', sans-serif;
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
+  color: #fff6df;
   text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.starSubtitle {
+  font-family: 'Manrope', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: #a39c8e;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.starCollected .starSubtitle {
+  color: #e8c872;
+}
+
+.sparklePulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255, 229, 164, 0.8);
+  pointer-events: none;
 }
 
 .completedToast {
@@ -108,8 +213,9 @@
   font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  padding: 12px 28px;
+  padding: 12px 30px;
   border-radius: 999px;
-  box-shadow: 0 10px 35px rgba(232, 200, 114, 0.5);
+  box-shadow: 0 10px 35px rgba(232, 200, 114, 0.55);
 }
+
 
