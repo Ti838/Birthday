@@ -67,7 +67,7 @@ export function GuestShowcaseOverlay({
       playChime(1.5);
       onUnlockVIP();
     } else {
-      setErrorMsg('পাসকোডটি সঠিক নয় ✦ তোমার জন্মতারিখ (1809) অথবা বিশেষ নামটি দিয়ে চেষ্টা করো ✦');
+      setErrorMsg('Incorrect key ✦ Try birthdate (1809) or Tithi ✦');
     }
   };
 

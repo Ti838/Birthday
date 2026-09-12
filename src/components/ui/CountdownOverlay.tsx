@@ -107,8 +107,8 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
   const handleGuestUnlock = () => {
     if (!timeLeft.isUnlocked) {
       playChime(0.9);
-      setGuestNotice('তিথির জন্মদিনের এই সেলিব্রেশনটি ১৮ সেপ্টেম্বর রাত ১২:০০ টায় সবার জন্য উন্মুক্ত হবে ✦ কাউন্টডাউন শেষ হওয়া পর্যন্ত সাথে থাকুন ✦');
-      setTimeout(() => setGuestNotice(''), 5500);
+      setGuestNotice('✦ The celebration showcase unlocks for everyone on September 18 at midnight! ✦');
+      setTimeout(() => setGuestNotice(''), 5000);
       return;
     }
     setVIP(false);
@@ -144,10 +144,10 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
       } else {
         // Elegant teasing message before 18 September
         playChime(0.8);
-        setErrorMsg('তিথি, আর কিছুটা সময় বাকি ✦ তোমার জন্মদিনের এই বিশেষ আয়োজনটি ১৮ সেপ্টেম্বর রাত ১২:০০ টায় উন্মুক্ত হবে। কাউন্টডাউন শেষ হওয়া পর্যন্ত একটু অপেক্ষা করো ✦');
+        setErrorMsg('A little more patience, Tithi ✦ Your birthday celebration is sealed until September 18 at midnight. Please wait for the countdown to complete! ✦');
       }
     } else {
-      setErrorMsg('পাসকোডটি সঠিক নয় ✦ তোমার জন্মতারিখ (1809) অথবা বিশেষ নামটি দিয়ে চেষ্টা করো ✦');
+      setErrorMsg('Incorrect key ✦ Try your birthdate (1809) or your special name ✦');
     }
   };
 
