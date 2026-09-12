@@ -415,7 +415,10 @@ export default function Experience() {
       {/* 3D WebGL Canvas */}
       <Canvas
         camera={{ position: [0, 4.6, 12], fov: 45, near: 0.1, far: 80 }}
-        shadows
+        shadows="percentage"
+        onCreated={({ gl }) => {
+          gl.shadowMap.type = THREE.PCFShadowMap;
+        }}
         dpr={isMobile ? [1, 1.5] : [1, 2]}
         gl={{
           antialias: true,
