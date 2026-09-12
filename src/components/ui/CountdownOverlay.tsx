@@ -186,14 +186,18 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
             <div>
               <div className={styles.eyebrowBadge}>
                 <span>✦</span>
-                <span>BIRTHDAY CELEBRATION</span>
+                <span>{timeLeft.isUnlocked ? 'BIRTHDAY CELEBRATION' : 'CELEBRATION COUNTDOWN'}</span>
                 <span>✦</span>
               </div>
             </div>
 
-            <h1 className={styles.title}>HAPPY BIRTHDAY, TITHI ✦</h1>
+            <h1 className={styles.title}>
+              {timeLeft.isUnlocked ? 'HAPPY BIRTHDAY, TITHI ✦' : 'COUNTING DOWN FOR TITHI ✦'}
+            </h1>
             <p className={styles.subtitle}>
-              A celebration universe created with thought by Timon.
+              {timeLeft.isUnlocked
+                ? 'A celebration universe created with thought by Timon.'
+                : 'A special birthday universe is arriving on September 18.'}
             </p>
 
             {/* Countdown Grid */}
