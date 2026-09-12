@@ -8,7 +8,17 @@ interface CountdownOverlayProps {
   onUnlock: () => void;
 }
 
-const TARGET_DATE = new Date(2026, 8, 18, 0, 0, 0).getTime();
+function getTargetBirthday(): number {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const targetThisYear = new Date(currentYear, 8, 18, 0, 0, 0).getTime();
+  
+  // If this year's Sept 18 has already ended (more than 24 hours past), target next year
+  if (now.getTime() > targetThisYear + 24 * 60 * 60 * 1000) {
+    return new Date(currentYear + 1, 8, 18, 0, 0, 0).getTime();
+  }
+  return targetThisYear;
+}
 
 // Valid secret passcodes for Tithi (case-insensitive & trimmed)
 const VALID_PASSCODES = ['1809', 'tithi', 'doraemon', '18/09', '18-09'];
@@ -23,7 +33,8 @@ interface TimeLeft {
 
 function calculateTimeLeft(): TimeLeft {
   const now = new Date().getTime();
-  const diff = TARGET_DATE - now;
+  const target = getTargetBirthday();
+  const diff = target - now;
 
   if (diff <= 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0, isUnlocked: true };
@@ -32,7 +43,7 @@ function calculateTimeLeft(): TimeLeft {
   return {
     days: Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60 * 60)) % 60),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
     seconds: Math.floor((diff / 1000) % 60),
     isUnlocked: false,
   };
