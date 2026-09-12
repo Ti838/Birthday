@@ -24,6 +24,9 @@ function getTargetBirthday(): number {
 // Valid secret passcodes for Tithi (case-insensitive & trimmed)
 const VALID_PASSCODES = ['1809', 'tithi', 'doraemon', '18/09', '18-09'];
 
+// Master developer/testing passcodes for Timon to preview anytime
+const MASTER_PASSCODES = ['timon', 'ti838', 'timon18', 'preview', 'admin'];
+
 interface TimeLeft {
   days: number;
   hours: number;
@@ -56,14 +59,20 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
   const [showPassModal, setShowPassModal] = useState(false);
   const [passInput, setPassInput] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [guestNotice, setGuestNotice] = useState('');
   const setVIP = useStoryStore((s) => s.setVIP);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const pass = params.get('pass')?.toLowerCase().trim();
-    const isVipParam = params.get('vip') === 'true' || params.get('preview') === 'true';
+    const isVipParam =
+      params.get('vip') === 'true' ||
+      params.get('preview') === 'true' ||
+      params.get('preview') === 'timon' ||
+      params.get('test') === 'true';
 
-    if (isVipParam || (pass && VALID_PASSCODES.includes(pass))) {
+    // Master preview for Timon (bypasses countdown anytime)
+    if (isVipParam || (pass && MASTER_PASSCODES.includes(pass))) {
       setVIP(true);
       setUnlocked(true);
       onUnlock();
@@ -73,6 +82,9 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
     // Check if 18 September has already arrived on initial load
     const initial = calculateTimeLeft();
     if (initial.isUnlocked) {
+      if (pass && VALID_PASSCODES.includes(pass)) {
+        setVIP(true);
+      }
       setUnlocked(true);
       onUnlock();
       return;
@@ -91,8 +103,14 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
     return () => clearInterval(timer);
   }, [onUnlock, setVIP]);
 
-  // Guest Mode: Explores the celebration showcase
+  // Guest Mode: Explores celebration only if 18 September has arrived
   const handleGuestUnlock = () => {
+    if (!timeLeft.isUnlocked) {
+      playChime(0.9);
+      setGuestNotice('✦ গেস্ট সেলিব্রেশন ভিউ ১৮ সেপ্টেম্বর রাত ১২:০০ টায় উন্মুক্ত হবে! ✦');
+      setTimeout(() => setGuestNotice(''), 4500);
+      return;
+    }
     setVIP(false);
     setUnlocked(true);
     playChime(1.2);
@@ -100,16 +118,34 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
     onUnlock();
   };
 
-  // Tithi VIP Mode: Verifies passcode and unlocks the secret 3D universe
+  // Tithi VIP Mode: Verifies passcode and checks if 18 September has arrived
   const handlePasscodeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const clean = passInput.toLowerCase().trim();
-    if (VALID_PASSCODES.includes(clean)) {
+
+    // 1. Master Passcode for Timon (Developer/Tester bypass)
+    if (MASTER_PASSCODES.includes(clean)) {
       setVIP(true);
       setUnlocked(true);
       playChime(1.5);
       triggerCelebrationConfetti();
       onUnlock();
+      return;
+    }
+
+    // 2. Tithi's Passcode
+    if (VALID_PASSCODES.includes(clean)) {
+      if (timeLeft.isUnlocked) {
+        setVIP(true);
+        setUnlocked(true);
+        playChime(1.5);
+        triggerCelebrationConfetti();
+        onUnlock();
+      } else {
+        // Teasing message before 18 September
+        playChime(0.8);
+        setErrorMsg('উফফ তিথি, এত তাড়া কিসের? ✦ তোমার বার্থডে সারপ্রাইজ ১৮ সেপ্টেম্বর রাত ১২:০০ টা বাজার আগে সিল করা! টাইমার শেষ হওয়া পর্যন্ত অপেক্ষা করো ⏳');
+      }
     } else {
       setErrorMsg('Incorrect key. Try birthdate (1809) or your special name ✦');
     }
@@ -208,6 +244,17 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                   <SparkleIcon size={16} color="#FFE5A4" />
                   <span>Explore Celebration (Guest View)</span>
                 </motion.button>
+
+                {guestNotice && (
+                  <motion.p
+                    className={styles.guestNotice}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    {guestNotice}
+                  </motion.p>
+                )}
               </div>
             ) : (
               <motion.div
