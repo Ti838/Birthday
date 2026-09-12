@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FLOATING_STAR_WISHES } from '../../utils/constants';
 import { playBlowSound, playChime } from '../../utils/music';
+import { CakeIcon, SparkleIcon } from '../icons/CustomIcons';
 import styles from './CakeWishOverlay.module.css';
 
 interface CakeWishOverlayProps {
@@ -41,7 +42,7 @@ export function CakeWishOverlay({ onWishComplete }: CakeWishOverlayProps) {
           >
             <span className={styles.badge}>✦ MAKE A BIRTHDAY WISH ✦</span>
             <h2 className={styles.title}>Think of One Thing You'd Like This Year</h2>
-            <p className={styles.subtitle}>Close your eyes, make your wish in your heart, then tap below 🎂</p>
+            <p className={styles.subtitle}>Close your eyes, make your wish in your heart, then tap below</p>
 
             <motion.button
               className={styles.wishBtn}
@@ -49,9 +50,9 @@ export function CakeWishOverlay({ onWishComplete }: CakeWishOverlayProps) {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
             >
-              <span>🎂</span>
+              <CakeIcon size={18} color="#070913" />
               <span>MAKE A WISH ✦</span>
-              <span>✨</span>
+              <SparkleIcon size={16} color="#070913" />
             </motion.button>
           </motion.div>
         )}
@@ -87,9 +88,9 @@ export function CakeWishOverlay({ onWishComplete }: CakeWishOverlayProps) {
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
               >
-                <span className={styles.sentIcon}>✨</span>
-                <span className={styles.sentText}>WISH SENT. ✨</span>
-                <p className={styles.sentSub}>The stars have heard your wish. Get ready for fireworks! 🎆</p>
+                <span className={styles.sentIcon}><SparkleIcon size={20} color="#070913" /></span>
+                <span className={styles.sentText}>WISH SENT. ✦</span>
+                <p className={styles.sentSub}>The stars have received your wish. Enjoy the celebration fireworks!</p>
               </motion.div>
             )}
           </motion.div>

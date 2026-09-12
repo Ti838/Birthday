@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
 import { setMasterMute } from '../../utils/music';
+import { SparkleIcon } from '../icons/CustomIcons';
 import styles from './UI.module.css';
 
 // ─── Caption Layer ────────────────────────────────────────────────
@@ -87,7 +88,9 @@ export function FloatingInstructionBanner({ onContinue }: InstructionBannerProps
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.4 }}
           >
-            <span>✨ Continue to Next Surprise ✦</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <SparkleIcon size={16} /> Continue to Next Surprise ✦
+            </span>
           </motion.button>
         ) : hint ? (
           <motion.div

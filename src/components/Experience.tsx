@@ -230,7 +230,7 @@ export default function Experience() {
     tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 3.6, 'power2.inOut', 0.18);
     await showCaption('Every birthday needs a present...', 2400);
     await showCaption("So... let's open yours.", 2400);
-    setHint('🎁 Tap the glowing gift box to open');
+    setHint('Tap the glowing gift box to open ✦');
   }, [setStage, tweenCam, showCaption, setHint]);
 
   // Guest Camera Controls
@@ -265,7 +265,7 @@ export default function Experience() {
     tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 3.2, 'power2.inOut', 0.18);
     await showCaption('Every birthday needs a present...', 2400);
     await showCaption("So... let's open yours.", 2400);
-    setHint('🎁 Tap the glowing gift box to open');
+    setHint('Tap the glowing gift box to open ✦');
   }, [setVIP, setStage, tweenCam, showCaption, setHint]);
 
   // Stage 02 -> 03: Gift Opened -> World Reveal
@@ -283,7 +283,7 @@ export default function Experience() {
     // Push in to writing desk with envelope
     tweenCam([0.5, 1.6, 1.8], [0.4, 0.65, -0.5], 3.0, 'power2.inOut', 0.18, () => {
       setStage('04_letter');
-      setHint('✉️ Tap the sealed letter on the desk to read');
+      setHint('Tap the sealed letter on the desk to read ✦');
       setEnvelopeInteractive(true);
     });
   }, [stage, setStage, setHint, tweenCam, showCaption]);
@@ -302,7 +302,7 @@ export default function Experience() {
     setWishes([]);
     setTimeout(() => {
       setStage('05_constellation');
-      setHint('✨ Tap all 5 celestial stars to connect your constellation');
+      setHint('Tap all 5 celestial stars to connect your constellation ✦');
       tweenCam([0.0, 3.2, 5.0], [0.0, 3.2, 0.0], 2.8, 'power2.inOut', 0.2);
     }, 500);
   }, [setStage, setHint, tweenCam]);
@@ -313,7 +313,7 @@ export default function Experience() {
     setWishes([]);
     tweenCam([3.2, 2.4, 4.2], [2.4, 1.4, 1.6], 2.8, 'power2.inOut', 0.28, () => {
       setBalloonsInteractive(true);
-      setHint('🎈 Tap and pop all 5 floating balloons to reveal your wishes (0/5)');
+      setHint('Tap and pop all 5 floating balloons to reveal your wishes (0/5) ✦');
       setTimeout(() => setShowContinue(true), 5000);
     });
   }, [setStage, tweenCam, setHint, setShowContinue]);
@@ -323,7 +323,7 @@ export default function Experience() {
     setShowContinue(false);
     setBalloonsInteractive(false);
     setWishes([]);
-    setHint('⭐ Mini Game: Catch 10 floating shooting stars!');
+    setHint('Mini Game: Catch 10 floating shooting stars ✦');
     setStage('07_stargame');
   }, [setShowContinue, setStage, setHint]);
 
@@ -331,7 +331,7 @@ export default function Experience() {
   const handleStarGameComplete = useCallback(() => {
     setStage('08_garden');
     setWishes([]);
-    setHint('🌸 Tap each flower in the vase to bloom and reveal 5 gentle reminders');
+    setHint('Tap each flower in the vase to bloom and reveal 5 gentle reminders ✦');
     tweenCam([-1.0, 1.15, 0.55], [-1.0, 0.72, -1.0], 2.8, 'power2.inOut', 0.18);
   }, [setStage, setHint, tweenCam]);
 
@@ -346,7 +346,7 @@ export default function Experience() {
       await showCaption('EVERY BIRTHDAY NEEDS A CAKE.', 2400);
       await showCaption('And every birthday cake needs a wish.', 2400);
       setStage('10_wish');
-      setHint('🎂 Make a wish & tap the cake to blow out your candles');
+      setHint('Make a wish & tap the cake to blow out your candles ✦');
     });
   }, [setStage, isMobile, tweenCam, showCaption, setHint]);
 
@@ -360,7 +360,7 @@ export default function Experience() {
     playFireworksBoom();
     playHappyBirthdaySong();
 
-    await showCaption('HAPPY BIRTHDAY, TITHI! 🎂', 3800);
+    await showCaption('HAPPY BIRTHDAY, TITHI! ✦', 3800);
     await showCaption(
       'May your year be full of good days, good people,\ngreat adventures, and plenty of reasons to smile. ✦',
       4800

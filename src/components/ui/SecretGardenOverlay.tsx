@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
 import { GARDEN_FLOWERS } from '../../utils/constants';
 import { playFlowerBloomSound, playChime } from '../../utils/music';
+import { FlowerIcon } from '../icons/CustomIcons';
 import styles from './SecretGardenOverlay.module.css';
 
 interface SecretGardenOverlayProps {
@@ -38,7 +39,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
         transition={{ duration: 0.7 }}
       >
         <span className={styles.badge}>✦ THE SECRET GARDEN ✦</span>
-        <h2 className={styles.title}>Tap the Flowers to Bloom 🌸</h2>
+        <h2 className={styles.title}>Tap the Flowers to Bloom</h2>
         <p className={styles.subtitle}>
           Click the flowers in the vase or tap the cards below to reveal 5 gentle reminders ({gardenBloomed.length} / {GARDEN_FLOWERS.length})
         </p>
@@ -61,9 +62,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
                 }}
               >
                 <div className={styles.flowerHeader}>
-                  <span className={styles.flowerIcon}>
-                    {isBloomed ? '🌸' : '🌱'}
-                  </span>
+                  <FlowerIcon size={18} color={isBloomed ? flower.color : '#8E95A5'} />
                   <span className={styles.flowerName} style={{ color: isBloomed ? flower.color : '#cfc5b3' }}>
                     {flower.name}
                   </span>

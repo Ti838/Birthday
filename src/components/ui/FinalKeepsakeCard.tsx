@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styles from './FinalKeepsakeCard.module.css';
 import { playHappyBirthdaySong, playChime } from '../../utils/music';
+import { EnvelopeIcon, MusicIcon, SparkleIcon } from '../icons/CustomIcons';
 
 interface FinalKeepsakeCardProps {
   onReadLetterAgain: () => void;
@@ -38,7 +39,7 @@ export function FinalKeepsakeCard({ onReadLetterAgain, onReplay }: FinalKeepsake
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            📖 Read the Letter Again
+            <EnvelopeIcon size={16} /> Read the Letter Again
           </motion.button>
           <motion.button
             className={styles.actionBtn}
@@ -46,7 +47,7 @@ export function FinalKeepsakeCard({ onReadLetterAgain, onReplay }: FinalKeepsake
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            🎵 Play Birthday Song
+            <MusicIcon size={16} /> Play Birthday Song
           </motion.button>
           <motion.button
             className={styles.primaryBtn}
@@ -54,7 +55,7 @@ export function FinalKeepsakeCard({ onReadLetterAgain, onReplay }: FinalKeepsake
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >
-            ✦ Experience Again ✦
+            <SparkleIcon size={16} /> Experience Again ✦
           </motion.button>
         </div>
       </div>

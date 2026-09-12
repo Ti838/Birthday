@@ -8,6 +8,15 @@ import {
   playHappyBirthdaySong,
   startMusic,
 } from '../../utils/music';
+import {
+  SparkleIcon,
+  CakeIcon,
+  FlowerIcon,
+  FireworksIcon,
+  BalloonIcon,
+  MusicIcon,
+  CrownIcon,
+} from '../icons/CustomIcons';
 import styles from './GuestShowcaseOverlay.module.css';
 
 interface GuestShowcaseOverlayProps {
@@ -98,7 +107,8 @@ export function GuestShowcaseOverlay({
               onFocusView('world');
             }}
           >
-            🌌 Panoramic World
+            <SparkleIcon size={14} color={activeTab === 'world' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Panoramic World</span>
           </button>
           <button
             className={`${styles.viewTab} ${activeTab === 'cake' ? styles.viewTabActive : ''}`}
@@ -107,7 +117,8 @@ export function GuestShowcaseOverlay({
               onFocusView('cake');
             }}
           >
-            🎂 Birthday Cake
+            <CakeIcon size={14} color={activeTab === 'cake' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Birthday Cake</span>
           </button>
           <button
             className={`${styles.viewTab} ${activeTab === 'flowers' ? styles.viewTabActive : ''}`}
@@ -116,24 +127,25 @@ export function GuestShowcaseOverlay({
               onFocusView('flowers');
             }}
           >
-            🌸 Flower Garden
+            <FlowerIcon size={14} color={activeTab === 'flowers' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Flower Garden</span>
           </button>
         </div>
 
         {/* Action Showcase Buttons */}
         <div className={styles.actionButtons}>
           <button className={styles.actionBtn} onClick={handleFireworks}>
-            <span>🎆</span>
+            <FireworksIcon size={16} color="#E8C872" />
             <span>Launch Fireworks</span>
           </button>
 
           <button className={styles.actionBtn} onClick={handleConfettiBalloons}>
-            <span>🎈</span>
+            <BalloonIcon size={16} color="#F2B5A5" />
             <span>Celebrate & Confetti</span>
           </button>
 
           <button className={styles.actionBtn} onClick={handleMusicPlay}>
-            <span>🎵</span>
+            <MusicIcon size={16} color="#FFE5A4" />
             <span>Birthday Symphony</span>
           </button>
 
@@ -141,7 +153,7 @@ export function GuestShowcaseOverlay({
             className={styles.vipSwitchBtn}
             onClick={() => setShowPassModal(true)}
           >
-            <span>👑</span>
+            <CrownIcon size={16} color="#0B0E1D" />
             <span>Are You Tithi? (VIP Unlock)</span>
           </button>
         </div>
@@ -162,7 +174,7 @@ export function GuestShowcaseOverlay({
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
             >
-              <h3 className={styles.modalTitle}>👑 Unlock Tithi's VIP Experience</h3>
+              <h3 className={styles.modalTitle}>Unlock Tithi's VIP Experience ✦</h3>
               <p className={styles.modalDesc}>
                 Enter your secret key (e.g. <strong>1809</strong> or your name) to open your personalized letter and gifts.
               </p>

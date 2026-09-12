@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
 import { playHappyBirthdaySong, playChime } from '../../utils/music';
+import { SparkleIcon, EnvelopeIcon, MusicIcon } from '../icons/CustomIcons';
 import styles from './FinalHiddenSurprise.module.css';
 
 interface FinalHiddenSurpriseProps {
@@ -41,14 +42,14 @@ export function FinalHiddenSurprise({ onOpenLetterAgain, onReplay }: FinalHidden
           >
             <span className={styles.badge}>✦ A FINAL BIRTHDAY SURPRISE ✦</span>
             <h2 className={styles.heading}>ONE LAST THING, TITHI.</h2>
-            <p className={styles.subheading}>Before this world becomes your keepsake memory... 🎉</p>
+            <p className={styles.subheading}>Before this world becomes your keepsake memory ✦</p>
 
             <div className={styles.missionBox}>
               <p className={styles.missionTitle}>Your 3 simple wishes for this year:</p>
               <ul className={styles.missionList}>
                 <li>✦ Enjoy your year to the fullest.</li>
                 <li>✦ Make plenty of great memories.</li>
-                <li>✦ And smile a lot. 😄</li>
+                <li>✦ And smile a lot. ✦</li>
               </ul>
             </div>
 
@@ -86,13 +87,13 @@ export function FinalHiddenSurprise({ onOpenLetterAgain, onReplay }: FinalHidden
 
             <div className={styles.actionRow}>
               <button className={styles.secondaryBtn} onClick={onOpenLetterAgain}>
-                📖 Read Letter Again
+                <EnvelopeIcon size={16} /> Read Letter Again
               </button>
               <button className={styles.secondaryBtn} onClick={handlePlaySong}>
-                🎵 Play Birthday Melody
+                <MusicIcon size={16} /> Play Birthday Melody
               </button>
               <button className={styles.replayBtn} onClick={onReplay}>
-                ✦ Begin Again ✦
+                <SparkleIcon size={15} /> Begin Again ✦
               </button>
             </div>
           </motion.div>

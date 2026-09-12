@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
 import { playChime } from '../../utils/music';
 import { triggerCelebrationConfetti } from '../../utils/confetti';
+import { CrownIcon, SparkleIcon, KeyIcon } from '../icons/CustomIcons';
 import styles from './CountdownOverlay.module.css';
 
 interface CountdownOverlayProps {
@@ -194,7 +195,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span>👑</span>
+                  <CrownIcon size={17} color="#070913" />
                   <span>Are You Tithi? ✦</span>
                 </motion.button>
 
@@ -204,7 +205,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span>✨</span>
+                  <SparkleIcon size={16} color="#FFE5A4" />
                   <span>Explore Celebration (Guest View)</span>
                 </motion.button>
               </div>
@@ -215,7 +216,8 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                 animate={{ opacity: 1, scale: 1 }}
               >
                 <p className={styles.passcodePrompt}>
-                  🔑 Enter Your Secret Birthday Key:
+                  <KeyIcon size={15} color="#FFE5A4" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }} />
+                  <span>Enter Your Secret Birthday Key:</span>
                 </p>
                 <form onSubmit={handlePasscodeSubmit} className={styles.inputGroup}>
                   <input

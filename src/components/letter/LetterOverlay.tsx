@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
 import { playChime } from '../../utils/music';
+import { KeyIcon } from '../icons/CustomIcons';
 import styles from './LetterOverlay.module.css';
 
 interface LetterOverlayProps {
@@ -90,7 +91,7 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
                     <div className={styles.headerCenter}>
                       <div className={styles.monogram}>T</div>
                       <h2 className={styles.greeting}>Dear Tithi,</h2>
-                      <p className={styles.titleTag}>Happy Birthday! 🎂</p>
+                      <p className={styles.titleTag}>Happy Birthday! ✦</p>
                     </div>
 
                     {/* Section 1 */}
@@ -103,7 +104,7 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
 
                     {/* Highlight Box 1 */}
                     <div className={styles.highlightCard}>
-                      <p className={styles.highlightText}>Another year unlocked. ✨</p>
+                      <p className={styles.highlightText}>Another year unlocked. ✦</p>
                     </div>
 
                     {/* Checklist 1 */}
@@ -129,7 +130,7 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
 
                     <div className={styles.paraBlock}>
                       <p className={styles.paraLine}>
-                        And hopefully... fewer "I should have started earlier" moments. 😄
+                        And hopefully... fewer "I should have started earlier" moments.
                       </p>
                     </div>
 
@@ -217,7 +218,7 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
 
                     <div className={styles.highlightCard}>
                       <p className={styles.highlightText}>
-                        🔒 The full personal handwritten letter is exclusively sealed for Tithi.
+                        The full personal handwritten letter is exclusively sealed for Tithi.
                       </p>
                     </div>
 
@@ -228,10 +229,11 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
                         </p>
                         <button
                           className={styles.continueBtn}
-                          style={{ margin: '16px auto 0' }}
+                          style={{ margin: '16px auto 0', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                           onClick={() => setShowPassPrompt(true)}
                         >
-                          🔑 Unlock Tithi's Personal Letter
+                          <KeyIcon size={16} color="#070913" />
+                          <span>Unlock Tithi's Personal Letter</span>
                         </button>
                       </div>
                     ) : (

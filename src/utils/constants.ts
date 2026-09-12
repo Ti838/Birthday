@@ -36,7 +36,7 @@ export const CONSTELLATION_STARS = [
 export const BALLOONS_DATA = [
   { color: '#FFF8EB', accent: '#E8C872', wish: 'MORE REASONS TO SMILE. ✦' },
   { color: '#F2B5A5', accent: '#DE7B90', wish: 'MORE ADVENTURES. ✦' },
-  { color: '#9AA58F', accent: '#7A886F', wish: 'MORE GOOD FOOD. 🍰' },
+  { color: '#9AA58F', accent: '#7A886F', wish: 'MORE DELICIOUS DAYS. ✦' },
   { color: '#C5B4E3', accent: '#9D86C7', wish: 'MORE MEMORIES WORTH KEEPING. ✦' },
   { color: '#FFE5A4', accent: '#D4AF37', wish: 'AND A REALLY GOOD YEAR. ✦' },
 ] as const;
@@ -68,7 +68,7 @@ export const LETTER_PAGES = [
   // Page 1
   [
     { type: 'greeting', text: 'Dear Tithi,' },
-    { type: 'title_tag', text: 'Happy Birthday! 🎂' },
+    { type: 'title_tag', text: 'Happy Birthday! ✦' },
     {
       type: 'para',
       lines: [
@@ -78,7 +78,7 @@ export const LETTER_PAGES = [
     },
     {
       type: 'highlight',
-      lines: ['Another year unlocked. ✨'],
+      lines: ['Another year unlocked. ✦'],
     },
     {
       type: 'checklist',
@@ -92,7 +92,7 @@ export const LETTER_PAGES = [
     {
       type: 'para',
       lines: [
-        'And hopefully... fewer "I should have started earlier" moments. 😄',
+        'And hopefully... fewer "I should have started earlier" moments.',
       ],
     },
   ],

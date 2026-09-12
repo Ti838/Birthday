@@ -59,7 +59,7 @@ export function StarChallengeOverlay({ onComplete }: StarChallengeOverlayProps) 
         transition={{ duration: 0.6 }}
       >
         <span className={styles.badge}>✦ MINI BIRTHDAY GAME ✦</span>
-        <h2 className={styles.title}>Catch 10 Glowing Stars ⭐</h2>
+        <h2 className={styles.title}>Catch 10 Glowing Stars</h2>
         <p className={styles.subtitle}>
           Tap the floating stars in the sky to collect your birthday stardust ({starsCollected} / 10)
         </p>
@@ -113,9 +113,9 @@ export function StarChallengeOverlay({ onComplete }: StarChallengeOverlayProps) 
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0 }}
           >
-            <h3 className={styles.completeTitle}>MISSION COMPLETE! 🎉</h3>
+            <h3 className={styles.completeTitle}>MISSION COMPLETE! ✦</h3>
             <p className={styles.completeText}>
-              All stardust collected! Opening the Secret Garden… 🌸
+              All stardust collected! Opening the Secret Garden…
             </p>
           </motion.div>
         )}
