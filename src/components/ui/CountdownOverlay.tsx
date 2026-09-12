@@ -107,8 +107,8 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
   const handleGuestUnlock = () => {
     if (!timeLeft.isUnlocked) {
       playChime(0.9);
-      setGuestNotice('✦ গেস্ট সেলিব্রেশন ভিউ ১৮ সেপ্টেম্বর রাত ১২:০০ টায় উন্মুক্ত হবে! ✦');
-      setTimeout(() => setGuestNotice(''), 4500);
+      setGuestNotice('তিথির জন্মদিনের এই সেলিব্রেশনটি ১৮ সেপ্টেম্বর রাত ১২:০০ টায় সবার জন্য উন্মুক্ত হবে ✦ কাউন্টডাউন শেষ হওয়া পর্যন্ত সাথে থাকুন ✦');
+      setTimeout(() => setGuestNotice(''), 5500);
       return;
     }
     setVIP(false);
@@ -142,12 +142,12 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
         triggerCelebrationConfetti();
         onUnlock();
       } else {
-        // Teasing message before 18 September
+        // Elegant teasing message before 18 September
         playChime(0.8);
-        setErrorMsg('উফফ তিথি, এত তাড়া কিসের? ✦ তোমার বার্থডে সারপ্রাইজ ১৮ সেপ্টেম্বর রাত ১২:০০ টা বাজার আগে সিল করা! টাইমার শেষ হওয়া পর্যন্ত অপেক্ষা করো ⏳');
+        setErrorMsg('তিথি, আর কিছুটা সময় বাকি ✦ তোমার জন্মদিনের এই বিশেষ আয়োজনটি ১৮ সেপ্টেম্বর রাত ১২:০০ টায় উন্মুক্ত হবে। কাউন্টডাউন শেষ হওয়া পর্যন্ত একটু অপেক্ষা করো ✦');
       }
     } else {
-      setErrorMsg('Incorrect key. Try birthdate (1809) or your special name ✦');
+      setErrorMsg('পাসকোডটি সঠিক নয় ✦ তোমার জন্মতারিখ (1809) অথবা বিশেষ নামটি দিয়ে চেষ্টা করো ✦');
     }
   };
 
