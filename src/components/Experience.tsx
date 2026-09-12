@@ -241,13 +241,13 @@ export default function Experience() {
           tweenCam([0.0, 3.8, 7.2], [0.0, 0.6, -0.4], 2.4, 'power2.inOut', 0.25);
           break;
         case 'cake':
-          tweenCam([2.0, 2.0, 0.8], [2.0, 0.9, -2.2], 2.4, 'power2.inOut', 0.18);
+          tweenCam([0.0, 1.8, 3.0], [0.0, 0.9, 0.0], 2.4, 'power2.inOut', 0.18);
           break;
         case 'flowers':
-          tweenCam([-1.0, 1.15, 0.55], [-1.0, 0.72, -1.0], 2.4, 'power2.inOut', 0.18);
+          tweenCam([-1.0, 1.4, 0.6], [-1.0, 0.8, -1.0], 2.4, 'power2.inOut', 0.18);
           break;
         case 'balloons':
-          tweenCam([3.2, 2.4, 4.2], [2.4, 1.4, 1.6], 2.4, 'power2.inOut', 0.22);
+          tweenCam([2.8, 2.5, 3.6], [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.22);
           break;
       }
     },
@@ -430,21 +430,23 @@ export default function Experience() {
         <Environment isNight={isNight} />
         <Fireworks active={fireworksActive} />
 
-        {/* Private 3D World Objects - ONLY Rendered & Unlocked for Tithi (VIP) */}
+        {/* 3D Visual World Objects (Visible in both VIP & Guest showcase mode) */}
+        <Flowers />
+        <Chocolates />
+        <Balloons
+          interactive={isVIP && balloonsInteractive}
+          onAllPopped={handleContinueToStarGame}
+        />
+        <Cake />
+
+        {/* Private Story Objects - ONLY for Tithi VIP Mode */}
         {isVIP && (
           <>
-            <Flowers />
-            <Chocolates />
             <GiftBox onOpen={handleGiftBoxClick} />
             <Envelope
               interactive={envelopeInteractive}
               onOpen={handleEnvelopeClick}
             />
-            <Balloons
-              interactive={balloonsInteractive}
-              onAllPopped={handleContinueToStarGame}
-            />
-            <Cake />
           </>
         )}
 
