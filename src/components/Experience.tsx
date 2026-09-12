@@ -428,20 +428,25 @@ export default function Experience() {
         <SceneLighting isNight={isNight} />
 
         <Environment isNight={isNight} />
-        <Flowers />
-        <Chocolates />
-
-        <GiftBox onOpen={handleGiftBoxClick} />
-        <Envelope
-          interactive={envelopeInteractive}
-          onOpen={handleEnvelopeClick}
-        />
-        <Balloons
-          interactive={balloonsInteractive}
-          onAllPopped={handleContinueToStarGame}
-        />
-        <Cake />
         <Fireworks active={fireworksActive} />
+
+        {/* Private 3D World Objects - ONLY Rendered & Unlocked for Tithi (VIP) */}
+        {isVIP && (
+          <>
+            <Flowers />
+            <Chocolates />
+            <GiftBox onOpen={handleGiftBoxClick} />
+            <Envelope
+              interactive={envelopeInteractive}
+              onOpen={handleEnvelopeClick}
+            />
+            <Balloons
+              interactive={balloonsInteractive}
+              onAllPopped={handleContinueToStarGame}
+            />
+            <Cake />
+          </>
+        )}
 
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />

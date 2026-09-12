@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
-import { playChime } from '../../utils/music';
+import { playChime, playFireworksBoom, playHappyBirthdaySong, startMusic } from '../../utils/music';
+import { triggerCelebrationConfetti } from '../../utils/confetti';
 import styles from './CountdownOverlay.module.css';
 
 interface CountdownOverlayProps {
@@ -13,7 +14,6 @@ function getTargetBirthday(): number {
   const currentYear = now.getFullYear();
   const targetThisYear = new Date(currentYear, 8, 18, 0, 0, 0).getTime();
   
-  // If this year's Sept 18 has already ended (more than 24 hours past), target next year
   if (now.getTime() > targetThisYear + 24 * 60 * 60 * 1000) {
     return new Date(currentYear + 1, 8, 18, 0, 0, 0).getTime();
   }
@@ -77,15 +77,25 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
     return () => clearInterval(timer);
   }, [onUnlock, setVIP]);
 
-  // Guest Mode: Explores the celebration showcase
-  const handleGuestUnlock = () => {
-    setVIP(false);
-    setUnlocked(true);
-    playChime(1.1);
-    onUnlock();
+  // Guest interaction: Confetti & Chime
+  const handleGuestCelebrate = () => {
+    playChime(1.3);
+    triggerCelebrationConfetti();
   };
 
-  // Tithi VIP Mode: Verifies passcode
+  // Guest interaction: Music Play
+  const handleGuestMusic = () => {
+    startMusic();
+    playHappyBirthdaySong();
+  };
+
+  // Guest interaction: Fireworks audio & Confetti
+  const handleGuestFireworks = () => {
+    playFireworksBoom();
+    triggerCelebrationConfetti();
+  };
+
+  // Tithi VIP Mode: Verifies passcode and unlocks the secret 3D universe
   const handlePasscodeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const clean = passInput.toLowerCase().trim();
@@ -93,6 +103,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
       setVIP(true);
       setUnlocked(true);
       playChime(1.5);
+      triggerCelebrationConfetti();
       onUnlock();
     } else {
       setErrorMsg('Incorrect key. Try birthdate (1809) or your special name ✦');
@@ -134,14 +145,14 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
             <div>
               <div className={styles.eyebrowBadge}>
                 <span>✦</span>
-                <span>A CELESTIAL BIRTHDAY WORLD</span>
+                <span>BIRTHDAY CELEBRATION</span>
                 <span>✦</span>
               </div>
             </div>
 
             <h1 className={styles.title}>HAPPY BIRTHDAY, TITHI ✦</h1>
             <p className={styles.subtitle}>
-              A handcrafted interactive celebration universe, crafted with thought by Timon.
+              A celebration universe created with thought by Timon.
             </p>
 
             {/* Countdown Grid */}
@@ -170,27 +181,34 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
               </div>
             </div>
 
-            {/* Dual Action Options */}
+            {/* Public Interactive Actions & VIP Entry */}
             {!showPassModal ? (
-              <div className={styles.actionRow}>
+              <div className={styles.actionSection}>
+                {/* Guest Interactive Celebrate Buttons */}
+                <div className={styles.guestActionRow}>
+                  <button className={styles.guestCelebrateBtn} onClick={handleGuestCelebrate}>
+                    <span>🎉</span>
+                    <span>Send Confetti</span>
+                  </button>
+                  <button className={styles.guestCelebrateBtn} onClick={handleGuestMusic}>
+                    <span>🎵</span>
+                    <span>Play Music</span>
+                  </button>
+                  <button className={styles.guestCelebrateBtn} onClick={handleGuestFireworks}>
+                    <span>🎆</span>
+                    <span>Fireworks</span>
+                  </button>
+                </div>
+
+                {/* VIP Unlock Dedicated Button */}
                 <motion.button
                   className={styles.vipBtn}
                   onClick={() => setShowPassModal(true)}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span>🎁</span>
-                  <span>Are You Tithi? (Unlock VIP Gift)</span>
-                </motion.button>
-
-                <motion.button
-                  className={styles.guestBtn}
-                  onClick={handleGuestUnlock}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>✨</span>
-                  <span>Explore Celebration (Guest View)</span>
+                  <span>👑</span>
+                  <span>Are You Tithi? (Unlock Private 3D Gift)</span>
                 </motion.button>
               </div>
             ) : (
@@ -225,7 +243,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                     className={styles.cancelLink}
                     onClick={() => setShowPassModal(false)}
                   >
-                    Back to options
+                    Back to celebration card
                   </button>
                 </div>
               </motion.div>
@@ -243,3 +261,4 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
     </AnimatePresence>
   );
 }
+

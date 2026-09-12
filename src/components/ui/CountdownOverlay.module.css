@@ -154,15 +154,52 @@
   margin-bottom: 12px;
 }
 
-/* Dual Action Buttons Row */
-.actionRow {
+/* Public Actions Section */
+.actionSection {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
   justify-content: center;
-  max-width: 380px;
+  max-width: 440px;
   margin: 0 auto;
+}
+
+.guestActionRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.guestCelebrateBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(232, 200, 114, 0.3);
+  color: #fff6df;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.guestCelebrateBtn:hover {
+  background: rgba(232, 200, 114, 0.2);
+  border-color: #ffe5a4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(232, 200, 114, 0.25);
+}
+
+.guestCelebrateBtn:active {
+  transform: translateY(0);
 }
 
 .vipBtn {
@@ -171,15 +208,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 11px 22px;
+  padding: 12px 22px;
   border-radius: 999px;
   background: linear-gradient(135deg, #ffe5a4 0%, #e8c872 50%, #f2b5a5 100%);
   color: #070913;
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   border: none;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(232, 200, 114, 0.35);
@@ -189,31 +225,6 @@
 .vipBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(232, 200, 114, 0.5);
-}
-
-.guestBtn {
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(232, 200, 114, 0.3);
-  color: #ffe5a4;
-  font-family: 'Manrope', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.guestBtn:hover {
-  background: rgba(232, 200, 114, 0.15);
-  border-color: rgba(232, 200, 114, 0.6);
-  transform: translateY(-2px);
 }
 
 /* Passcode Modal */

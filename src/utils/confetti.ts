@@ -83,3 +83,4 @@ export function triggerCelebrationConfetti() {
 
   requestAnimationFrame(animate);
 }
+
