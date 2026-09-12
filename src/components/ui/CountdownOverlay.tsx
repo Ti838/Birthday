@@ -221,7 +221,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                   whileTap={{ scale: 0.98 }}
                 >
                   <span>👑</span>
-                  <span>Are You Tithi? (Unlock Private 3D Gift)</span>
+                  <span>Are You Tithi? ✦</span>
                 </motion.button>
               </div>
             ) : (
@@ -231,7 +231,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                 animate={{ opacity: 1, scale: 1 }}
               >
                 <p className={styles.passcodePrompt}>
-                  🔑 Enter Your Secret Birthday Key, Tithi:
+                  🔑 Enter Your Secret Birthday Key:
                 </p>
                 <form onSubmit={handlePasscodeSubmit} className={styles.inputGroup}>
                   <input
