@@ -319,6 +319,8 @@ export const playFireworkSound = playFireworksBoom;
    AMBIENT MUSIC & HARMONIZED HAPPY BIRTHDAY SYNTHESIZER
 ══════════════════════════════════════════════════════════════════ */
 
+let birthdaySongTimer: ReturnType<typeof setTimeout> | null = null;
+
 export function startMusic() {
   if (isBgPlaying) return;
   isBgPlaying = true;
@@ -327,7 +329,14 @@ export function startMusic() {
 
 export function stopMusic() {
   isBgPlaying = false;
-  if (bgTimer) clearTimeout(bgTimer);
+  if (bgTimer) {
+    clearTimeout(bgTimer);
+    bgTimer = null;
+  }
+  if (birthdaySongTimer) {
+    clearTimeout(birthdaySongTimer);
+    birthdaySongTimer = null;
+  }
 }
 
 function playAmbientLoop() {
@@ -346,18 +355,21 @@ function playAmbientLoop() {
   const randomChord = chords[Math.floor(Math.random() * chords.length)];
 
   randomChord.forEach((freq, idx) => {
-    playMusicBoxNote(freq, now + idx * 0.14, 3.5, bgmGain!, 0.09);
+    playMusicBoxNote(freq, now + idx * 0.14, 3.5, bgmGain!, 0.08);
   });
 
-  bgTimer = setTimeout(playAmbientLoop, 4000);
+  bgTimer = setTimeout(playAmbientLoop, 4500);
 }
 
 /**
  * Rich Polyphonic "Happy Birthday to You" Concert Music Box
- * Full harmony in F Major with warm bass accompaniment and chords
+ * Stops background ambient loop so there is ZERO overlap!
  */
 export function playHappyBirthdaySong() {
   try {
+    // Cleanly stop any existing ambient chord loop
+    stopMusic();
+
     const ac = getAudioContext();
     const now = ac.currentTime + 0.05;
 

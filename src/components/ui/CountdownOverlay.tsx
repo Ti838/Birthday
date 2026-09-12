@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
-import { playChime, playFireworksBoom, playHappyBirthdaySong, startMusic } from '../../utils/music';
+import { playChime } from '../../utils/music';
 import { triggerCelebrationConfetti } from '../../utils/confetti';
 import styles from './CountdownOverlay.module.css';
 
@@ -90,22 +90,13 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
     return () => clearInterval(timer);
   }, [onUnlock, setVIP]);
 
-  // Guest interaction: Confetti & Chime
-  const handleGuestCelebrate = () => {
-    playChime(1.3);
+  // Guest Mode: Explores the celebration showcase
+  const handleGuestUnlock = () => {
+    setVIP(false);
+    setUnlocked(true);
+    playChime(1.2);
     triggerCelebrationConfetti();
-  };
-
-  // Guest interaction: Music Play
-  const handleGuestMusic = () => {
-    startMusic();
-    playHappyBirthdaySong();
-  };
-
-  // Guest interaction: Fireworks audio & Confetti
-  const handleGuestFireworks = () => {
-    playFireworksBoom();
-    triggerCelebrationConfetti();
+    onUnlock();
   };
 
   // Tithi VIP Mode: Verifies passcode and unlocks the secret 3D universe
@@ -194,26 +185,9 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
               </div>
             </div>
 
-            {/* Public Interactive Actions & VIP Entry */}
+            {/* Clear 2-Choice Action Buttons */}
             {!showPassModal ? (
-              <div className={styles.actionSection}>
-                {/* Guest Interactive Celebrate Buttons */}
-                <div className={styles.guestActionRow}>
-                  <button className={styles.guestCelebrateBtn} onClick={handleGuestCelebrate}>
-                    <span>🎉</span>
-                    <span>Send Confetti</span>
-                  </button>
-                  <button className={styles.guestCelebrateBtn} onClick={handleGuestMusic}>
-                    <span>🎵</span>
-                    <span>Play Music</span>
-                  </button>
-                  <button className={styles.guestCelebrateBtn} onClick={handleGuestFireworks}>
-                    <span>🎆</span>
-                    <span>Fireworks</span>
-                  </button>
-                </div>
-
-                {/* VIP Unlock Dedicated Button */}
+              <div className={styles.actionRow}>
                 <motion.button
                   className={styles.vipBtn}
                   onClick={() => setShowPassModal(true)}
@@ -222,6 +196,16 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                 >
                   <span>👑</span>
                   <span>Are You Tithi? ✦</span>
+                </motion.button>
+
+                <motion.button
+                  className={styles.guestBtn}
+                  onClick={handleGuestUnlock}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span>✨</span>
+                  <span>Explore Celebration (Guest View)</span>
                 </motion.button>
               </div>
             ) : (
