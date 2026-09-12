@@ -191,18 +191,18 @@
 }
 
 .modalTitle {
-  font-family: 'Bodoni Moda', serif;
+  font-family: 'Bodoni Moda', 'Noto Serif Bengali', serif;
   font-size: 20px;
   color: #fff6df;
   margin: 0 0 6px;
 }
 
 .modalDesc {
-  font-family: 'Manrope', sans-serif;
-  font-size: 12.5px;
+  font-family: 'Hind Siliguri', 'Manrope', sans-serif;
+  font-size: 13px;
   color: #cfc5b3;
   margin: 0 0 18px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .formRow {
@@ -235,16 +235,22 @@
   border: none;
   color: #0e1225;
   font-weight: 700;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Hind Siliguri', 'Manrope', sans-serif;
   font-size: 13px;
   cursor: pointer;
 }
 
 .errorText {
-  color: #fca5a5;
-  font-size: 12px;
-  font-family: 'Manrope', sans-serif;
-  margin: 0 0 10px;
+  color: #f7cac9;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Hind Siliguri', 'Manrope', sans-serif;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  background: rgba(242, 181, 165, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(242, 181, 165, 0.25);
+  line-height: 1.55;
 }
 
 .closeBtn {
@@ -252,7 +258,7 @@
   border: none;
   color: #94a3b8;
   font-size: 12px;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Hind Siliguri', 'Manrope', sans-serif;
   cursor: pointer;
   text-decoration: underline;
   padding: 4px;
