@@ -22,6 +22,7 @@ import {
   WishBubble,
 } from './ui/UI';
 import { CountdownOverlay } from './ui/CountdownOverlay';
+import { GuestShowcaseOverlay } from './ui/GuestShowcaseOverlay';
 import { LetterOverlay } from './letter/LetterOverlay';
 import { ConstellationOverlay } from './ui/ConstellationOverlay';
 import { StarChallengeOverlay } from './ui/StarChallengeOverlay';
@@ -158,6 +159,8 @@ function SceneLighting({ isNight }: { isNight: boolean }) {
 // ─── Main 14-Stage Experience Orchestrator ────────────────────────
 export default function Experience() {
   const stage = useStoryStore((s) => s.stage);
+  const isVIP = useStoryStore((s) => s.isVIP);
+  const setVIP = useStoryStore((s) => s.setVIP);
   const theme = useStoryStore((s) => s.theme);
   const setStage = useStoryStore((s) => s.setStage);
   const setCaption = useStoryStore((s) => s.setCaption);
@@ -173,7 +176,11 @@ export default function Experience() {
   const [fireworksActive, setFireworksActive] = useState(false);
   const [wishes, setWishes] = useState<{ id: number; text: string; x: number; y: number }[]>([]);
 
-  const isNight = theme === 'night' || stage === '12_fireworks' || stage === '13_hidden_surprise' || stage === '14_quiet_night';
+  const isNight =
+    theme === 'night' ||
+    stage === '12_fireworks' ||
+    stage === '13_hidden_surprise' ||
+    stage === '14_quiet_night';
 
   const tweenCam = useCallback(
     (
@@ -202,18 +209,64 @@ export default function Experience() {
     [setCaption]
   );
 
-  // ─── 14-Stage Handlers ──────────────────────────────────────────
+  // ─── Stage Handlers ──────────────────────────────────────────
 
-  // Stage 01 -> 02: Unlocked from Countdown Vault to Gift Box
+  // Stage 01 -> Unlocked: Handles either VIP or Guest View
   const handleCountdownUnlock = useCallback(async () => {
-    setStage('02_gift');
     unlockAudio();
     startMusic();
+    const currentIsVIP = useStoryStore.getState().isVIP;
+
+    if (!currentIsVIP) {
+      // Guest View: Panoramic celebration world & interactive showcase
+      setStage('guest_showcase');
+      tweenCam([0.0, 3.8, 7.2], [0.0, 0.6, -0.4], 3.2, 'power2.inOut', 0.25);
+      setHint('');
+      return;
+    }
+
+    // Tithi VIP View: Start personalized gift opening & journey
+    setStage('02_gift');
     tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 3.6, 'power2.inOut', 0.18);
     await showCaption('Every birthday needs a present...', 2400);
     await showCaption("So... let's open yours.", 2400);
     setHint('🎁 Tap the glowing gift box to open');
   }, [setStage, tweenCam, showCaption, setHint]);
+
+  // Guest Camera Controls
+  const handleGuestFocusView = useCallback(
+    (view: 'world' | 'cake' | 'flowers' | 'balloons') => {
+      switch (view) {
+        case 'world':
+          tweenCam([0.0, 3.8, 7.2], [0.0, 0.6, -0.4], 2.4, 'power2.inOut', 0.25);
+          break;
+        case 'cake':
+          tweenCam([2.0, 2.0, 0.8], [2.0, 0.9, -2.2], 2.4, 'power2.inOut', 0.18);
+          break;
+        case 'flowers':
+          tweenCam([-1.0, 1.15, 0.55], [-1.0, 0.72, -1.0], 2.4, 'power2.inOut', 0.18);
+          break;
+        case 'balloons':
+          tweenCam([3.2, 2.4, 4.2], [2.4, 1.4, 1.6], 2.4, 'power2.inOut', 0.22);
+          break;
+      }
+    },
+    [tweenCam]
+  );
+
+  const handleGuestTriggerFireworks = useCallback(() => {
+    setFireworksActive(true);
+    setTimeout(() => setFireworksActive(false), 6000);
+  }, []);
+
+  const handleGuestUnlockVIP = useCallback(async () => {
+    setVIP(true);
+    setStage('02_gift');
+    tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 3.2, 'power2.inOut', 0.18);
+    await showCaption('Every birthday needs a present...', 2400);
+    await showCaption("So... let's open yours.", 2400);
+    setHint('🎁 Tap the glowing gift box to open');
+  }, [setVIP, setStage, tweenCam, showCaption, setHint]);
 
   // Stage 02 -> 03: Gift Opened -> World Reveal
   const handleGiftBoxClick = useCallback(async () => {
@@ -274,12 +327,11 @@ export default function Experience() {
     setStage('07_stargame');
   }, [setShowContinue, setStage, setHint]);
 
-  // Stage 07 -> 08: Star Game Done -> Secret Garden (Camera zooms right into Flower Vase!)
+  // Stage 07 -> 08: Star Game Done -> Secret Garden
   const handleStarGameComplete = useCallback(() => {
     setStage('08_garden');
     setWishes([]);
     setHint('🌸 Tap each flower in the vase to bloom and reveal 5 gentle reminders');
-    // Camera focused perfectly on Flower Vase at [-1.0, 0.01, -1.0]
     tweenCam([-1.0, 1.15, 0.55], [-1.0, 0.72, -1.0], 2.8, 'power2.inOut', 0.18);
   }, [setStage, setHint, tweenCam]);
 
@@ -341,7 +393,6 @@ export default function Experience() {
         ...prev,
         { id, text, x: window.innerWidth / 2, y: window.innerHeight * 0.38 },
       ]);
-      // Auto dismiss wish bubble after 2.4s so it NEVER overlaps with next screens
       setTimeout(() => {
         setWishes((prev) => prev.filter((w) => w.id !== id));
       }, 2400);
@@ -407,32 +458,40 @@ export default function Experience() {
         <CountdownOverlay onUnlock={handleCountdownUnlock} />
       )}
 
-      {/* Stage 04: Birthday Letter Overlay */}
-      <LetterOverlay
-        visible={showLetter}
-        onClose={handleLetterClose}
-      />
+      {/* Guest Mode: Interactive Showcase Overlay */}
+      {stage === 'guest_showcase' && !isVIP && (
+        <GuestShowcaseOverlay
+          onUnlockVIP={handleGuestUnlockVIP}
+          onFocusView={handleGuestFocusView}
+          onTriggerFireworks={handleGuestTriggerFireworks}
+        />
+      )}
 
-      {/* Stage 05: Constellation Overlay */}
-      {stage === '05_constellation' && (
+      {/* Stage 04: Birthday Letter Overlay (VIP Only) */}
+      <LetterOverlay visible={showLetter} onClose={handleLetterClose} />
+
+      {/* Stage 05: Constellation Overlay (VIP Only) */}
+      {stage === '05_constellation' && isVIP && (
         <ConstellationOverlay onComplete={handleConstellationComplete} />
       )}
 
-      {/* Floating On-Screen Interactive Instruction & Action HUD */}
-      <FloatingInstructionBanner onContinue={handleContinueToStarGame} />
+      {/* Floating On-Screen Interactive Instruction & Action HUD (VIP Only) */}
+      {isVIP && stage !== '01_night' && (
+        <FloatingInstructionBanner onContinue={handleContinueToStarGame} />
+      )}
 
-      {/* Stage 07: Mini Star Challenge */}
-      {stage === '07_stargame' && (
+      {/* Stage 07: Mini Star Challenge (VIP Only) */}
+      {stage === '07_stargame' && isVIP && (
         <StarChallengeOverlay onComplete={handleStarGameComplete} />
       )}
 
-      {/* Stage 08: Secret Garden Overlay */}
-      {stage === '08_garden' && (
+      {/* Stage 08: Secret Garden Overlay (VIP Only) */}
+      {stage === '08_garden' && isVIP && (
         <SecretGardenOverlay onComplete={handleGardenComplete} />
       )}
 
-      {/* Stage 10 & 11: Make a Wish & Smoke to Stars Overlay */}
-      {stage === '10_wish' && (
+      {/* Stage 10 & 11: Make a Wish & Smoke to Stars Overlay (VIP Only) */}
+      {stage === '10_wish' && isVIP && (
         <CakeWishOverlay onWishComplete={handleWishComplete} />
       )}
 
