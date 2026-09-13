@@ -310,7 +310,7 @@ export default function Experience() {
     if (!currentIsVIP) {
       // Guest View: Cinematic framing right in front of cake and celebration
       setStage('guest_showcase');
-      const camPos: [number, number, number] = isMobile ? [0.0, 2.4, 5.2] : [0.0, 2.2, 4.6];
+      const camPos: [number, number, number] = isMobile ? [0.0, 2.4, 6.0] : [0.0, 2.2, 5.5];
       tweenCam(camPos, [0.0, 0.85, -0.2], 3.2, 'power2.inOut', 0.25);
       setHint('');
       return;
@@ -321,7 +321,7 @@ export default function Experience() {
     
     // Jump camera high into the sky instantly, then sweep down
     tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', 0, () => {
-      const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
+      const camPos: [number, number, number] = isMobile ? [-2.4, 2.2, 4.6] : [-2.4, 2.0, 4.2];
       tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut', 0.18);
     });
     
@@ -338,22 +338,22 @@ export default function Experience() {
 
       switch (view) {
         case 'world':
-          tweenCam(isMobile ? [0, 2.8, 5.6] : [0, 2.4, 5.0], [0, 0.6, 0], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [0, 3.2, 6.8] : [0, 2.8, 6.2], [0, 0.6, 0], 2.4, 'power2.inOut');
           break;
         case 'cake':
-          tweenCam(isMobile ? [0, 0.8, 2.0] : [0, 0.8, 1.8], [0, 0.2, 0], 2.0, 'power2.out');
+          tweenCam(isMobile ? [0, 1.2, 2.8] : [0, 1.0, 2.6], [0, 0.2, 0], 2.0, 'power2.out');
           break;
         case 'letter':
-          tweenCam(isMobile ? [0, 1.45, 2.8] : [0, 1.35, 2.5], [0, 0.42, 1.4], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [0, 1.65, 3.4] : [0, 1.55, 3.2], [0, 0.42, 1.4], 2.4, 'power2.inOut');
           break;
         case 'flowers':
-          tweenCam(isMobile ? [-2.2, 3.2, 3.2] : [-2.2, 2.8, 2.8], [-2.2, 0.4, -1.4], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [-2.2, 3.6, 3.8] : [-2.2, 3.2, 3.6], [-2.2, 0.4, -1.4], 2.4, 'power2.inOut');
           break;
         case 'gift':
-          tweenCam(isMobile ? [-2.4, 1.2, 2.8] : [-2.4, 1.0, 2.4], [-2.4, 0.2, 1.2], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [-2.4, 1.8, 4.2] : [-2.4, 1.6, 3.8], [-2.4, 0.2, 1.2], 2.4, 'power2.inOut');
           break;
         case 'balloons':
-          tweenCam(isMobile ? [2.5, 2.2, 2.2] : [2.5, 1.8, 1.8], [2.5, 0.8, -0.5], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [2.5, 2.4, 3.0] : [2.5, 2.0, 2.8], [2.5, 0.8, -0.5], 2.4, 'power2.inOut');
           break;
       }
     },
@@ -372,7 +372,7 @@ export default function Experience() {
     
     // Jump camera high into the sky instantly, then sweep down
     tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', 0, () => {
-      const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
+      const camPos: [number, number, number] = isMobile ? [-2.4, 2.2, 4.6] : [-2.4, 2.0, 4.2];
       tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut', 0.18);
     });
     
@@ -391,7 +391,7 @@ export default function Experience() {
     playChime(1.1);
 
     // Push smoothly into dedicated writing desk with centered letter envelope
-    const camPos: [number, number, number] = isMobile ? [0.0, 1.45, 2.8] : [0.0, 1.35, 2.5];
+    const camPos: [number, number, number] = isMobile ? [0.0, 1.65, 3.4] : [0.0, 1.55, 3.2];
     tweenCam(camPos, [0.0, 0.42, 1.4], 3.0, 'power2.inOut', 0.18, () => {
       setStage('04_letter');
       setHint('Tap the sealed letter on the desk to read ✦');
@@ -417,7 +417,7 @@ export default function Experience() {
     setHint('');
     setTimeout(() => {
       setStage('05_constellation');
-      const camPos: [number, number, number] = isMobile ? [0.0, 3.2, 5.5] : [0.0, 3.2, 5.0];
+      const camPos: [number, number, number] = isMobile ? [0.0, 3.4, 6.2] : [0.0, 3.4, 5.8];
       tweenCam(camPos, [0.0, 3.2, 0.0], 2.4, 'power2.inOut', 0.2);
     }, 300);
   }, [setStage, isMobile, setHint, setCaption, tweenCam]);
@@ -427,7 +427,7 @@ export default function Experience() {
     setStage('06_balloons');
     setWishes([]);
     setCaption('');
-    const camPos: [number, number, number] = isMobile ? [2.2, 1.85, 3.2] : [2.2, 1.75, 2.6];
+    const camPos: [number, number, number] = isMobile ? [2.2, 2.15, 3.8] : [2.2, 2.05, 3.4];
     tweenCam(camPos, [2.2, 1.55, 0.8], 2.4, 'power2.inOut', 0.25, () => {
       setBalloonsInteractive(true);
       setHint('Tap and pop the floating balloons to reveal your wishes ✦');
@@ -452,7 +452,7 @@ export default function Experience() {
     setCaption('');
     setHint('');
     // Pull back & up so the full botanical garden is beautifully framed
-    const camPos: [number, number, number] = isMobile ? [-2.2, 3.2, 3.2] : [-2.2, 2.8, 2.8];
+    const camPos: [number, number, number] = isMobile ? [-2.2, 3.6, 3.8] : [-2.2, 3.2, 3.6];
     tweenCam(camPos, [-2.2, 0.4, -1.4], 2.8, 'power2.inOut', 0.15);
     showCaption('✦ ENTERING THE SECRET GARDEN ✦', 2000);
   }, [setStage, isMobile, setHint, setCaption, tweenCam, showCaption]);
@@ -463,7 +463,7 @@ export default function Experience() {
     setWishes([]);
     setCaption('');
     setHint('');
-    const camPos: [number, number, number] = isMobile ? [0.0, 1.6, 2.2] : [0.0, 1.5, 1.8];
+    const camPos: [number, number, number] = isMobile ? [0.0, 1.9, 2.8] : [0.0, 1.8, 2.6];
     const lookPos: [number, number, number] = [0.0, 0.95, -0.4];
 
     tweenCam(camPos, lookPos, 2.8, 'power2.inOut', 0.2, () => {
@@ -478,7 +478,7 @@ export default function Experience() {
     setStage('12_fireworks');
     setWishes([]);
     setHint('');
-    const camPos: [number, number, number] = isMobile ? [0.0, 2.6, 5.8] : [0.0, 2.4, 4.8];
+    const camPos: [number, number, number] = isMobile ? [0.0, 2.8, 6.8] : [0.0, 2.6, 6.0];
     tweenCam(camPos, [0.0, 2.8, -2.5], 2.4, 'power2.inOut', 0.2);
     setFireworksActive(true);
     playFireworksBoom();
