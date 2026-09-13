@@ -89,25 +89,11 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
       return;
     }
 
-    // Check if 18 September has already arrived on initial load
-    const initial = calculateTimeLeft();
-    if (initial.isUnlocked) {
-      if (pass && VALID_PASSCODES.includes(pass)) {
-        setVIP(true);
-      }
-      setUnlocked(true);
-      onUnlock();
-      return;
-    }
+    // No auto-bypass for Tithi anymore, we want her to see the beautiful countdown text on the 18th!
 
     const timer = setInterval(() => {
       const updated = calculateTimeLeft();
       setTimeLeft(updated);
-      // Auto unlock when 18 September midnight arrives
-      if (updated.isUnlocked) {
-        setUnlocked(true);
-        onUnlock();
-      }
     }, 1000);
 
     return () => clearInterval(timer);
