@@ -147,9 +147,9 @@ export function WishBubble({ text, x, y }: { text: string; x: number; y: number 
     <motion.p
       className={styles.wishBubble}
       style={{ left: x, top: y }}
-      initial={{ opacity: 0, y: 0, scale: 0.85 }}
-      animate={{ opacity: 1, y: -40, scale: 1 }}
-      exit={{ opacity: 0, y: -70, scale: 0.9 }}
+      initial={{ opacity: 0, x: '-50%', y: 0, scale: 0.85 }}
+      animate={{ opacity: 1, x: '-50%', y: -40, scale: 1 }}
+      exit={{ opacity: 0, x: '-50%', y: -70, scale: 0.9 }}
       transition={{ duration: 1.8, ease: 'easeOut' }}
     >
       ✦ {text}

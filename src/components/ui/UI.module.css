@@ -67,17 +67,16 @@
 /* ── Floating Instruction Dock (Compact, non-intrusive on-screen guide) ────────── */
 .instructionDock {
   position: fixed;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: clamp(16px, 4vh, 36px);
   z-index: 50;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   pointer-events: none;
-  max-width: min(92vw, 560px);
-  width: auto;
+  width: 100%;
 }
 
 .instructionCard {
@@ -251,7 +250,6 @@
   color: #ffe5a4;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(232, 200, 114, 0.5);
   white-space: nowrap;
-  transform: translateX(-50%);
   margin: 0;
   padding: 6px 18px;
   background: rgba(14, 18, 37, 0.75);

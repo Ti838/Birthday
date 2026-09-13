@@ -107,17 +107,19 @@ export function StarChallengeOverlay({ onComplete }: StarChallengeOverlayProps) 
       {/* Completion Modal */}
       <AnimatePresence>
         {completed && (
-          <motion.div
-            className={styles.completeModal}
-            initial={{ opacity: 0, scale: 0.85, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            <h3 className={styles.completeTitle}>MISSION COMPLETE! ✦</h3>
-            <p className={styles.completeText}>
-              All stardust collected! Opening the Secret Garden…
-            </p>
-          </motion.div>
+          <div className={styles.completeModalWrapper}>
+            <motion.div
+              className={styles.completeModal}
+              initial={{ opacity: 0, scale: 0.85, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              <h3 className={styles.completeTitle}>MISSION COMPLETE! ✦</h3>
+              <p className={styles.completeText}>
+                All stardust collected! Opening the Secret Garden…
+              </p>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

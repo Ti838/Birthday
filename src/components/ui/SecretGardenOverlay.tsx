@@ -88,14 +88,16 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
 
       <AnimatePresence>
         {isAllBloomed && (
-          <motion.div
-            className={styles.allBloomedToast}
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            ✦ The secret garden is in full bloom! Moving to your birthday cake… ✦
-          </motion.div>
+          <div className={styles.allBloomedToastWrapper}>
+            <motion.div
+              className={styles.allBloomedToast}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              ✦ The secret garden is in full bloom! Moving to your birthday cake… ✦
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>
