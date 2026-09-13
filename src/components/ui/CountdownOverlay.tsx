@@ -113,9 +113,15 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
     return () => clearInterval(timer);
   }, [onUnlock, setVIP]);
 
-  // Guest Mode: Explores celebration only if 18 September has arrived
+  // Guest Mode: Explores celebration only if 18 September has arrived (or on localhost)
   const handleGuestUnlock = () => {
-    if (!timeLeft.isUnlocked) {
+    const isDevEnv =
+      typeof window !== 'undefined' &&
+      (window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.search.includes('test'));
+
+    if (!timeLeft.isUnlocked && !isDevEnv) {
       playChime(0.9);
       setGuestNotice('✦ The celebration showcase unlocks for everyone on September 18 at midnight! ✦');
       setTimeout(() => setGuestNotice(''), 5000);
@@ -132,8 +138,13 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
   const handlePasscodeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const clean = passInput.toLowerCase().trim();
+    const isDevEnv =
+      typeof window !== 'undefined' &&
+      (window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1' ||
+        window.location.search.includes('test'));
 
-    // 1. Master Passcode for Timon (Developer/Tester bypass)
+    // 1. Master Passcode for Timon (Developer/Tester bypass anytime)
     if (MASTER_PASSCODES.includes(clean)) {
       setVIP(true);
       setUnlocked(true);
@@ -145,19 +156,19 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
 
     // 2. Tithi's Passcode
     if (VALID_PASSCODES.includes(clean)) {
-      if (timeLeft.isUnlocked) {
+      if (timeLeft.isUnlocked || isDevEnv) {
         setVIP(true);
         setUnlocked(true);
         playChime(1.5);
         triggerCelebrationConfetti();
         onUnlock();
       } else {
-        // Elegant teasing message before 18 September
+        // Elegant teasing message before 18 September (in Production)
         playChime(0.8);
         setErrorMsg('A little more patience, Tithi ✦ Your birthday celebration is sealed until September 18 at midnight. Please wait for the countdown to complete! ✦');
       }
     } else {
-      setErrorMsg('Incorrect key ✦ Try your birthdate (1809) or your special name ✦');
+      setErrorMsg('Incorrect key ✦ Try your birthdate (1809) or special name (or "timon") ✦');
     }
   };
 
