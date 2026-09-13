@@ -1,178 +1,107 @@
-# ✨ Interactive 3D Birthday Celebration & Keepsake Web Experience
+<div align="center">
+  <h1>✨ Tithi's Cosmic Birthday Experience</h1>
+  <p>An ultra-premium, interactive 3D WebGL journey built with React Three Fiber.</p>
 
-A high-performance, cinematic **3D Interactive Birthday Web Application** built with **React**, **Three.js / React Three Fiber**, **TypeScript**, and the **Web Audio API**.
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white" alt="Three.js" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+</div>
 
-Designed to deliver an unforgettable, immersive celebration experience featuring interactive 3D elements, mini-games, organic realistic flower garden, polyphonic music box melodies, customizable personal letter, and realistic cascading fireworks.
+<br />
 
----
+## 📖 Overview
 
-## 🌟 Key Features
+This project is a highly personalized, interactive **3D WebGL birthday celebration** designed to feel like a premium, cinematic experience. It combines real-time weather synchronization, dynamic 3D lighting, complex camera animations, and interactive mini-games (balloon popping, secret gardens, star collecting) into a seamless, single-page application.
 
-- 🌌 **Cinematic 3D Interactive Stages**:
-  - 🎁 **Stage 1: The Magic Gift Box** – Glowing 3D gift box with interactive ribbon untying and particle burst.
-  - ✉️ **Stage 2: Personal Parchment Letter** – Elegant single-column luxury letter with smooth scrolling.
-  - ✨ **Stage 3: Celestial Constellations** – Interactive star-linking cosmic map with glowing zodiac lines.
-  - 🎈 **Stage 4: Balloon Pop Fiesta** – Floating 3D helium balloons with pop physics and surprise messages.
-  - 🌟 **Stage 5: Star Catcher Mini-Game** – Interactive star collection game with live score tracker and sound effects.
-  - 🌸 **Stage 6: Realistic Blooming Flower Garden** – Curved organic multi-tier velvet petals in a refractive crystal glass vase.
-  - 🎂 **Stage 7: Birthday Cake & Candle Blowout** – Artisanal 3D birthday cake with realistic flickering candlelight and blow-out physics.
-  - 🎆 **Stage 8: Grand Fireworks Spectacle** – Cascading golden willow fireworks with dynamic 3D lighting, gravity physics, and spatial audio.
-  - 📜 **Stage 9: Final Keepsake Memory Card** – Heartfelt celebratory sign-off with golden seal.
+## 🚀 Key Features
 
-- 🎵 **Polyphonic Web Audio Synthesizer**:
-  - Harmonized F-Major "Happy Birthday to You" orchestral celesta/music-box score.
-  - Launch whoosh, resonant bass boom, and glitter crackle for fireworks.
-  - Zero external MP3 download dependencies — 100% synthesized natively in the browser.
-
-- 🔐 **Dual-Mode Access System**:
-  - **Public Guest Showcase**: Anyone can view the 3D world, cake, balloons, fireworks, and music.
-  - **VIP Celebrant Mode**: Dedicated mode for the birthday person with personal letter & gifts, unlocked via passcodes or URL query parameter (`?pass=tithi` or `?vip=true`).
-
-- 📱 **Universal Responsive Support**:
-  - Optimized for iOS, Android, Tablets, and Desktop screens.
-  - Smooth 60fps WebGL rendering with mobile touch interaction and gyro parallax.
-
----
+- **🎭 Cinematic VIP Flow:** A dual-state system featuring a "Guest Showcase" and a "VIP Unlock". Unlocking VIP triggers a sweeping 5-second cinematic sky-dive camera animation that seamlessly resets the world.
+- **🌤️ Live Weather & Atmosphere Engine:** Fetches real-world weather data to dynamically adjust the 3D environment's time of day (dawn, day, sunset, night), fog density, cloud coverage, and global CSS UI themes.
+- **🎥 Advanced Camera Choreography:** Powered by GSAP and custom tweening logic to smoothly interpolate the camera between different points of interest (the Cake, the Letter, the Garden) with responsive mobile/desktop framing.
+- **✨ Interactive 3D Elements:**
+  - **The Secret Garden:** Clickable, blooming flowers with custom audio cues and advice quotes.
+  - **Confetti & Fireworks:** GPU-accelerated particle systems with gravity, drag, and optimized memory management.
+  - **Balloon Pop:** Interactive physical balloons that burst into particles.
+- **📱 Ultra-Responsive Glassmorphism UI:** Built with Framer Motion, CSS Modules, and CSS variables synced to the 3D time-of-day for a consistent Apple-like aesthetic across all devices.
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|---|---|
-| **React 19** | UI components, state coordination, and overlays |
-| **Three.js** | 3D rendering engine and WebGL shaders |
-| **@react-three/fiber** | Declarative Three.js scene graph for React |
-| **@react-three/drei** | 3D helpers, lighting presets, and controls |
-| **Zustand** | Centralized reactive stage & game state management |
-| **TypeScript** | Type-safe architecture and interfaces |
-| **Vite** | Ultra-fast bundling, HMR, and build pipeline |
-| **Canvas Confetti** | Multi-directional celebratory particle bursts |
+| Category | Technology |
+| --- | --- |
+| **Core Framework** | React 18, TypeScript, Vite |
+| **3D Rendering** | Three.js, `@react-three/fiber`, `@react-three/drei` |
+| **Animations** | GSAP (Camera Tweens), Framer Motion (UI Transitions) |
+| **State Management**| Zustand (Global Story & Weather State) |
+| **Audio Engine** | Howler.js (Background music, SFX, spatial cues) |
+| **Styling** | CSS Modules (Glassmorphism, Responsive `clamp()`) |
+| **Linting** | Oxlint, ESLint |
 
----
+## 🏎️ Performance & GPU Optimizations
 
-## 🚀 Quick Start Guide
+- **Memory Leak Prevention:** Strict `dispose()` calls on all temporary particle geometries and materials during explosions (Fireworks, Balloons).
+- **Instance Meshes:** Extensive use of Three.js instancing for heavy elements like grass blades and fireflies to reduce draw calls to `1`.
+- **Adaptive DPR:** Automatically scales device pixel ratio (DPR) to maintain 60 FPS on lower-end mobile devices.
+- **Lazy Lighting:** Shadows and intensive calculations are bounded, with Tone Mapping (ACESFilmic) optimized for WebGL.
+
+## 💻 Local Development
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (version 18.0 or higher recommended)
-- [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/) / [yarn](https://yarnpkg.com/)
+Make sure you have [Node.js](https://nodejs.org/) (v18+) installed.
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/Ti838/Birthday.git
-cd Birthday
-```
+### Setup
 
-### 2. Install dependencies
-```bash
-npm install
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Ti838/Birthday.git
+   cd tithi-gift-react
+   ```
 
-### 3. Start local development server
-```bash
-npm run dev
-```
-Open [http://localhost:5173](http://localhost:5173) in your browser to view the project.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### 4. Build for production
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   The app will be available at `http://localhost:5173`.
+
+## 🏗️ Build & Deployment
+
+To create a production-ready optimized build:
+
 ```bash
 npm run build
 ```
-The optimized production bundle will be generated in the `dist/` directory.
 
-### 5. Preview production build locally
-```bash
-npm run preview
-```
+This project is configured with a `vercel.json` file for zero-config deployment on **Vercel**. It includes rules for SPA routing fallbacks and aggressive caching for immutable static assets.
 
----
-
-## 🎨 How to Customize for Any Birthday
-
-This project is built to be easily customizable for anyone's birthday in minutes:
-
-### 1. Change the Celebrant's Name & Birthday Date
-Open `src/utils/constants.ts` and edit:
-```typescript
-export const CELEBRANT_NAME = 'Your Friend Name';
-export const TARGET_BIRTHDAY = new Date('2026-09-18T00:00:00');
-```
-
-### 2. Change the Personal Letter & Wishes
-Open `src/components/letter/LetterOverlay.tsx` to customize the letter content, compliments, and signature:
-```typescript
-// Customize your heartfelt message in LetterOverlay.tsx
-```
-
-### 3. Change VIP Passcodes
-Open `src/store/useStoryStore.ts` and update the accepted passcode list:
-```typescript
-const VALID_PASSCODES = ['1809', 'friendname', 'secretcode'];
-```
-
-### 4. Modify Page Title & Icon
-Open `index.html` to update the browser tab title:
-```html
-<title>For Your Friend</title>
-```
-Replace `public/favicon.svg` with your own custom vector badge or icon.
-
----
-
-## ☁️ Deployment
-
-### Deploy to Vercel (Recommended)
-The repository includes a ready-to-use `vercel.json` with SPA rewrites and asset caching.
-
-1. Install Vercel CLI:
-   ```bash
-   npm install -g vercel
-   ```
-2. Deploy:
-   ```bash
-   vercel --prod
-   ```
-Or simply connect your GitHub repository directly on [Vercel Dashboard](https://vercel.com/new).
-
-### Deploy to Netlify / GitHub Pages
-- **Build Command**: `npm run build`
-- **Publish Directory**: `dist`
-- Set single-page rewrite redirect rule to route `/*` to `/index.html`.
-
----
-
-## 📁 Project Directory Structure
+## 📁 Project Architecture
 
 ```text
-Birthday/
-├── public/                  # Static assets & favicon
-│   ├── favicon.svg
-│   └── icons.svg
-├── src/
-│   ├── components/          # React UI Overlays & 2D HUDs
-│   │   ├── letter/          # LetterOverlay & parchment styling
-│   │   ├── ui/              # Countdown, StarChallenge, Garden, Cake overlays
-│   │   └── Experience.tsx   # Core 3D canvas and lighting coordinator
-│   ├── hooks/               # Custom React hooks (audio, responsive, parallax)
-│   ├── store/               # Zustand global stage & story state
-│   ├── styles/              # Global CSS & typography rules
-│   ├── three/               # Three.js 3D Components
-│   │   ├── Cake.tsx         # 3D Birthday Cake & Candles
-│   │   ├── Flowers.tsx      # Realistic blooming bouquet & glass vase
-│   │   ├── Balloons.tsx     # 3D floating interactive balloons
-│   │   ├── Fireworks.tsx    # Realistic cascading fireworks particles
-│   │   ├── GiftBox.tsx      # Interactive 3D Gift Box
-│   │   └── Envelope.tsx     # 3D Royal Letter Envelope
-│   ├── utils/               # Audio synthesizers, constants, sound triggers
-│   ├── App.tsx              # Root app component
-│   └── main.tsx             # React DOM entry point
-├── index.html               # Web entrance & Google Fonts
-├── vercel.json              # Vercel SPA configuration
-├── package.json             # Project dependencies & scripts
-└── tsconfig.json            # TypeScript configuration
+src/
+├── components/
+│   ├── ui/                 # React UI Overlays (Glassmorphism, Menus)
+│   ├── Experience.tsx      # Core R3F Canvas and Stage Router
+│   ├── ThemeSync.tsx       # Bridges 3D Weather state to DOM CSS Variables
+│   └── ...
+├── three/                  # 3D Scene Components (Models, Particles)
+│   ├── Flowers.tsx         # The Secret Garden
+│   ├── Fireworks.tsx       # Particle Engine
+│   └── ...
+├── store/
+│   └── useStoryStore.ts    # Zustand Global State (Stages, Unlockables)
+├── utils/
+│   ├── music.ts            # Howler.js Audio Controllers
+│   ├── textures.ts         # Procedural Canvas Textures (Noise, Gradients)
+│   └── constants.ts        # Story Text, Colors, Configurations
+└── services/               # API integratons (Live Weather fetcher)
 ```
 
----
+## 📜 License
 
-## 📄 License & Acknowledgements
-
-Created with ❤️ by **Timon**.  
-Feel free to fork, adapt, and use this template to celebrate birthdays with friends and loved ones!
+Designed and developed with ❤️ for Tithi.
+All rights reserved.
