@@ -2,6 +2,7 @@ export type Stage =
   | 'loading'
   | '01_night'
   | 'guest_showcase'
+  | '01_intro_cinematic'
   | '02_gift'
   | '03_world'
   | '04_letter'

@@ -23,6 +23,7 @@ import {
   WishBubble,
 } from './ui/UI';
 import { CountdownOverlay } from './ui/CountdownOverlay';
+import { CinematicIntro } from './ui/CinematicIntro';
 import { GuestShowcaseOverlay } from './ui/GuestShowcaseOverlay';
 import { LetterOverlay } from './letter/LetterOverlay';
 import { ConstellationOverlay } from './ui/ConstellationOverlay';
@@ -315,49 +316,45 @@ export default function Experience() {
       return;
     }
 
-    // Tithi VIP View: Start personalized gift opening
-    setStage('02_gift');
-    const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
-    tweenCam(camPos, [-2.4, 0.5, 1.2], 2.8, 'power2.inOut', 0.18);
-    showCaption('Every birthday needs a present... ✦', 2000);
-    setHint('Tap the glowing gift box to open ✦');
+    // Tithi VIP View: Grand Cinematic Intro from the sky
+    setStage('01_intro_cinematic');
+    
+    // Jump camera high into the sky instantly, then sweep down
+    tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', 0, () => {
+      const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
+      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut', 0.18);
+    });
+    
+    setTimeout(() => {
+      showCaption('Every birthday needs a present... ✦', 2000);
+      setHint('Tap the glowing gift box to open ✦');
+    }, 5500);
   }, [setStage, isMobile, tweenCam, showCaption, setHint]);
 
-  // Guest Camera Controls
   const handleGuestFocusView = useCallback(
     (view: 'world' | 'cake' | 'flowers' | 'balloons' | 'letter' | 'gift') => {
+      // Only runs when Guest is active
+      if (useStoryStore.getState().isVIP) return;
+
       switch (view) {
-        case 'world': {
-          const camPos: [number, number, number] = isMobile ? [0.0, 2.6, 5.2] : [0.0, 2.2, 4.6];
-          tweenCam(camPos, [0.0, 0.85, -0.2], 2.4, 'power2.inOut', 0.25);
+        case 'world':
+          tweenCam(isMobile ? [0, 2.8, 5.6] : [0, 2.4, 5.0], [0, 0.6, 0], 2.4, 'power2.inOut');
           break;
-        }
-        case 'cake': {
-          const camPos: [number, number, number] = isMobile ? [0.0, 1.6, 2.2] : [0.0, 1.5, 1.8];
-          tweenCam(camPos, [0.0, 0.95, -0.4], 2.4, 'power2.inOut', 0.18);
+        case 'cake':
+          tweenCam(isMobile ? [0, 0.8, 2.0] : [0, 0.8, 1.8], [0, 0.2, 0], 2.0, 'power2.out');
           break;
-        }
-        case 'letter': {
-          const camPos: [number, number, number] = isMobile ? [0.0, 1.45, 2.8] : [0.0, 1.35, 2.5];
-          tweenCam(camPos, [0.0, 0.42, 1.4], 2.4, 'power2.inOut', 0.18);
+        case 'letter':
+          tweenCam(isMobile ? [0, 1.45, 2.8] : [0, 1.35, 2.5], [0, 0.42, 1.4], 2.4, 'power2.inOut');
           break;
-        }
-        case 'flowers': {
-          // Pull back & elevated so entire garden + pergola is beautifully visible
-          const camPos: [number, number, number] = isMobile ? [-2.2, 3.2, 3.2] : [-2.2, 2.8, 2.8];
-          tweenCam(camPos, [-2.2, 0.4, -1.4], 2.4, 'power2.inOut', 0.15);
+        case 'flowers':
+          tweenCam(isMobile ? [-2.2, 3.2, 3.2] : [-2.2, 2.8, 2.8], [-2.2, 0.4, -1.4], 2.4, 'power2.inOut');
           break;
-        }
-        case 'gift': {
-          const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
-          tweenCam(camPos, [-2.4, 0.5, 1.2], 2.4, 'power2.inOut', 0.18);
+        case 'gift':
+          tweenCam(isMobile ? [-2.4, 1.2, 2.8] : [-2.4, 1.0, 2.4], [-2.4, 0.2, 1.2], 2.4, 'power2.inOut');
           break;
-        }
-        case 'balloons': {
-          const camPos: [number, number, number] = isMobile ? [2.2, 1.85, 3.2] : [2.2, 1.75, 2.6];
-          tweenCam(camPos, [2.2, 1.55, 0.8], 2.4, 'power2.inOut', 0.22);
+        case 'balloons':
+          tweenCam(isMobile ? [2.5, 2.2, 2.2] : [2.5, 1.8, 1.8], [2.5, 0.8, -0.5], 2.4, 'power2.inOut');
           break;
-        }
       }
     },
     [isMobile, tweenCam]
@@ -370,11 +367,19 @@ export default function Experience() {
 
   const handleGuestUnlockVIP = useCallback(async () => {
     setVIP(true);
-    setStage('02_gift');
-    const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
-    tweenCam(camPos, [-2.4, 0.5, 1.2], 2.8, 'power2.inOut', 0.18);
-    showCaption('Every birthday needs a present... ✦', 2000);
-    setHint('Tap the glowing gift box to open ✦');
+    // Restart the experience from absolute beginning with cinematic intro!
+    setStage('01_intro_cinematic');
+    
+    // Jump camera high into the sky instantly, then sweep down
+    tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', 0, () => {
+      const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
+      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut', 0.18);
+    });
+    
+    setTimeout(() => {
+      showCaption('Every birthday needs a present... ✦', 2000);
+      setHint('Tap the glowing gift box to open ✦');
+    }, 5500);
   }, [setVIP, setStage, isMobile, tweenCam, showCaption, setHint]);
 
   // Stage 02 -> 03: Gift Opened -> World Reveal & Push to Letter Desk
@@ -586,6 +591,9 @@ export default function Experience() {
 
       {/* Caption & Story Layer */}
       <CaptionLayer />
+
+      {/* Cinematic Login Wipe Sequence */}
+      {stage === '01_intro_cinematic' && <CinematicIntro />}
 
       {/* Stage 01: Countdown / Hero Invitation Overlay */}
       {stage === '01_night' && (
