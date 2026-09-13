@@ -347,8 +347,9 @@ export default function Experience() {
     setCaption('');
     setHint('');
     const camPos: [number, number, number] = isMobile ? [-1.0, 1.5, 0.8] : [-1.0, 1.3, 0.4];
-    tweenCam(camPos, [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
-  }, [setStage, isMobile, setHint, setCaption, tweenCam]);
+    tweenCam(camPos, [-1.0, 0.85, -1.0], 2.8, 'power2.inOut', 0.2);
+    showCaption('✦ ENTERING THE SECRET GARDEN ✦', 2000);
+  }, [setStage, isMobile, setHint, setCaption, tweenCam, showCaption]);
 
   // Stage 08 -> 09: Garden Done -> Cake & Make a Wish
   const handleGardenComplete = useCallback(async () => {
@@ -356,10 +357,10 @@ export default function Experience() {
     setWishes([]);
     setCaption('');
     setHint('');
-    const camPos: [number, number, number] = isMobile ? [0.0, 1.8, 3.2] : [0.0, 1.6, 2.6];
+    const camPos: [number, number, number] = isMobile ? [0.0, 1.7, 2.9] : [0.0, 1.55, 2.4];
     const lookPos: [number, number, number] = [0.0, 0.95, 0.0];
 
-    tweenCam(camPos, lookPos, 2.4, 'power2.inOut', 0.2, () => {
+    tweenCam(camPos, lookPos, 2.8, 'power2.inOut', 0.2, () => {
       setStage('10_wish');
       setHint('Make a wish & tap the cake to blow out your candles ✦');
     });

@@ -14,6 +14,8 @@ interface StoryState {
   poppedBalloons: number[];
   starsCollected: number;
   gardenBloomed: number[];
+  gardenCompleted: boolean;
+  activeFlowerIndex: number | null;
   candlesBlown: boolean;
   wishMade: boolean;
   fireworksStarted: boolean;
@@ -36,6 +38,8 @@ interface StoryState {
   popBalloon: (idx: number) => void;
   collectStar: () => void;
   bloomFlower: (idx: number) => void;
+  setActiveFlowerIndex: (idx: number | null) => void;
+  completeGarden: () => void;
   blowCandles: () => void;
   makeWish: () => void;
   startFireworks: () => void;
@@ -60,6 +64,8 @@ export const useStoryStore = create<StoryState>((set) => ({
   poppedBalloons: [],
   starsCollected: 0,
   gardenBloomed: [],
+  gardenCompleted: false,
+  activeFlowerIndex: null,
   candlesBlown: false,
   wishMade: false,
   fireworksStarted: false,
@@ -95,11 +101,18 @@ export const useStoryStore = create<StoryState>((set) => ({
       starsCollected: Math.min(10, s.starsCollected + 1),
     })),
   bloomFlower: (idx) =>
-    set((s) => ({
-      gardenBloomed: s.gardenBloomed.includes(idx)
+    set((s) => {
+      const next = s.gardenBloomed.includes(idx)
         ? s.gardenBloomed
-        : [...s.gardenBloomed, idx],
-    })),
+        : [...s.gardenBloomed, idx];
+      return {
+        gardenBloomed: next,
+        gardenCompleted: next.length >= 5,
+        activeFlowerIndex: idx,
+      };
+    }),
+  setActiveFlowerIndex: (activeFlowerIndex) => set({ activeFlowerIndex }),
+  completeGarden: () => set({ gardenCompleted: true }),
   blowCandles: () => set({ candlesBlown: true }),
   makeWish: () => set({ wishMade: true }),
   startFireworks: () => set({ fireworksStarted: true }),
@@ -120,6 +133,8 @@ export const useStoryStore = create<StoryState>((set) => ({
       poppedBalloons: [],
       starsCollected: 0,
       gardenBloomed: [],
+      gardenCompleted: false,
+      activeFlowerIndex: null,
       candlesBlown: false,
       wishMade: false,
       fireworksStarted: false,

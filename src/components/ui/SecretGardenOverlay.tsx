@@ -33,7 +33,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
     playChime(1.5);
     setTimeout(() => {
       onComplete();
-    }, 1600);
+    }, 1800);
   };
 
   const isAllBloomed = gardenBloomed.length === GARDEN_FLOWERS.length;
@@ -59,7 +59,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
         transition={{ duration: 0.7 }}
       >
         <span className={styles.badge}>✦ THE SECRET GARDEN ✦</span>
-        <h2 className={styles.title}>Tap the Flowers to Bloom</h2>
+        <h2 className={styles.title}>Some little things are waiting to bloom</h2>
         <p className={styles.subtitle}>
           Click the glowing garden blooms or tap the cards below ({gardenBloomed.length} / {GARDEN_FLOWERS.length} bloomed)
         </p>
@@ -132,7 +132,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0 }}
             >
-              ✦ The garden is in full bloom! Lighting your birthday cake candles… ✦
+              ✦ THE GARDEN IS AWAKE ✦ Moving to your birthday cake…
             </motion.div>
           </div>
         )}

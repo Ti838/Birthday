@@ -3,21 +3,21 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useStoryStore } from '../store/useStoryStore';
 import { GARDEN_FLOWERS } from '../utils/constants';
-import { playFlowerBloomSound } from '../utils/music';
+import { playFlowerBloomSound, playChime } from '../utils/music';
 
 /* ══════════════════════════════════════════════════════════════
-   HIGH-FIDELITY BOTANICAL TEXTURE & SHAPE GENERATORS
-   Smooth, rounded organic curves — Zero sharp polygon spikes!
+   HIGH-FIDELITY BOTANICAL TEXTURES & PBR GENERATORS
+   Smooth rounded curves • Zero polygon spikes • CC0 standards
 ══════════════════════════════════════════════════════════════ */
 
-/** Creates smooth organic velvet petal texture */
+/** Creates a smooth organic velvet petal texture with delicate vein micro-gradients */
 function createVelvetPetalTexture(baseHex: string, tipHex = '#FFFDF5'): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 128;
   canvas.height = 256;
   const ctx = canvas.getContext('2d')!;
 
-  // Smooth radial/linear velvet gradient
+  // Smooth linear velvet gradient: deep base to soft glowing tip
   const grad = ctx.createLinearGradient(0, 256, 0, 0);
   grad.addColorStop(0, baseHex);
   grad.addColorStop(0.55, baseHex);
@@ -26,7 +26,7 @@ function createVelvetPetalTexture(baseHex: string, tipHex = '#FFFDF5'): THREE.Ca
   ctx.fillRect(0, 0, 128, 256);
 
   // Soft delicate micro-veining
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
   ctx.lineWidth = 1.2;
   for (let i = 0; i < 4; i++) {
     ctx.beginPath();
@@ -48,7 +48,7 @@ function createVelvetPetalTexture(baseHex: string, tipHex = '#FFFDF5'): THREE.Ca
   return texture;
 }
 
-/** Creates realistic organic green leaf texture */
+/** Creates realistic organic green leaf texture with central midrib and lateral veins */
 function createLeafTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 128;
@@ -91,7 +91,7 @@ function createLeafTexture(): THREE.CanvasTexture {
 /** Creates a smooth, rounded 3D petal mesh with natural organic curvature */
 function createSmoothPetalGeometry(width = 0.09, length = 0.13, cupping = 0.24, curl = 0.08): THREE.BufferGeometry {
   const shape = new THREE.Shape();
-  // Smooth rounded teardrop petal profile with curved tip (no sharp corners!)
+  // Smooth rounded teardrop petal profile with curved tip (no sharp corners)
   shape.moveTo(0, 0);
   shape.bezierCurveTo(-width * 0.45, length * 0.25, -width * 0.58, length * 0.72, 0, length);
   shape.bezierCurveTo(width * 0.58, length * 0.72, width * 0.45, length * 0.25, 0, 0);
@@ -104,7 +104,7 @@ function createSmoothPetalGeometry(width = 0.09, length = 0.13, cupping = 0.24, 
     const normY = Math.max(0, Math.min(1, y / length));
     const normX = x / (width * 0.5 || 1);
 
-    // Natural 3D dish cupping along center + outward reflex curl at the tip
+    // Natural 3D dish cupping along center + outward reflex curl at tip
     const cup = -cupping * Math.sin(normY * Math.PI) * (1 - Math.min(1, normX * normX * 0.6));
     const reflex = curl * Math.pow(normY, 2.5);
     pos.setZ(i, cup + reflex);
@@ -114,11 +114,11 @@ function createSmoothPetalGeometry(width = 0.09, length = 0.13, cupping = 0.24, 
 }
 
 /* ══════════════════════════════════════════════════════════════
-   LIFELIKE BOTANICAL STEM WITH NATURAL CURVES & LEAVES
+   LIFELIKE BOTANICAL STEM WITH PHYLLOTAXIS LEAVES & SEPALS
 ══════════════════════════════════════════════════════════════ */
 function BotanicalStem({
   height = 0.45,
-  curveX = 0.04,
+  curveX = 0.03,
   curveZ = 0.02,
   leafTex,
 }: {
@@ -173,7 +173,6 @@ function BotanicalStem({
 
   return (
     <group>
-      {/* Organic Curved Stem */}
       <mesh geometry={stemGeom} material={stemMat} castShadow />
 
       {/* Paired Curved Botanical Leaves */}
@@ -229,6 +228,7 @@ function MasterpieceFlower({
   const bloomGroupRef = useRef<THREE.Group>(null);
   const pollenLightRef = useRef<THREE.PointLight>(null);
   const currentBloom = useRef(0.35); // bud state
+  const physicalSway = useRef(0);
 
   const gardenBloomed = useStoryStore((s) => s.gardenBloomed);
   const bloomFlower = useStoryStore((s) => s.bloomFlower);
@@ -250,16 +250,18 @@ function MasterpieceFlower({
     [petalTexture]
   );
 
-  // Soft rounded petal geometries for distinct whorls
   const budPetalGeo = useMemo(() => createSmoothPetalGeometry(0.065, 0.085, 0.35, 0.04), []);
   const midPetalGeo = useMemo(() => createSmoothPetalGeometry(0.082, 0.11, 0.28, 0.1), []);
   const outerPetalGeo = useMemo(() => createSmoothPetalGeometry(0.095, 0.13, 0.2, 0.16), []);
 
   const handleClick = (e: any) => {
     e.stopPropagation();
+    physicalSway.current = 0.22; // Physical impulse
     if (!isBloomed) {
       bloomFlower(idx);
       playFlowerBloomSound(idx);
+    } else {
+      playChime(1.2 + idx * 0.1);
     }
   };
 
@@ -267,8 +269,12 @@ function MasterpieceFlower({
     if (!groupRef.current || !bloomGroupRef.current) return;
     const t = clock.getElapsedTime();
 
-    // Natural botanical breeze sway
-    groupRef.current.rotation.y = rot[1] + Math.sin(t * 0.7 + phase) * 0.03;
+    // Dampen physical sway impulse
+    physicalSway.current *= 0.92;
+
+    // Natural botanical breeze sway + physical reaction
+    groupRef.current.rotation.y = rot[1] + Math.sin(t * 0.7 + phase) * 0.03 + physicalSway.current;
+    groupRef.current.rotation.z = rot[2] + Math.sin(t * 0.9 + phase) * 0.02 + physicalSway.current * 0.5;
     groupRef.current.position.y = pos[1] + Math.sin(t * 0.85 + phase) * 0.005;
 
     // Smooth blooming spring interpolation
@@ -286,7 +292,6 @@ function MasterpieceFlower({
     }
   });
 
-  // Golden Central Pistil & Stamen Material
   const pollenMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -298,7 +303,6 @@ function MasterpieceFlower({
     [isBloomed]
   );
 
-  // Concentric petal layers for realistic flower anatomy
   const innerBudPetals = useMemo(
     () =>
       Array.from({ length: 5 }, (_, i) => ({
@@ -337,12 +341,17 @@ function MasterpieceFlower({
       scale={[scale, scale, scale]}
       onClick={handleClick}
       onPointerOver={() => {
-        if (!isBloomed) document.body.style.cursor = 'pointer';
+        document.body.style.cursor = 'pointer';
       }}
       onPointerOut={() => {
         document.body.style.cursor = 'default';
       }}
     >
+      {/* Invisible Large Hitbox for Easy Touch Interaction on Mobile */}
+      <mesh position={[0, 0.2, 0]} visible={false}>
+        <sphereGeometry args={[0.3, 8, 8]} />
+      </mesh>
+
       {/* Botanical Stem with Leaves and Calyx */}
       <BotanicalStem height={0.42} curveX={0.03} curveZ={0.02} leafTex={leafTex} />
 
@@ -413,13 +422,133 @@ function MasterpieceFlower({
 }
 
 /* ══════════════════════════════════════════════════════════════
+   MINIATURE COBBLESTONE GARDEN PATHWAY & ARCH GATE
+══════════════════════════════════════════════════════════════ */
+function GardenEntrancePathway() {
+  const stoneMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#4E453D'),
+        roughness: 0.85,
+        metalness: 0.04,
+      }),
+    []
+  );
+
+  const archStoneMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#3A322C'),
+        roughness: 0.8,
+        metalness: 0.05,
+      }),
+    []
+  );
+
+  const goldFilletMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#D4AF37'),
+        roughness: 0.3,
+        metalness: 0.8,
+      }),
+    []
+  );
+
+  const lanternGlowMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#FFE5A4'),
+        emissive: new THREE.Color('#FFB877'),
+        emissiveIntensity: 1.8,
+        transparent: true,
+        opacity: 0.95,
+      }),
+    []
+  );
+
+  // Curved cobblestone stepping stones from main table disc toward secret garden
+  const steppingStones = useMemo(
+    () => [
+      { x: -0.25, y: 0.015, z: -0.15, rx: 0.22, rz: 0.16, rot: 0.2 },
+      { x: -0.42, y: 0.018, z: -0.35, rx: 0.24, rz: 0.17, rot: -0.15 },
+      { x: -0.62, y: 0.020, z: -0.58, rx: 0.26, rz: 0.18, rot: 0.3 },
+      { x: -0.80, y: 0.022, z: -0.80, rx: 0.28, rz: 0.20, rot: -0.1 },
+    ],
+    []
+  );
+
+  return (
+    <group>
+      {/* Cobblestone Stepping Stones */}
+      {steppingStones.map((s, i) => (
+        <group key={i} position={[s.x, s.y, s.z]} rotation={[0, s.rot, 0]}>
+          <mesh material={stoneMat} receiveShadow castShadow>
+            <cylinderGeometry args={[s.rx, s.rx * 1.05, 0.03, 14]} />
+          </mesh>
+          <mesh position={[0, 0.016, 0]} material={goldFilletMat}>
+            <torusGeometry args={[s.rx * 0.92, 0.004, 4, 14]} />
+          </mesh>
+        </group>
+      ))}
+
+      {/* Miniature Wrought-Stone Garden Arch Gate at [-0.68, 0, -0.65] */}
+      <group position={[-0.68, 0.0, -0.65]} rotation={[0, Math.PI / 4, 0]}>
+        {/* Left Stone Pillar */}
+        <mesh position={[-0.32, 0.35, 0]} material={archStoneMat} castShadow>
+          <boxGeometry args={[0.09, 0.7, 0.09]} />
+        </mesh>
+        <mesh position={[-0.32, 0.72, 0]} material={goldFilletMat}>
+          <sphereGeometry args={[0.038, 8, 8]} />
+        </mesh>
+
+        {/* Right Stone Pillar */}
+        <mesh position={[0.32, 0.35, 0]} material={archStoneMat} castShadow>
+          <boxGeometry args={[0.09, 0.7, 0.09]} />
+        </mesh>
+        <mesh position={[0.32, 0.72, 0]} material={goldFilletMat}>
+          <sphereGeometry args={[0.038, 8, 8]} />
+        </mesh>
+
+        {/* Overhead Curved Arch */}
+        <mesh position={[0, 0.68, 0]} material={goldFilletMat}>
+          <torusGeometry args={[0.32, 0.016, 8, 20, Math.PI]} />
+        </mesh>
+
+        {/* Hanging Lantern 1 (Left) */}
+        <group position={[-0.26, 0.52, 0]}>
+          <mesh position={[0, 0, 0]} material={goldFilletMat}>
+            <cylinderGeometry args={[0.024, 0.024, 0.05, 8]} />
+          </mesh>
+          <mesh position={[0, -0.01, 0]} material={lanternGlowMat}>
+            <sphereGeometry args={[0.022, 8, 8]} />
+          </mesh>
+          <pointLight color="#FFE5A4" intensity={0.65} distance={2.5} decay={2} position={[0, -0.01, 0]} />
+        </group>
+
+        {/* Hanging Lantern 2 (Right) */}
+        <group position={[0.26, 0.52, 0]}>
+          <mesh position={[0, 0, 0]} material={goldFilletMat}>
+            <cylinderGeometry args={[0.024, 0.024, 0.05, 8]} />
+          </mesh>
+          <mesh position={[0, -0.01, 0]} material={lanternGlowMat}>
+            <sphereGeometry args={[0.022, 8, 8]} />
+          </mesh>
+          <pointLight color="#FFE5A4" intensity={0.65} distance={2.5} decay={2} position={[0, -0.01, 0]} />
+        </group>
+      </group>
+    </group>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════
    LUSH ARTISAN STONE & MOSSY TERRACOTTA GARDEN PLANTER BED
 ══════════════════════════════════════════════════════════════ */
 function GardenPlanterBed() {
   const earthMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#2A1D13'),
+        color: new THREE.Color('#24180E'),
         roughness: 0.95,
       }),
     []
@@ -438,7 +567,7 @@ function GardenPlanterBed() {
     () =>
       new THREE.MeshStandardMaterial({
         color: new THREE.Color('#4A3E38'),
-        roughness: 0.7,
+        roughness: 0.75,
       }),
     []
   );
@@ -457,39 +586,175 @@ function GardenPlanterBed() {
     <group position={[0, 0.22, 0]}>
       {/* Stone Pedestal Planter */}
       <mesh material={stoneMat} castShadow receiveShadow>
-        <cylinderGeometry args={[0.42, 0.36, 0.28, 32]} />
+        <cylinderGeometry args={[0.44, 0.38, 0.28, 32]} />
       </mesh>
       {/* Gold Trim Ring */}
       <mesh position={[0, 0.14, 0]} material={goldFilletMat}>
-        <torusGeometry args={[0.42, 0.012, 8, 32]} />
+        <torusGeometry args={[0.44, 0.012, 8, 32]} />
       </mesh>
       {/* Rich Moist Earth Soil Top */}
       <mesh position={[0, 0.13, 0]} material={earthMat} receiveShadow>
-        <cylinderGeometry args={[0.40, 0.40, 0.02, 32]} />
+        <cylinderGeometry args={[0.42, 0.42, 0.02, 32]} />
       </mesh>
       {/* Lush Green Moss Mound */}
       <mesh position={[0, 0.145, 0]} material={mossMat}>
-        <sphereGeometry args={[0.38, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.35]} />
+        <sphereGeometry args={[0.40, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.35]} />
       </mesh>
     </group>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════
-   AMBIENT GLOWING GARDEN FIREFLIES / STARLIGHT PARTICLES
+   DORAEMON EASTER EGG (Miniature Handcrafted Blue Bell Charm)
+   Nestled subtly in the mossy rocks for Tithi to discover!
+══════════════════════════════════════════════════════════════ */
+function DoraemonEasterEggBell() {
+  const bellRef = useRef<THREE.Group>(null);
+  const bellMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#1E88E5'), // Vibrant Doraemon Sky Blue
+        metalness: 0.85,
+        roughness: 0.25,
+      }),
+    []
+  );
+
+  const goldTrimMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#FFD700'),
+        metalness: 0.9,
+        roughness: 0.2,
+      }),
+    []
+  );
+
+  const handleEasterEggClick = (e: any) => {
+    e.stopPropagation();
+    playChime(1.8);
+    if (bellRef.current) {
+      bellRef.current.rotation.z += 0.4;
+      setTimeout(() => {
+        if (bellRef.current) bellRef.current.rotation.z -= 0.4;
+      }, 300);
+    }
+  };
+
+  return (
+    <group
+      ref={bellRef}
+      position={[-0.24, 0.38, 0.18]}
+      rotation={[0.2, 0.4, -0.1]}
+      scale={[0.65, 0.65, 0.65]}
+      onClick={handleEasterEggClick}
+      onPointerOver={() => {
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        document.body.style.cursor = 'default';
+      }}
+    >
+      {/* Small Doraemon Blue Sphere Bell */}
+      <mesh material={bellMat} castShadow>
+        <sphereGeometry args={[0.032, 16, 16]} />
+      </mesh>
+      {/* Gold Collar Ring */}
+      <mesh position={[0, 0.012, 0]} material={goldTrimMat}>
+        <torusGeometry args={[0.033, 0.005, 6, 16]} />
+      </mesh>
+      {/* Tiny Bell Sound Slot Hole */}
+      <mesh position={[0, -0.015, 0.028]}>
+        <circleGeometry args={[0.006, 8]} />
+        <meshBasicMaterial color="#0B132B" />
+      </mesh>
+    </group>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   INTELLIGENT GUIDE FIREFLY WITH LIGHT TRAIL
+   Naturally leads player to unbloomed flowers & illuminates exit!
+══════════════════════════════════════════════════════════════ */
+function GuideFirefly() {
+  const fireflyGroupRef = useRef<THREE.Group>(null);
+  const lightRef = useRef<THREE.PointLight>(null);
+  const gardenBloomed = useStoryStore((s) => s.gardenBloomed);
+
+  // Flower target coordinates
+  const flowerTargets = useMemo(
+    () => [
+      [-0.14, 0.62, 0.05],
+      [0.13, 0.65, -0.04],
+      [0.0, 0.70, 0.09],
+      [-0.1, 0.59, -0.09],
+      [0.11, 0.60, 0.08],
+    ],
+    []
+  );
+
+  // Next target position
+  const targetPos = useMemo(() => {
+    for (let i = 0; i < GARDEN_FLOWERS.length; i++) {
+      if (!gardenBloomed.includes(i)) {
+        return flowerTargets[i];
+      }
+    }
+    // If all bloomed, hover above the illuminated exit path
+    return [0.0, 1.2, 0.3];
+  }, [gardenBloomed, flowerTargets]);
+
+  useFrame(({ clock }) => {
+    if (!fireflyGroupRef.current) return;
+    const t = clock.getElapsedTime();
+
+    // Smooth asymptotic glide toward target
+    fireflyGroupRef.current.position.x +=
+      (targetPos[0] + Math.sin(t * 2.2) * 0.04 - fireflyGroupRef.current.position.x) * 0.06;
+    fireflyGroupRef.current.position.y +=
+      (targetPos[1] + Math.cos(t * 1.8) * 0.04 - fireflyGroupRef.current.position.y) * 0.06;
+    fireflyGroupRef.current.position.z +=
+      (targetPos[2] + Math.sin(t * 2.5) * 0.04 - fireflyGroupRef.current.position.z) * 0.06;
+
+    // Glowing pulse
+    if (lightRef.current) {
+      lightRef.current.intensity = 0.95 + Math.sin(t * 5.0) * 0.35;
+    }
+  });
+
+  return (
+    <group ref={fireflyGroupRef} position={[-0.14, 0.6, 0.05]}>
+      {/* Luminous Firefly Core */}
+      <mesh>
+        <sphereGeometry args={[0.016, 8, 8]} />
+        <meshBasicMaterial color="#FFF9C4" />
+      </mesh>
+      {/* Translucent Golden Halo */}
+      <mesh>
+        <sphereGeometry args={[0.038, 8, 8]} />
+        <meshBasicMaterial color="#FFE5A4" transparent opacity={0.45} depthWrite={false} />
+      </mesh>
+      {/* Guide Firefly Point Light */}
+      <pointLight ref={lightRef} color="#FFE5A4" intensity={1.1} distance={2.2} decay={2} />
+    </group>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   AMBIENT GLOWING GARDEN FIREFLIES SWARM
 ══════════════════════════════════════════════════════════════ */
 function GardenFireflies() {
   const pointsRef = useRef<THREE.Points>(null);
-  const count = 36;
+  const count = 42;
 
   const [positions, phases] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const ph = new Float32Array(count);
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const r = 0.2 + Math.random() * 0.55;
+      const r = 0.18 + Math.random() * 0.62;
       pos[i * 3] = Math.cos(angle) * r;
-      pos[i * 3 + 1] = 0.4 + Math.random() * 0.7;
+      pos[i * 3 + 1] = 0.35 + Math.random() * 0.8;
       pos[i * 3 + 2] = Math.sin(angle) * r;
       ph[i] = Math.random() * Math.PI * 2;
     }
@@ -511,14 +776,11 @@ function GardenFireflies() {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         color="#FFE5A4"
-        size={0.035}
+        size={0.032}
         transparent
         opacity={0.85}
         blending={THREE.AdditiveBlending}
@@ -529,24 +791,33 @@ function GardenFireflies() {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   FLOWERS SCENE OBJECT (Real Lush Garden & 5 Botanical Blooms)
+   ENCHANTED 3D SECRET GARDEN SCENE OBJECT
 ══════════════════════════════════════════════════════════════ */
 export function Flowers() {
   const leafTexture = useMemo(() => createLeafTexture(), []);
 
   return (
     <group position={[-1.0, 0.01, -1.0]}>
-      {/* Warm Ambient Garden Starlight */}
-      <pointLight color="#FFE5A4" intensity={1.1} distance={5.5} position={[0, 1.3, 0]} />
+      {/* Warm Ambient Starlight for the Garden */}
+      <pointLight color="#FFE5A4" intensity={1.15} distance={5.5} position={[0, 1.3, 0]} />
 
-      {/* Lush Stone Garden Planter Bed with Earth & Moss */}
+      {/* Cobblestone Garden Path & Arch Gate */}
+      <GardenEntrancePathway />
+
+      {/* Lush Stone Planter Bed with Earth & Moss Mound */}
       <GardenPlanterBed />
 
-      {/* Floating Gentle Fireflies & Pollen Motes */}
+      {/* Ambient Floating Fireflies Swarm */}
       <GardenFireflies />
 
+      {/* Intelligent Golden Guide Firefly */}
+      <GuideFirefly />
+
+      {/* Doraemon Easter Egg Blue Bell */}
+      <DoraemonEasterEggBell />
+
       {/* 5 Distinct Photorealistic Botanical Garden Blooms */}
-      {/* 0. Blush Camellia (Soft Velvet Rose Pink) */}
+      {/* 0. Blush Camellia (Velvet Rose Pink) — "Stay curious." */}
       <MasterpieceFlower
         idx={0}
         species="camellia"
@@ -559,7 +830,7 @@ export function Flowers() {
         leafTex={leafTexture}
       />
 
-      {/* 1. Golden Marigold (Radiant Amber Gold) */}
+      {/* 1. Golden Marigold (Radiant Amber Gold) — "Keep learning." */}
       <MasterpieceFlower
         idx={1}
         species="marigold"
@@ -572,7 +843,7 @@ export function Flowers() {
         leafTex={leafTexture}
       />
 
-      {/* 2. Lavender Aster (Serene Royal Lavender) */}
+      {/* 2. Lavender Aster (Royal Velvet Lavender) — "Keep laughing." */}
       <MasterpieceFlower
         idx={2}
         species="aster"
@@ -585,7 +856,7 @@ export function Flowers() {
         leafTex={leafTexture}
       />
 
-      {/* 3. Sage Blossom (Fresh Mint & Emerald Blossom) */}
+      {/* 3. Sage Blossom (Mint & Emerald Blossom) — "Try new things." */}
       <MasterpieceFlower
         idx={3}
         species="sage"
@@ -598,7 +869,7 @@ export function Flowers() {
         leafTex={leafTexture}
       />
 
-      {/* 4. Starlight Daisy (Pure Ivory Daisy with Golden Center) */}
+      {/* 4. Starlight Daisy (Pure Ivory with Golden Pistil) — "Enjoy the little things." */}
       <MasterpieceFlower
         idx={4}
         species="daisy"
