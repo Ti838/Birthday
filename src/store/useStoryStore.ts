@@ -27,6 +27,7 @@ interface StoryState {
   hint: string;
   showContinue: boolean;
   showReplay: boolean;
+  journeyId: number;
 
   setStage: (s: Stage) => void;
   setTheme: (t: Theme) => void;
@@ -54,6 +55,7 @@ interface StoryState {
   setShowContinue: (v: boolean) => void;
   setShowReplay: (v: boolean) => void;
   resetExperience: () => void;
+  resetJourney: () => void;
 }
 
 export const useStoryStore = create<StoryState>((set) => ({
@@ -81,6 +83,7 @@ export const useStoryStore = create<StoryState>((set) => ({
   hint: '',
   showContinue: false,
   showReplay: false,
+  journeyId: 0,
 
   setStage: (stage) => set({ stage }),
   setTheme: (theme) => set({ theme }),
@@ -158,5 +161,27 @@ export const useStoryStore = create<StoryState>((set) => ({
       hint: '',
       showContinue: false,
       showReplay: false,
+      journeyId: 0,
     }),
+  resetJourney: () =>
+    set((s) => ({
+      giftOpened: false,
+      letterOpened: false,
+      letterPage: 0,
+      constellationStars: [],
+      poppedBalloons: [],
+      starsCollected: 0,
+      gardenBloomed: [],
+      gardenCompleted: false,
+      activeFlowerIndex: null,
+      candlesBlown: false,
+      wishMade: false,
+      fireworksStarted: false,
+      finalSurpriseOpened: false,
+      caption: '',
+      hint: '',
+      showContinue: false,
+      showReplay: false,
+      journeyId: s.journeyId + 1,
+    })),
 }));

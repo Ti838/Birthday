@@ -249,6 +249,8 @@ export default function Experience() {
   const stage = useStoryStore((s) => s.stage);
   const isVIP = useStoryStore((s) => s.isVIP);
   const setVIP = useStoryStore((s) => s.setVIP);
+  const resetJourney = useStoryStore((s) => s.resetJourney);
+  const journeyId = useStoryStore((s) => s.journeyId);
   const theme = useStoryStore((s) => s.theme);
   const weather = useStoryStore((s) => s.weather);
   const setStage = useStoryStore((s) => s.setStage);
@@ -366,6 +368,7 @@ export default function Experience() {
   }, []);
 
   const handleGuestUnlockVIP = useCallback(async () => {
+    resetJourney();
     setVIP(true);
     // Restart the experience from absolute beginning with cinematic intro!
     setStage('01_intro_cinematic');
@@ -380,7 +383,7 @@ export default function Experience() {
       showCaption('Every birthday needs a present... ✦', 2000);
       setHint('Tap the glowing gift box to open ✦');
     }, 5500);
-  }, [setVIP, setStage, isMobile, tweenCam, showCaption, setHint]);
+  }, [setVIP, setStage, isMobile, tweenCam, showCaption, setHint, resetJourney]);
 
   // Stage 02 -> 03: Gift Opened -> World Reveal & Push to Letter Desk
   const handleGiftBoxClick = useCallback(async () => {
@@ -570,14 +573,16 @@ export default function Experience() {
         <Flowers />
         <Chocolates />
         <Balloons
+          key={`balloons-${journeyId}`}
           interactive={isVIP && balloonsInteractive}
           onAllPopped={handleContinueToStarGame}
         />
-        <Cake />
+        <Cake key={`cake-${journeyId}`} />
 
         {/* Story Gift Box & Antique Letter Writing Desk */}
-        <GiftBox onOpen={handleGiftBoxClick} />
+        <GiftBox key={`gift-${journeyId}`} onOpen={handleGiftBoxClick} />
         <Envelope
+          key={`env-${journeyId}`}
           interactive={isVIP ? envelopeInteractive : false}
           onOpen={handleEnvelopeClick}
         />
