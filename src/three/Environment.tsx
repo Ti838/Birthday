@@ -113,41 +113,34 @@ export function Environment({ isNight }: { isNight: boolean }) {
         />
       ))}
 
-      {/* ── Small House Diorama ── */}
-      <group position={[-3.6, 0, -3.4]} scale={[1.15, 1.15, 1.15]}>
-        <mesh position={[0, 0.4, 0]} castShadow>
-          <boxGeometry args={[1.1, 0.8, 0.9]} />
-          <meshStandardMaterial color={0xc9b08c} roughness={0.9} />
+      {/* ── Dynamic Sun / Moon Celestial Disc & Radiant Aura ── */}
+      <group position={celestialProps.pos}>
+        {/* Core celestial disc */}
+        <mesh>
+          <sphereGeometry args={[celestialProps.size, 32, 32]} />
+          <meshBasicMaterial color={celestialProps.color} />
         </mesh>
-        <mesh position={[0, 1.05, 0]} rotation={[0, Math.PI / 4, 0]}>
-          <coneGeometry args={[0.85, 0.55, 4]} />
-          <meshStandardMaterial color={0x8a5a42} roughness={0.86} />
-        </mesh>
-        {/* Glowing window */}
-        <mesh position={[0, 0.45, 0.46]}>
-          <planeGeometry args={[0.18, 0.18]} />
-          <meshStandardMaterial
-            color={0xffd79a}
-            emissive={new THREE.Color(0xffb877)}
-            emissiveIntensity={isNight || timeOfDay === 'night' || timeOfDay === 'dusk' ? 1.4 : 0.3}
+        {/* Sun/Moon Radiant atmospheric halo */}
+        <mesh scale={[1.8, 1.8, 1.8]}>
+          <circleGeometry args={[celestialProps.size, 32]} />
+          <meshBasicMaterial
+            color={celestialProps.color}
+            transparent
+            opacity={timeOfDay === 'day' ? 0.35 : 0.22}
+            depthWrite={false}
           />
         </mesh>
       </group>
 
-      {/* ── Dynamic Sun / Moon Celestial Disc ── */}
-      <mesh position={celestialProps.pos}>
-        <circleGeometry args={[celestialProps.size, 32]} />
-        <meshBasicMaterial color={celestialProps.color} />
-      </mesh>
-
-      {/* ── Stars (visible during clear night, dusk, and dawn) ── */}
-      {(isNight || timeOfDay === 'night' || timeOfDay === 'dusk') &&
-        Array.from({ length: 60 }, (_, i) => {
-          const a = Math.random() * Math.PI * 2;
-          const r = 5 + Math.random() * 8;
+      {/* ── Stars (Only visible at Night, Dusk, or Dawn) ── */}
+      {(timeOfDay === 'night' || timeOfDay === 'dusk' || timeOfDay === 'dawn') &&
+        Array.from({ length: 70 }, (_, i) => {
+          const a = (i / 70) * Math.PI * 2 + (i % 5) * 0.3;
+          const r = 4 + (i % 7) * 1.1;
+          const y = 4.5 + (i % 6) * 0.8;
           return (
-            <mesh key={i} position={[Math.cos(a) * r, 5 + Math.random() * 4, Math.sin(a) * r - 6]}>
-              <sphereGeometry args={[0.02 + Math.random() * 0.025, 4, 4]} />
+            <mesh key={i} position={[Math.cos(a) * r, y, Math.sin(a) * r - 4.5]}>
+              <sphereGeometry args={[0.022 + (i % 3) * 0.012, 4, 4]} />
               <meshBasicMaterial color={0xfff6e0} />
             </mesh>
           );

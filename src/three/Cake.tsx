@@ -255,7 +255,11 @@ export function Cake() {
       if (blown.current) return;
       blown.current = true;
 
-      // 1. Extinguish flames with soft scale fade
+      // 1. Extinguish flames with soft scale fade & dim point light
+      if (candleLightRef.current) {
+        gsap.to(candleLightRef.current, { intensity: 0, duration: 0.6, ease: 'power2.out' });
+      }
+
       flameRefs.forEach((ref, i) => {
         if (!ref.current) return;
         const mat = ref.current.material as THREE.MeshStandardMaterial;
@@ -264,13 +268,13 @@ export function Cake() {
           y: 0,
           z: 0,
           duration: 0.45,
-          delay: i * 0.1,
+          delay: i * 0.08,
           ease: 'power2.in',
         });
         gsap.to(mat, {
           opacity: 0,
           duration: 0.45,
-          delay: i * 0.1,
+          delay: i * 0.08,
           onComplete: () => {
             if (ref.current) ref.current.visible = false;
           },
@@ -595,18 +599,17 @@ export function Cake() {
             position={[0, 0.285, 0]}
           >
             <coneGeometry args={[0.022, 0.075, 10]} />
-          </mesh>
-
-          {/* Luminous Flame Inner Core */}
-          <mesh position={[0, 0.278, 0]}>
-            <coneGeometry args={[0.01, 0.036, 8]} />
-            <meshStandardMaterial
-              color={0xFFFFF0}
-              emissive={new THREE.Color(0xFFFFB0)}
-              emissiveIntensity={3.5}
-              transparent
-              opacity={0.9}
-            />
+            {/* Luminous Flame Inner Core */}
+            <mesh position={[0, -0.007, 0]}>
+              <coneGeometry args={[0.01, 0.036, 8]} />
+              <meshStandardMaterial
+                color={0xFFFFF0}
+                emissive={new THREE.Color(0xFFFFB0)}
+                emissiveIntensity={3.5}
+                transparent
+                opacity={0.9}
+              />
+            </mesh>
           </mesh>
 
           {/* Smoke Puff upon extinguish */}

@@ -108,92 +108,93 @@ function CameraController() {
 }
 
 // ─── Real-Time Weather & Time-of-Day Scene Lighting ───────────────────
-function SceneLighting({ isNight }: { isNight: boolean }) {
+function SceneLighting() {
   const weather = useStoryStore((s) => s.weather);
   const timeOfDay = weather.timeOfDay;
   const cloudCoverage = weather.cloudCoverage ?? 0.15;
   const fogDensity = weather.fogDensity ?? 0.05;
 
   const lighting = useMemo(() => {
-    // Night / Darkness
-    if (isNight || timeOfDay === 'night') {
+    // Clear / Cloudy Daytime (10:00 AM - 4:30 PM) -> Radiant Blue Sky!
+    if (timeOfDay === 'day') {
+      const isCloudy = cloudCoverage > 0.45;
       return {
-        sky: '#070913',
-        fog: '#0e1225',
-        fogDensity: 0.024 + fogDensity * 0.035,
-        ambientColor: '#8FA5D8',
-        ambientIntensity: 0.75,
-        sunColor: '#FFE5A4',
-        sunIntensity: 0.85 * (1 - cloudCoverage * 0.3),
-        fillColor: '#7A8CDE',
-        fillIntensity: 0.35,
-        hemiSky: '#8EA4E8',
-        hemiGround: '#0E1225',
+        sky: isCloudy ? '#7D9BB8' : '#4E92E8',
+        fog: isCloudy ? '#96B1CB' : '#7CB4F8',
+        fogDensity: 0.015 + fogDensity * 0.025,
+        ambientColor: '#FFFFFF',
+        ambientIntensity: isCloudy ? 0.95 : 1.18,
+        sunColor: '#FFF8E7',
+        sunIntensity: isCloudy ? 1.05 : 1.55,
+        fillColor: '#E3F2FD',
+        fillIntensity: 0.55,
+        hemiSky: '#E1F5FE',
+        hemiGround: '#8D6E63',
       };
     }
-    // Dusk / Twilight
+    // Dawn (Sunrise)
+    if (timeOfDay === 'dawn') {
+      return {
+        sky: '#3F4E75',
+        fog: '#5C6B94',
+        fogDensity: 0.022 + fogDensity * 0.03,
+        ambientColor: '#FFE0B2',
+        ambientIntensity: 0.88,
+        sunColor: '#FFCC80',
+        sunIntensity: 1.25 * (1 - cloudCoverage * 0.3),
+        fillColor: '#CE93D8',
+        fillIntensity: 0.45,
+        hemiSky: '#E8EAF6',
+        hemiGround: '#3E2723',
+      };
+    }
+    // Golden Sunset (Golden Hour)
+    if (timeOfDay === 'sunset') {
+      return {
+        sky: '#E06D53',
+        fog: '#C85A48',
+        fogDensity: 0.022 + fogDensity * 0.03,
+        ambientColor: '#FFE0B2',
+        ambientIntensity: 0.92,
+        sunColor: '#FFA726',
+        sunIntensity: 1.35 * (1 - cloudCoverage * 0.3),
+        fillColor: '#FF7043',
+        fillIntensity: 0.52,
+        hemiSky: '#FFCCBC',
+        hemiGround: '#4E342E',
+      };
+    }
+    // Dusk (Twilight)
     if (timeOfDay === 'dusk') {
       return {
-        sky: '#121630',
-        fog: '#161c38',
-        fogDensity: 0.026 + fogDensity * 0.035,
-        ambientColor: '#9575CD',
-        ambientIntensity: 0.72,
+        sky: '#1E1B38',
+        fog: '#2A244D',
+        fogDensity: 0.025 + fogDensity * 0.035,
+        ambientColor: '#B39DDB',
+        ambientIntensity: 0.78,
         sunColor: '#D1C4E9',
-        sunIntensity: 0.8,
+        sunIntensity: 0.85,
         fillColor: '#7E57C2',
-        fillIntensity: 0.38,
+        fillIntensity: 0.4,
         hemiSky: '#9FA8DA',
         hemiGround: '#1A237E',
       };
     }
-    // Golden Sunset
-    if (timeOfDay === 'sunset') {
-      return {
-        sky: '#2C1826',
-        fog: '#331B2A',
-        fogDensity: 0.028 + fogDensity * 0.035,
-        ambientColor: '#FFCCBC',
-        ambientIntensity: 0.82,
-        sunColor: '#FFA07A',
-        sunIntensity: 1.25 * (1 - cloudCoverage * 0.4),
-        fillColor: '#FF8A65',
-        fillIntensity: 0.48,
-        hemiSky: '#FFE0B2',
-        hemiGround: '#4E342E',
-      };
-    }
-    // Dawn
-    if (timeOfDay === 'dawn') {
-      return {
-        sky: '#181E3B',
-        fog: '#222340',
-        fogDensity: 0.028 + fogDensity * 0.035,
-        ambientColor: '#E1BEE7',
-        ambientIntensity: 0.76,
-        sunColor: '#FFD194',
-        sunIntensity: 1.15 * (1 - cloudCoverage * 0.4),
-        fillColor: '#CE93D8',
-        fillIntensity: 0.42,
-        hemiSky: '#E8EAF6',
-        hemiGround: '#311B92',
-      };
-    }
-    // Clear / Cloudy Daytime
+    // Midnight Stars & Moon Night
     return {
-      sky: cloudCoverage > 0.5 ? '#242C3D' : '#141E33',
-      fog: cloudCoverage > 0.5 ? '#283142' : '#1A253C',
-      fogDensity: 0.025 + fogDensity * 0.035,
-      ambientColor: cloudCoverage > 0.5 ? '#D7CCC8' : '#FFE8D0',
-      ambientIntensity: cloudCoverage > 0.5 ? 0.7 : 0.88,
-      sunColor: '#FFF3DD',
-      sunIntensity: 1.35 * (1 - cloudCoverage * 0.5),
-      fillColor: '#FFE0B2',
-      fillIntensity: 0.45,
-      hemiSky: '#E0F2F1',
-      hemiGround: '#5D4037',
+      sky: '#070B19',
+      fog: '#0C1226',
+      fogDensity: 0.024 + fogDensity * 0.035,
+      ambientColor: '#8FA5D8',
+      ambientIntensity: 0.78,
+      sunColor: '#FFE5A4',
+      sunIntensity: 0.88 * (1 - cloudCoverage * 0.3),
+      fillColor: '#7A8CDE',
+      fillIntensity: 0.38,
+      hemiSky: '#8EA4E8',
+      hemiGround: '#0E1225',
     };
-  }, [isNight, timeOfDay, cloudCoverage, fogDensity]);
+  }, [timeOfDay, cloudCoverage, fogDensity]);
 
   return (
     <>
@@ -203,11 +204,11 @@ function SceneLighting({ isNight }: { isNight: boolean }) {
       {/* Ambient lighting */}
       <ambientLight color={lighting.ambientColor} intensity={lighting.ambientIntensity} />
 
-      {/* Key light */}
+      {/* Key sun/moon light */}
       <directionalLight
         color={lighting.sunColor}
         intensity={lighting.sunIntensity}
-        position={[5, 11, 6]}
+        position={[5, 12, 6]}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -224,8 +225,8 @@ function SceneLighting({ isNight }: { isNight: boolean }) {
 
       {/* Back rim */}
       <directionalLight
-        color="#7A8CDE"
-        intensity={0.3}
+        color={timeOfDay === 'day' ? '#FFF' : '#7A8CDE'}
+        intensity={timeOfDay === 'day' ? 0.45 : 0.3}
         position={[-4, 3, -8]}
       />
 
@@ -233,7 +234,7 @@ function SceneLighting({ isNight }: { isNight: boolean }) {
       <hemisphereLight
         color={lighting.hemiSky}
         groundColor={lighting.hemiGround}
-        intensity={0.4}
+        intensity={0.45}
       />
     </>
   );
@@ -546,7 +547,7 @@ export default function Experience() {
         }}
       >
         <CameraController />
-        <SceneLighting isNight={isNight} />
+        <SceneLighting />
 
         <Environment isNight={isNight} />
         <WeatherSystem />

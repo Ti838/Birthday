@@ -445,16 +445,6 @@ function GardenEntrancePathway() {
     []
   );
 
-  const goldFilletMat = useMemo(
-    () =>
-      new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#D4AF37'),
-        roughness: 0.3,
-        metalness: 0.8,
-      }),
-    []
-  );
-
   const lanternGlowMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -484,80 +474,155 @@ function GardenEntrancePathway() {
       {steppingStones.map((s, i) => (
         <group key={i} position={[s.x, s.y, s.z]} rotation={[0, s.rot, 0]}>
           <mesh material={stoneMat} receiveShadow castShadow>
-            <cylinderGeometry args={[s.rx, s.rx * 1.05, 0.03, 14]} />
-          </mesh>
-          <mesh position={[0, 0.016, 0]} material={goldFilletMat}>
-            <torusGeometry args={[s.rx * 0.92, 0.004, 4, 14]} />
+            <cylinderGeometry args={[s.rx, s.rx * 1.08, 0.025, 14]} />
           </mesh>
         </group>
       ))}
 
-      {/* Miniature Wrought-Stone Garden Arch Gate at [0.65, 0.0, 0.38] */}
-      <group position={[0.65, 0.0, 0.38]} rotation={[0, Math.PI / 4, 0]}>
-        {/* Left Stone Pillar */}
-        <mesh position={[-0.32, 0.35, 0]} material={archStoneMat} castShadow>
-          <boxGeometry args={[0.09, 0.7, 0.09]} />
+      {/* Garden Path Stake Lantern at Entrance */}
+      <group position={[1.1, 0, 0.45]}>
+        <mesh position={[0, 0.22, 0]} castShadow>
+          <cylinderGeometry args={[0.02, 0.025, 0.44, 8]} />
+          <meshStandardMaterial color="#4A2E1B" roughness={0.8} />
         </mesh>
-        <mesh position={[-0.32, 0.72, 0]} material={goldFilletMat}>
-          <sphereGeometry args={[0.038, 8, 8]} />
+        <mesh position={[0, 0.44, 0]} material={archStoneMat}>
+          <cylinderGeometry args={[0.045, 0.045, 0.08, 6]} />
         </mesh>
-
-        {/* Right Stone Pillar */}
-        <mesh position={[0.32, 0.35, 0]} material={archStoneMat} castShadow>
-          <boxGeometry args={[0.09, 0.7, 0.09]} />
+        <mesh position={[0, 0.44, 0]} material={lanternGlowMat}>
+          <sphereGeometry args={[0.035, 8, 8]} />
         </mesh>
-        <mesh position={[0.32, 0.72, 0]} material={goldFilletMat}>
-          <sphereGeometry args={[0.038, 8, 8]} />
-        </mesh>
-
-        {/* Overhead Curved Arch */}
-        <mesh position={[0, 0.68, 0]} material={goldFilletMat}>
-          <torusGeometry args={[0.32, 0.016, 8, 20, Math.PI]} />
-        </mesh>
-
-        {/* Hanging Lantern 1 (Left) */}
-        <group position={[-0.26, 0.52, 0]}>
-          <mesh position={[0, 0, 0]} material={goldFilletMat}>
-            <cylinderGeometry args={[0.024, 0.024, 0.05, 8]} />
-          </mesh>
-          <mesh position={[0, -0.01, 0]} material={lanternGlowMat}>
-            <sphereGeometry args={[0.022, 8, 8]} />
-          </mesh>
-          <pointLight color="#FFE5A4" intensity={0.65} distance={2.5} decay={2} position={[0, -0.01, 0]} />
-        </group>
-
-        {/* Hanging Lantern 2 (Right) */}
-        <group position={[0.26, 0.52, 0]}>
-          <mesh position={[0, 0, 0]} material={goldFilletMat}>
-            <cylinderGeometry args={[0.024, 0.024, 0.05, 8]} />
-          </mesh>
-          <mesh position={[0, -0.01, 0]} material={lanternGlowMat}>
-            <sphereGeometry args={[0.022, 8, 8]} />
-          </mesh>
-          <pointLight color="#FFE5A4" intensity={0.65} distance={2.5} decay={2} position={[0, -0.01, 0]} />
-        </group>
+        <pointLight color="#FFE5A4" intensity={0.7} distance={3.0} decay={2} position={[0, 0.44, 0]} />
       </group>
     </group>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════
-   LUSH ARTISAN STONE & MOSSY TERRACOTTA GARDEN PLANTER BED
+   AUTHENTIC ENCHANTED BOTANICAL GARDEN TERRAIN & SURROUNDINGS
+   Natural grass meadow • Stone borders • Wooden Pergola • Wisteria
 ══════════════════════════════════════════════════════════════ */
+
+/** Fluttering 3D Butterfly with dual flapping wings */
+function GardenButterfly({
+  startX,
+  startZ,
+  orbitRadius = 0.55,
+  speed = 1.2,
+  color = '#4A90E2',
+  phase = 0,
+}: {
+  startX: number;
+  startZ: number;
+  orbitRadius?: number;
+  speed?: number;
+  color?: string;
+  phase?: number;
+}) {
+  const groupRef = useRef<THREE.Group>(null);
+  const leftWingRef = useRef<THREE.Mesh>(null);
+  const rightWingRef = useRef<THREE.Mesh>(null);
+
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime() * speed + phase;
+    if (groupRef.current) {
+      groupRef.current.position.x = startX + Math.sin(t) * orbitRadius;
+      groupRef.current.position.z = startZ + Math.cos(t * 0.8) * orbitRadius;
+      groupRef.current.position.y = 0.55 + Math.sin(t * 2.2) * 0.15;
+      groupRef.current.rotation.y = -t + Math.PI / 2;
+    }
+
+    const wingAngle = Math.sin(clock.getElapsedTime() * 24.0 + phase) * 0.75;
+    if (leftWingRef.current) leftWingRef.current.rotation.y = wingAngle;
+    if (rightWingRef.current) rightWingRef.current.rotation.y = -wingAngle;
+  });
+
+  return (
+    <group ref={groupRef} position={[startX, 0.55, startZ]} scale={[0.5, 0.5, 0.5]}>
+      {/* Butterfly Body */}
+      <mesh position={[0, 0, 0]}>
+        <cylinderGeometry args={[0.006, 0.008, 0.05, 6]} />
+        <meshStandardMaterial color="#1A1A1A" roughness={0.8} />
+      </mesh>
+      {/* Left Wing */}
+      <mesh ref={leftWingRef} position={[-0.015, 0.005, 0]} rotation={[0, 0, 0]}>
+        <planeGeometry args={[0.045, 0.04]} />
+        <meshStandardMaterial color={new THREE.Color(color)} side={THREE.DoubleSide} roughness={0.4} />
+      </mesh>
+      {/* Right Wing */}
+      <mesh ref={rightWingRef} position={[0.015, 0.005, 0]} rotation={[0, 0, 0]}>
+        <planeGeometry args={[0.045, 0.04]} />
+        <meshStandardMaterial color={new THREE.Color(color)} side={THREE.DoubleSide} roughness={0.4} />
+      </mesh>
+    </group>
+  );
+}
+
+/** Stone Garden Birdbath with water ripple & rose petals */
+function GardenBirdbath({ position }: { position: [number, number, number] }) {
+  const waterRef = useRef<THREE.Mesh>(null);
+
+  useFrame(({ clock }) => {
+    if (waterRef.current) {
+      const t = clock.getElapsedTime();
+      waterRef.current.rotation.z = t * 0.1;
+      (waterRef.current.material as THREE.MeshStandardMaterial).opacity = 0.75 + Math.sin(t * 2.0) * 0.08;
+    }
+  });
+
+  return (
+    <group position={position} scale={[0.85, 0.85, 0.85]}>
+      {/* Stone Base */}
+      <mesh position={[0, 0.06, 0]} castShadow>
+        <cylinderGeometry args={[0.12, 0.15, 0.12, 16]} />
+        <meshStandardMaterial color="#5C554E" roughness={0.85} />
+      </mesh>
+      {/* Pedestal Pillar */}
+      <mesh position={[0, 0.22, 0]} castShadow>
+        <cylinderGeometry args={[0.045, 0.065, 0.22, 12]} />
+        <meshStandardMaterial color="#6B635A" roughness={0.85} />
+      </mesh>
+      {/* Shallow Basin */}
+      <mesh position={[0, 0.35, 0]} castShadow>
+        <cylinderGeometry args={[0.22, 0.14, 0.08, 20]} />
+        <meshStandardMaterial color="#5C554E" roughness={0.85} />
+      </mesh>
+      {/* Water Surface */}
+      <mesh ref={waterRef} position={[0, 0.38, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[0.19, 20]} />
+        <meshStandardMaterial
+          color="#80DEEA"
+          roughness={0.1}
+          metalness={0.6}
+          transparent
+          opacity={0.8}
+        />
+      </mesh>
+      {/* Floating Rose Petals */}
+      {[[0.05, 0.03], [-0.04, -0.06], [0.08, -0.02]].map(([px, pz], i) => (
+        <mesh key={i} position={[px, 0.385, pz]} rotation={[-Math.PI / 2, 0, i * 1.5]}>
+          <circleGeometry args={[0.016, 6]} />
+          <meshStandardMaterial color="#E91E63" roughness={0.5} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+/** Authentic Natural Garden Terrain with Wooden Pergola Trellis */
 function GardenPlanterBed() {
   const earthMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#24180E'),
+        color: new THREE.Color('#2C1E14'),
         roughness: 0.95,
       }),
     []
   );
 
-  const mossMat = useMemo(
+  const grassMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#3B5E28'),
+        color: new THREE.Color('#386624'),
         roughness: 0.85,
       }),
     []
@@ -566,40 +631,149 @@ function GardenPlanterBed() {
   const stoneMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#4A3E38'),
-        roughness: 0.75,
+        color: new THREE.Color('#544A42'),
+        roughness: 0.8,
       }),
     []
   );
 
-  const goldFilletMat = useMemo(
+  const woodTimberMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#D4AF37'),
-        roughness: 0.3,
-        metalness: 0.75,
+        color: new THREE.Color('#4A2E1B'),
+        roughness: 0.85,
+      }),
+    []
+  );
+
+  const wisteriaMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color('#BA68C8'),
+        roughness: 0.5,
       }),
     []
   );
 
   return (
-    <group position={[0, 0.22, 0]}>
-      {/* Stone Pedestal Planter */}
-      <mesh material={stoneMat} castShadow receiveShadow>
-        <cylinderGeometry args={[0.44, 0.38, 0.28, 32]} />
+    <group position={[0, 0.02, 0]}>
+      {/* ── 1. Sprawling Natural Grassy Meadow Base ── */}
+      <mesh position={[0, 0.08, 0]} receiveShadow castShadow>
+        <cylinderGeometry args={[0.92, 0.98, 0.16, 32]} />
+        <primitive object={grassMat} attach="material" />
       </mesh>
-      {/* Gold Trim Ring */}
-      <mesh position={[0, 0.14, 0]} material={goldFilletMat}>
-        <torusGeometry args={[0.44, 0.012, 8, 32]} />
+
+      {/* Gentle Undulating Mound of Rich Topsoil in Center */}
+      <mesh position={[0, 0.16, 0]} receiveShadow>
+        <sphereGeometry args={[0.78, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.28]} />
+        <primitive object={earthMat} attach="material" />
       </mesh>
-      {/* Rich Moist Earth Soil Top */}
-      <mesh position={[0, 0.13, 0]} material={earthMat} receiveShadow>
-        <cylinderGeometry args={[0.42, 0.42, 0.02, 32]} />
+
+      {/* ── 2. Natural River Cobblestone Garden Perimeter ── */}
+      {Array.from({ length: 24 }, (_, i) => {
+        const a = (i / 24) * Math.PI * 2;
+        const r = 0.94 + Math.sin(i * 3.7) * 0.05;
+        const s = 0.065 + (i % 3) * 0.02;
+        return (
+          <mesh
+            key={i}
+            position={[Math.cos(a) * r, 0.12, Math.sin(a) * r]}
+            rotation={[Math.random(), Math.random(), Math.random()]}
+            castShadow
+          >
+            <sphereGeometry args={[s, 8, 8]} />
+            <primitive object={stoneMat} attach="material" />
+          </mesh>
+        );
+      })}
+
+      {/* ── 3. Rustic Wooden Pergola Gazebo Trellis ── */}
+      {/* 4 Wooden Corner Posts */}
+      {[
+        [-0.58, -0.48],
+        [0.58, -0.48],
+        [-0.58, 0.48],
+        [0.58, 0.48],
+      ].map(([px, pz], i) => (
+        <group key={i} position={[px, 0.65, pz]}>
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[0.07, 1.15, 0.07]} />
+            <primitive object={woodTimberMat} attach="material" />
+          </mesh>
+          {/* Post Foot Stone Block */}
+          <mesh position={[0, -0.52, 0]} castShadow>
+            <boxGeometry args={[0.11, 0.12, 0.11]} />
+            <primitive object={stoneMat} attach="material" />
+          </mesh>
+        </group>
+      ))}
+
+      {/* Pergola Overhead Crossbeams */}
+      <mesh position={[0, 1.22, -0.48]} castShadow>
+        <boxGeometry args={[1.35, 0.06, 0.07]} />
+        <primitive object={woodTimberMat} attach="material" />
       </mesh>
-      {/* Lush Green Moss Mound */}
-      <mesh position={[0, 0.145, 0]} material={mossMat}>
-        <sphereGeometry args={[0.40, 24, 12, 0, Math.PI * 2, 0, Math.PI * 0.35]} />
+      <mesh position={[0, 1.22, 0.48]} castShadow>
+        <boxGeometry args={[1.35, 0.06, 0.07]} />
+        <primitive object={woodTimberMat} attach="material" />
       </mesh>
+      {/* Transverse Pergola Rafters */}
+      {[-0.45, -0.15, 0.15, 0.45].map((rx, ri) => (
+        <mesh key={ri} position={[rx, 1.27, 0]} castShadow>
+          <boxGeometry args={[0.05, 0.05, 1.18]} />
+          <primitive object={woodTimberMat} attach="material" />
+        </mesh>
+      ))}
+
+      {/* ── 4. Blooming Wisteria Floral Cascades on Trellis ── */}
+      {[-0.42, -0.12, 0.18, 0.44].map((wx, wi) => (
+        <group key={wi} position={[wx, 1.18, (wi % 2 === 0 ? 0.42 : -0.42)]}>
+          {/* Hanging floral grape-like cluster */}
+          {[0, -0.06, -0.12, -0.18].map((hy, hi) => (
+            <mesh key={hi} position={[0, hy, 0]}>
+              <sphereGeometry args={[0.038 - hi * 0.007, 6, 6]} />
+              <primitive object={wisteriaMat} attach="material" />
+            </mesh>
+          ))}
+        </group>
+      ))}
+
+      {/* ── 5. Surrounding Natural Wild Flower Patches ── */}
+      {/* Golden Tulip Cluster */}
+      {[[-0.42, 0.28], [-0.48, 0.34], [-0.36, 0.36]].map(([tx, tz], ti) => (
+        <group key={ti} position={[tx, 0.24, tz]}>
+          <mesh position={[0, 0.06, 0]}>
+            <cylinderGeometry args={[0.005, 0.005, 0.12, 4]} />
+            <meshStandardMaterial color="#2E6930" />
+          </mesh>
+          <mesh position={[0, 0.14, 0]}>
+            <coneGeometry args={[0.024, 0.05, 6]} />
+            <meshStandardMaterial color="#FFB300" roughness={0.4} />
+          </mesh>
+        </group>
+      ))}
+
+      {/* Red Rose Shrub Patch */}
+      {[[0.44, -0.28], [0.52, -0.22], [0.48, -0.34]].map(([rx, rz], ri) => (
+        <group key={ri} position={[rx, 0.24, rz]}>
+          <mesh position={[0, 0.06, 0]}>
+            <cylinderGeometry args={[0.005, 0.005, 0.12, 4]} />
+            <meshStandardMaterial color="#2E6930" />
+          </mesh>
+          <mesh position={[0, 0.14, 0]}>
+            <sphereGeometry args={[0.026, 6, 6]} />
+            <meshStandardMaterial color="#D32F2F" roughness={0.4} />
+          </mesh>
+        </group>
+      ))}
+
+      {/* ── 6. Classic Stone Birdbath in Garden Corner ── */}
+      <GardenBirdbath position={[0.48, 0.12, 0.36]} />
+
+      {/* ── 7. Animated Fluttering Butterflies Over Flowers ── */}
+      <GardenButterfly startX={-0.2} startZ={0.1} orbitRadius={0.45} speed={1.1} color="#42A5F5" phase={0} />
+      <GardenButterfly startX={0.25} startZ={-0.15} orbitRadius={0.38} speed={1.3} color="#FFA726" phase={2.2} />
+      <GardenButterfly startX={0.0} startZ={0.3} orbitRadius={0.4} speed={0.9} color="#EC407A" phase={4.1} />
     </group>
   );
 }

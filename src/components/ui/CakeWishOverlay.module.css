@@ -43,7 +43,43 @@
   font-family: 'Manrope', sans-serif;
   font-size: 14px;
   color: #cfc5b3;
-  margin: 0 0 24px;
+  margin: 0 0 16px;
+}
+
+.breathMeterContainer {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(232, 200, 114, 0.3);
+  border-radius: 999px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breathMeterFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(232, 200, 114, 0.4), rgba(242, 181, 165, 0.8));
+  border-radius: 999px;
+  transition: width 0.1s ease-out;
+}
+
+.breathLabel {
+  position: relative;
+  z-index: 2;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #ffe5a4;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .wishBtn {
