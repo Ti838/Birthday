@@ -227,9 +227,8 @@ export default function Experience() {
 
     // Tithi VIP View: Start personalized gift opening & journey
     setStage('02_gift');
-    tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 3.6, 'power2.inOut', 0.18);
-    await showCaption('Every birthday needs a present...', 2400);
-    await showCaption("So... let's open yours.", 2400);
+    tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
+    showCaption('Every birthday needs a present... ✦', 2000);
     setHint('Tap the glowing gift box to open ✦');
   }, [setStage, tweenCam, showCaption, setHint]);
 
@@ -262,113 +261,115 @@ export default function Experience() {
   const handleGuestUnlockVIP = useCallback(async () => {
     setVIP(true);
     setStage('02_gift');
-    tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 3.2, 'power2.inOut', 0.18);
-    await showCaption('Every birthday needs a present...', 2400);
-    await showCaption("So... let's open yours.", 2400);
+    tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
+    showCaption('Every birthday needs a present... ✦', 2000);
     setHint('Tap the glowing gift box to open ✦');
   }, [setVIP, setStage, tweenCam, showCaption, setHint]);
 
-  // Stage 02 -> 03: Gift Opened -> World Reveal
+  // Stage 02 -> 03: Gift Opened -> World Reveal & Push to Letter Desk
   const handleGiftBoxClick = useCallback(async () => {
     if (stage !== '02_gift') return;
     setStage('03_world');
+    setCaption('');
     setHint('');
     playChime(1.1);
 
-    // Pan out to reveal full miniature world
-    tweenCam([0.0, 3.8, 7.2], [0.0, 0.6, -0.4], 3.4, 'power2.inOut', 0.3);
-    await showCaption('WELCOME TO YOUR BIRTHDAY WORLD ✦', 2800);
-    await showCaption('There are a few surprises waiting for you.', 2600);
-
-    // Push in to writing desk with envelope
+    // Push smoothly into writing desk with letter
     tweenCam([0.5, 1.6, 1.8], [0.4, 0.65, -0.5], 3.0, 'power2.inOut', 0.18, () => {
       setStage('04_letter');
       setHint('Tap the sealed letter on the desk to read ✦');
       setEnvelopeInteractive(true);
     });
-  }, [stage, setStage, setHint, tweenCam, showCaption]);
+    showCaption('WELCOME TO YOUR BIRTHDAY WORLD ✦', 2400);
+  }, [stage, setStage, setHint, tweenCam, showCaption, setCaption]);
 
   // Stage 04: Envelope clicked -> Open Letter Modal
   const handleEnvelopeClick = useCallback(() => {
+    setCaption('');
     setHint('');
     setEnvelopeInteractive(false);
     setShowLetter(true);
     playChime(1.2);
-  }, [setHint]);
+  }, [setHint, setCaption]);
 
   // Stage 04 -> 05: Letter closed -> Constellation Stage
   const handleLetterClose = useCallback(() => {
     setShowLetter(false);
     setWishes([]);
+    setCaption('');
+    setHint('');
     setTimeout(() => {
       setStage('05_constellation');
-      setHint('Tap all 5 celestial stars to connect your constellation ✦');
-      tweenCam([0.0, 3.2, 5.0], [0.0, 3.2, 0.0], 2.8, 'power2.inOut', 0.2);
-    }, 500);
-  }, [setStage, setHint, tweenCam]);
+      tweenCam([0.0, 3.2, 5.0], [0.0, 3.2, 0.0], 2.4, 'power2.inOut', 0.2);
+    }, 300);
+  }, [setStage, setHint, setCaption, tweenCam]);
 
   // Stage 05 -> 06: Constellation Complete -> 5 Balloons Stage
   const handleConstellationComplete = useCallback(() => {
     setStage('06_balloons');
     setWishes([]);
-    tweenCam([3.2, 2.4, 4.2], [2.4, 1.4, 1.6], 2.8, 'power2.inOut', 0.28, () => {
+    setCaption('');
+    tweenCam([2.4, 2.2, 3.2], [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.25, () => {
       setBalloonsInteractive(true);
-      setHint('Tap and pop all 5 floating balloons to reveal your wishes (0/5) ✦');
-      setTimeout(() => setShowContinue(true), 5000);
+      setHint('Tap and pop the floating balloons to reveal your wishes ✦');
+      setTimeout(() => setShowContinue(true), 3500);
     });
-  }, [setStage, tweenCam, setHint, setShowContinue]);
+  }, [setStage, tweenCam, setHint, setShowContinue, setCaption]);
 
   // Stage 06 -> 07: Balloons Done -> Mini Star Challenge
   const handleContinueToStarGame = useCallback(() => {
     setShowContinue(false);
     setBalloonsInteractive(false);
     setWishes([]);
-    setHint('Mini Game: Catch 10 floating shooting stars ✦');
+    setCaption('');
+    setHint('');
     setStage('07_stargame');
-  }, [setShowContinue, setStage, setHint]);
+  }, [setShowContinue, setStage, setHint, setCaption]);
 
   // Stage 07 -> 08: Star Game Done -> Secret Garden
   const handleStarGameComplete = useCallback(() => {
     setStage('08_garden');
     setWishes([]);
-    setHint('Tap each flower in the vase to bloom and reveal 5 gentle reminders ✦');
-    tweenCam([-1.0, 1.15, 0.55], [-1.0, 0.72, -1.0], 2.8, 'power2.inOut', 0.18);
-  }, [setStage, setHint, tweenCam]);
+    setCaption('');
+    setHint('');
+    tweenCam([-1.0, 1.3, 0.4], [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
+  }, [setStage, setHint, setCaption, tweenCam]);
 
   // Stage 08 -> 09: Garden Done -> Cake & Make a Wish
   const handleGardenComplete = useCallback(async () => {
     setStage('09_cake');
     setWishes([]);
-    const camPos: [number, number, number] = isMobile ? [2.0, 2.1, 1.2] : [2.0, 1.7, 0.5];
-    const lookPos: [number, number, number] = [2.0, 0.9, -2.2];
+    setCaption('');
+    setHint('');
+    const camPos: [number, number, number] = isMobile ? [0.0, 1.8, 3.2] : [0.0, 1.6, 2.6];
+    const lookPos: [number, number, number] = [0.0, 0.95, 0.0];
 
-    tweenCam(camPos, lookPos, 2.8, 'power2.inOut', 0.2, async () => {
-      await showCaption('EVERY BIRTHDAY NEEDS A CAKE.', 2400);
-      await showCaption('And every birthday cake needs a wish.', 2400);
+    tweenCam(camPos, lookPos, 2.4, 'power2.inOut', 0.2, () => {
       setStage('10_wish');
       setHint('Make a wish & tap the cake to blow out your candles ✦');
     });
-  }, [setStage, isMobile, tweenCam, showCaption, setHint]);
+    showCaption('EVERY BIRTHDAY CAKE NEEDS A WISH ✦', 2200);
+  }, [setStage, isMobile, tweenCam, showCaption, setHint, setCaption]);
 
   // Stage 10 -> 11 -> 12: Wish Made -> Fireworks
   const handleWishComplete = useCallback(async () => {
     setStage('12_fireworks');
     setWishes([]);
     setHint('');
-    tweenCam([1.0, 2.8, 3.2], [1.0, 3.4, -2.5], 2.8, 'power2.inOut', 0.2);
+    tweenCam([0.0, 2.4, 4.8], [0.0, 2.8, -2.5], 2.4, 'power2.inOut', 0.2);
     setFireworksActive(true);
     playFireworksBoom();
     playHappyBirthdaySong();
 
-    await showCaption('HAPPY BIRTHDAY, TITHI! ✦', 3800);
+    await showCaption('HAPPY BIRTHDAY, TITHI! ✦', 3200);
     await showCaption(
       'May your year be full of good days, good people,\ngreat adventures, and plenty of reasons to smile. ✦',
-      4800
+      3800
     );
 
     setTimeout(() => {
       setStage('13_hidden_surprise');
-    }, 2000);
+    }, 1500);
   }, [setStage, tweenCam, showCaption, setHint]);
 
   // Stage 14: Replay whole experience
@@ -485,10 +486,19 @@ export default function Experience() {
         <ConstellationOverlay onComplete={handleConstellationComplete} />
       )}
 
-      {/* Floating On-Screen Interactive Instruction & Action HUD (VIP Only) */}
-      {isVIP && stage !== '01_night' && (
-        <FloatingInstructionBanner onContinue={handleContinueToStarGame} />
-      )}
+      {/* Floating On-Screen Interactive Instruction & Action HUD (VIP Only, hidden when modals are open) */}
+      {isVIP &&
+        stage !== '01_night' &&
+        stage !== 'guest_showcase' &&
+        !showLetter &&
+        stage !== '05_constellation' &&
+        stage !== '07_stargame' &&
+        stage !== '08_garden' &&
+        stage !== '10_wish' &&
+        stage !== '13_hidden_surprise' &&
+        stage !== '14_quiet_night' && (
+          <FloatingInstructionBanner onContinue={handleContinueToStarGame} />
+        )}
 
       {/* Stage 07: Mini Star Challenge (VIP Only) */}
       {stage === '07_stargame' && isVIP && (
