@@ -266,7 +266,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <SparkleIcon size={16} color="#FFE5A4" />
+                  <SparkleIcon size={16} color="var(--text-starlight)" />
                   <span>Explore Celebration (Guest View)</span>
                 </motion.button>
 
@@ -288,7 +288,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
                 animate={{ opacity: 1, scale: 1 }}
               >
                 <p className={styles.passcodePrompt}>
-                  <KeyIcon size={15} color="#FFE5A4" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }} />
+                  <KeyIcon size={15} color="var(--text-starlight)" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }} />
                   <span>Enter Your Secret Birthday Key:</span>
                 </p>
                 <form onSubmit={handlePasscodeSubmit} className={styles.inputGroup}>

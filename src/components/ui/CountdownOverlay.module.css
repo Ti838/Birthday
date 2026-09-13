@@ -15,7 +15,7 @@
   position: absolute;
   width: min(450px, 85vw);
   height: min(450px, 85vw);
-  background: radial-gradient(circle, rgba(232, 200, 114, 0.12) 0%, rgba(242, 181, 165, 0.05) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--theme-accent-rgb), 0.12) 0%, rgba(242, 181, 165, 0.05) 50%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
   filter: blur(40px);
@@ -31,13 +31,13 @@
   position: relative;
   width: min(500px, 92vw);
   background: var(--glass-surface-2);
-  border: 1px solid rgba(232, 200, 114, 0.32);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.32);
   border-radius: 22px;
   padding: clamp(24px, 3.5vw, 34px) clamp(20px, 3vw, 30px);
   text-align: center;
   box-shadow:
     0 25px 60px -15px rgba(0, 0, 0, 0.85),
-    0 0 25px 0 rgba(232, 200, 114, 0.1),
+    0 0 25px 0 rgba(var(--theme-accent-rgb), 0.1),
     inset 0 1px 1px 0 rgba(255, 229, 164, 0.3);
   backdrop-filter: blur(36px);
   z-index: 2;
@@ -51,9 +51,9 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 200, 114, 0.25) 0%, var(--glass-surface-2) 100%);
-  border: 1px solid rgba(232, 200, 114, 0.5);
-  box-shadow: 0 0 18px rgba(232, 200, 114, 0.25);
+  background: radial-gradient(circle, rgba(var(--theme-accent-rgb), 0.25) 0%, var(--glass-surface-2) 100%);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.5);
+  box-shadow: 0 0 18px rgba(var(--theme-accent-rgb), 0.25);
   margin-bottom: 12px;
 }
 
@@ -62,7 +62,7 @@
   font-size: 20px;
   font-weight: 500;
   color: #ffe5a4;
-  text-shadow: 0 0 10px rgba(232, 200, 114, 0.6);
+  text-shadow: 0 0 10px rgba(var(--theme-accent-rgb), 0.6);
 }
 
 .eyebrowBadge {
@@ -120,7 +120,7 @@
   align-items: center;
   justify-content: center;
   background: var(--glass-surface-1);
-  border: 1px solid rgba(232, 200, 114, 0.25);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.25);
   border-radius: 12px;
   padding: clamp(8px, 1.5vw, 12px) clamp(8px, 1.8vw, 14px);
   min-width: clamp(54px, 12vw, 68px);
@@ -134,7 +134,7 @@
   font-weight: 400;
   line-height: 1;
   color: #ffe5a4;
-  text-shadow: 0 0 12px rgba(232, 200, 114, 0.4);
+  text-shadow: 0 0 12px rgba(var(--theme-accent-rgb), 0.4);
 }
 
 .timeLabel {
@@ -150,7 +150,7 @@
 .colon {
   font-family: 'Bodoni Moda', Georgia, serif;
   font-size: 20px;
-  color: rgba(232, 200, 114, 0.6);
+  color: rgba(var(--theme-accent-rgb), 0.6);
   font-weight: 300;
   margin-bottom: 12px;
 }
@@ -176,7 +176,7 @@
   padding: 11px 20px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(232, 200, 114, 0.35);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.35);
   color: #fff6df;
   font-family: 'Hind Siliguri', 'Manrope', sans-serif;
   font-size: 13px;
@@ -188,10 +188,10 @@
 }
 
 .guestBtn:hover {
-  background: rgba(232, 200, 114, 0.2);
+  background: rgba(var(--theme-accent-rgb), 0.2);
   border-color: #ffe5a4;
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(232, 200, 114, 0.25);
+  box-shadow: 0 4px 14px rgba(var(--theme-accent-rgb), 0.25);
 }
 
 .vipBtn {
@@ -210,20 +210,20 @@
   letter-spacing: 0.03em;
   border: none;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(232, 200, 114, 0.35);
+  box-shadow: 0 6px 20px rgba(var(--theme-accent-rgb), 0.35);
   transition: all 0.25s ease;
 }
 
 .vipBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(232, 200, 114, 0.5);
+  box-shadow: 0 10px 30px rgba(var(--theme-accent-rgb), 0.5);
 }
 
 /* Passcode Modal */
 .passcodeModal {
   position: relative;
   background: var(--glass-surface-1);
-  border: 1px solid rgba(232, 200, 114, 0.35);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.35);
   border-radius: 16px;
   padding: 18px 20px;
   margin-top: 12px;
@@ -246,7 +246,7 @@
 
 .passInput {
   background: rgba(7, 9, 19, 0.7);
-  border: 1px solid rgba(232, 200, 114, 0.35);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.35);
   border-radius: 999px;
   padding: 8px 16px;
   color: #ffe5a4;
@@ -260,7 +260,7 @@
 
 .passInput:focus {
   border-color: #ffe5a4;
-  box-shadow: 0 0 12px rgba(232, 200, 114, 0.3);
+  box-shadow: 0 0 12px rgba(var(--theme-accent-rgb), 0.3);
 }
 
 .unlockSubmitBtn {
@@ -299,9 +299,9 @@
   color: #ffe5a4;
   margin: 10px 0 0;
   padding: 10px 14px;
-  background: rgba(232, 200, 114, 0.12);
+  background: rgba(var(--theme-accent-rgb), 0.12);
   border-radius: 10px;
-  border: 1px solid rgba(232, 200, 114, 0.32);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.32);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   animation: pulseGlow 2s ease-in-out infinite alternate;
 }

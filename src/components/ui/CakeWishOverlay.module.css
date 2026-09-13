@@ -13,11 +13,11 @@
   pointer-events: auto;
   text-align: center;
   background: var(--glass-surface-2);
-  border: 1px solid rgba(232, 200, 114, 0.38);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.38);
   border-radius: 28px;
   padding: clamp(28px, 4vw, 40px) clamp(22px, 4vw, 44px);
   backdrop-filter: blur(32px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(232, 200, 114, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(var(--theme-accent-rgb), 0.2);
   width: min(520px, 92vw);
 }
 
@@ -52,7 +52,7 @@
   max-width: 340px;
   height: 28px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(232, 200, 114, 0.3);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.3);
   border-radius: 999px;
   margin: 0 auto 20px;
   overflow: hidden;
@@ -66,7 +66,7 @@
   left: 0;
   top: 0;
   bottom: 0;
-  background: linear-gradient(90deg, rgba(232, 200, 114, 0.4), rgba(242, 181, 165, 0.8));
+  background: linear-gradient(90deg, rgba(var(--theme-accent-rgb), 0.4), rgba(242, 181, 165, 0.8));
   border-radius: 999px;
   transition: width 0.1s ease-out;
 }
@@ -97,12 +97,12 @@
   color: var(--ink);
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 8px 30px rgba(232, 200, 114, 0.45);
+  box-shadow: 0 8px 30px rgba(var(--theme-accent-rgb), 0.45);
   transition: all 0.3s ease;
 }
 
 .wishBtn:hover {
-  box-shadow: 0 12px 40px rgba(232, 200, 114, 0.6);
+  box-shadow: 0 12px 40px rgba(var(--theme-accent-rgb), 0.6);
 }
 
 .starsWrapper {
@@ -122,7 +122,7 @@
 
 .starWishTag {
   background: var(--glass-surface-2);
-  border: 1px solid rgba(232, 200, 114, 0.4);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.4);
   border-radius: 999px;
   padding: 8px 22px;
   font-family: 'Bodoni Moda', Georgia, serif;
@@ -130,7 +130,7 @@
   font-weight: 500;
   color: #ffe5a4;
   letter-spacing: 0.08em;
-  box-shadow: 0 0 20px rgba(232, 200, 114, 0.4);
+  box-shadow: 0 0 20px rgba(var(--theme-accent-rgb), 0.4);
   backdrop-filter: blur(16px);
 }
 
@@ -142,7 +142,7 @@
   border-radius: 24px;
   padding: 16px 28px;
   backdrop-filter: blur(24px);
-  box-shadow: 0 0 35px rgba(232, 200, 114, 0.4);
+  box-shadow: 0 0 35px rgba(var(--theme-accent-rgb), 0.4);
 }
 
 .sentIcon {

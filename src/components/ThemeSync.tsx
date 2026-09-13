@@ -27,6 +27,7 @@ interface PaletteTokens {
   glassSurface2: string;
   glassBorderGold: string;
   starlightGlow: string;
+  accentRgb: string;
   inkColor: string;
   bodyBg: string;
 }
@@ -47,6 +48,7 @@ const DAY_PALETTE: PaletteTokens = {
   glassSurface2:    'rgba(26, 20, 12, 0.90)',
   glassBorderGold:  'rgba(220, 170, 60, 0.45)',
   starlightGlow:    '0 20px 50px -10px rgba(10, 6, 2, 0.70), 0 0 30px 0 rgba(220, 170, 60, 0.22)',
+  accentRgb:        '220, 170, 60',
   inkColor:         '#120d04',
 };
 
@@ -65,6 +67,7 @@ const DAWN_PALETTE: PaletteTokens = {
   glassSurface2:    'rgba(42, 30, 64, 0.85)',
   glassBorderGold:  'rgba(240, 160, 200, 0.30)',
   starlightGlow:    '0 20px 50px -10px rgba(10, 5, 20, 0.75), 0 0 30px 0 rgba(240, 160, 200, 0.18)',
+  accentRgb:        '240, 160, 200',
   inkColor:         '#1e1530',
 };
 
@@ -83,6 +86,7 @@ const SUNSET_PALETTE: PaletteTokens = {
   glassSurface2:    'rgba(38, 22, 16, 0.86)',
   glassBorderGold:  'rgba(255, 160, 60, 0.38)',
   starlightGlow:    '0 20px 50px -10px rgba(10, 4, 2, 0.80), 0 0 30px 0 rgba(255, 160, 60, 0.20)',
+  accentRgb:        '255, 160, 60',
   inkColor:         '#1a0f0a',
 };
 
@@ -101,6 +105,7 @@ const DUSK_PALETTE: PaletteTokens = {
   glassSurface2:    'rgba(22, 14, 40, 0.87)',
   glassBorderGold:  'rgba(160, 120, 255, 0.28)',
   starlightGlow:    '0 20px 50px -10px rgba(5, 3, 12, 0.82), 0 0 30px 0 rgba(160, 120, 255, 0.16)',
+  accentRgb:        '160, 120, 255',
   inkColor:         '#0e0a1a',
 };
 
@@ -119,6 +124,7 @@ const NIGHT_PALETTE: PaletteTokens = {
   glassSurface2:    'rgba(22, 26, 46, 0.82)',
   glassBorderGold:  'rgba(232, 200, 114, 0.28)',
   starlightGlow:    '0 20px 50px -10px rgba(3, 5, 11, 0.80), 0 0 30px 0 rgba(232, 200, 114, 0.15)',
+  accentRgb:        '232, 200, 114',
   inkColor:         '#070913',
 };
 
@@ -191,6 +197,7 @@ function applyTheme(timeOfDay: TimeOfDay, condition: WeatherCondition) {
   root.style.setProperty('--glass-surface-2',   p.glassSurface2);
   root.style.setProperty('--glass-border-gold', p.glassBorderGold);
   root.style.setProperty('--starlight-glow',    p.starlightGlow);
+  root.style.setProperty('--theme-accent-rgb',  p.accentRgb);
 
   // Legacy aliases
   root.style.setProperty('--ink',               p.inkColor);

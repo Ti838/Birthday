@@ -13,22 +13,22 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 1px solid rgba(232, 200, 114, 0.35);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.35);
   background: var(--glass-surface-2);
   backdrop-filter: blur(20px);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(232, 200, 114, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(var(--theme-accent-rgb), 0.12);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dockBtn:hover {
   transform: scale(1.08);
-  background: rgba(232, 200, 114, 0.18);
-  border-color: rgba(232, 200, 114, 0.7);
-  box-shadow: 0 8px 25px rgba(232, 200, 114, 0.3);
+  background: rgba(var(--theme-accent-rgb), 0.18);
+  border-color: rgba(var(--theme-accent-rgb), 0.7);
+  box-shadow: 0 8px 25px rgba(var(--theme-accent-rgb), 0.3);
 }
 
 /* ── Caption Layer (Elegantly positioned in top-third so it NEVER clashes with instruction dock) ── */
@@ -48,7 +48,7 @@
   font-style: italic;
   font-weight: 500;
   color: #ffe5a4;
-  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9), 0 0 20px rgba(232, 200, 114, 0.35);
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9), 0 0 20px rgba(var(--theme-accent-rgb), 0.35);
   font-size: clamp(15px, 2.4vw, 24px);
   text-align: center;
   max-width: min(88vw, 600px);
@@ -59,7 +59,7 @@
   background: var(--glass-surface-1);
   border-radius: 999px;
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(232, 200, 114, 0.3);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.3);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   pointer-events: none;
 }
@@ -84,13 +84,13 @@
   align-items: center;
   gap: 10px;
   background: var(--glass-surface-2);
-  border: 1px solid rgba(232, 200, 114, 0.45);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.45);
   border-radius: 999px;
   padding: 9px 22px;
   backdrop-filter: blur(24px);
   box-shadow:
     0 10px 35px rgba(0, 0, 0, 0.7),
-    0 0 20px rgba(232, 200, 114, 0.18),
+    0 0 20px rgba(var(--theme-accent-rgb), 0.18),
     inset 0 1px 1px rgba(255, 229, 164, 0.35);
   animation: cardFloating 3s ease-in-out infinite alternate;
   pointer-events: auto;
@@ -100,11 +100,11 @@
 @keyframes cardFloating {
   0% {
     transform: translateY(0px);
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7), 0 0 18px rgba(232, 200, 114, 0.15);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7), 0 0 18px rgba(var(--theme-accent-rgb), 0.15);
   }
   100% {
     transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 26px rgba(232, 200, 114, 0.28);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 26px rgba(var(--theme-accent-rgb), 0.28);
   }
 }
 
@@ -160,14 +160,14 @@
   pointer-events: auto;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(232, 200, 114, 0.35);
+    0 0 20px rgba(var(--theme-accent-rgb), 0.35);
 }
 
 .continueButton:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow:
     0 14px 35px rgba(0, 0, 0, 0.7),
-    0 0 28px rgba(232, 200, 114, 0.5);
+    0 0 28px rgba(var(--theme-accent-rgb), 0.5);
 }
 
 /* ── Loader ───────────────────────────────────────────────────── */
@@ -195,15 +195,15 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 200, 114, 0.25) 0%, var(--glass-surface-2) 100%);
-  border: 1px solid rgba(232, 200, 114, 0.55);
-  box-shadow: 0 0 30px rgba(232, 200, 114, 0.35);
+  background: radial-gradient(circle, rgba(var(--theme-accent-rgb), 0.25) 0%, var(--glass-surface-2) 100%);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.55);
+  box-shadow: 0 0 30px rgba(var(--theme-accent-rgb), 0.35);
   animation: monogramBreathe 2.4s ease-in-out infinite alternate;
 }
 
 @keyframes monogramBreathe {
-  0% { transform: scale(0.95); box-shadow: 0 0 20px rgba(232, 200, 114, 0.2); }
-  100% { transform: scale(1.06); box-shadow: 0 0 35px rgba(232, 200, 114, 0.5); }
+  0% { transform: scale(0.95); box-shadow: 0 0 20px rgba(var(--theme-accent-rgb), 0.2); }
+  100% { transform: scale(1.06); box-shadow: 0 0 35px rgba(var(--theme-accent-rgb), 0.5); }
 }
 
 .loaderMonogramLetter {
@@ -211,7 +211,7 @@
   font-size: 28px;
   font-weight: 500;
   color: #ffe5a4;
-  text-shadow: 0 0 12px rgba(232, 200, 114, 0.6);
+  text-shadow: 0 0 12px rgba(var(--theme-accent-rgb), 0.6);
 }
 
 .loaderText {
@@ -222,7 +222,7 @@
   letter-spacing: 0.06em;
   opacity: 0.9;
   margin: 0;
-  text-shadow: 0 0 15px rgba(232, 200, 114, 0.3);
+  text-shadow: 0 0 15px rgba(var(--theme-accent-rgb), 0.3);
 }
 
 .loaderDots {
@@ -235,7 +235,7 @@
   height: 6px;
   border-radius: 50%;
   background: #e8c872;
-  box-shadow: 0 0 8px rgba(232, 200, 114, 0.8);
+  box-shadow: 0 0 8px rgba(var(--theme-accent-rgb), 0.8);
   display: block;
 }
 
@@ -248,12 +248,12 @@
   font-style: italic;
   font-size: clamp(16px, 2.2vw, 22px);
   color: #ffe5a4;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(232, 200, 114, 0.5);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(var(--theme-accent-rgb), 0.5);
   white-space: nowrap;
   margin: 0;
   padding: 6px 18px;
   background: var(--glass-surface-1);
-  border: 1px solid rgba(232, 200, 114, 0.35);
+  border: 1px solid rgba(var(--theme-accent-rgb), 0.35);
   border-radius: 999px;
   backdrop-filter: blur(16px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);

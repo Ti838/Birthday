@@ -83,7 +83,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
               >
                 <div className={styles.flowerHeader}>
                   <FlowerIcon size={18} color={isBloomed ? flower.color : '#8E95A5'} />
-                  <span className={styles.flowerName} style={{ color: isBloomed ? flower.color : '#cfc5b3' }}>
+                  <span className={styles.flowerName} style={{ color: isBloomed ? flower.color : 'var(--text-muted)' }}>
                     {flower.name}
                   </span>
                 </div>

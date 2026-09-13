@@ -28,7 +28,7 @@ function JoyStarIcon({ active }: { active: boolean }) {
       />
       <circle cx="24" cy="24" r="3.5" fill="#FFFFFF" />
       {active && (
-        <circle cx="24" cy="24" r="16" stroke="#FFE5A4" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
+        <circle cx="24" cy="24" r="16" stroke="var(--text-starlight)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
       )}
     </svg>
   );
@@ -38,10 +38,10 @@ function CompassIcon({ active }: { active: boolean }) {
   return (
     <svg className={styles.starSvg} viewBox="0 0 48 48" fill="none">
       <circle cx="24" cy="24" r="18" stroke={active ? '#F2B5A5' : '#8A95A5'} strokeWidth="1.5" strokeDasharray="2 4" />
-      <circle cx="24" cy="24" r="13" stroke={active ? '#FFE5A4' : '#64748B'} strokeWidth="1" />
+      <circle cx="24" cy="24" r="13" stroke={active ? 'var(--text-starlight)' : '#64748B'} strokeWidth="1" />
       {/* Compass Needles */}
       <path d="M24 6 L28 24 L24 22 L20 24 Z" fill={active ? '#F2B5A5' : '#D1D5DB'} />
-      <path d="M24 42 L20 24 L24 26 L28 24 Z" fill={active ? '#FFE5A4' : '#9CA3AF'} />
+      <path d="M24 42 L20 24 L24 26 L28 24 Z" fill={active ? 'var(--text-starlight)' : '#9CA3AF'} />
       <path d="M6 24 L24 20 L22 24 L24 28 Z" fill={active ? '#E8C872' : '#9CA3AF'} />
       <path d="M42 24 L24 28 L26 24 L24 20 Z" fill={active ? '#E8C872' : '#9CA3AF'} />
       <circle cx="24" cy="24" r="2.5" fill="#FFFFFF" />

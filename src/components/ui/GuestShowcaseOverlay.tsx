@@ -113,7 +113,7 @@ export function GuestShowcaseOverlay({
               onFocusView('world');
             }}
           >
-            <SparkleIcon size={13} color={activeTab === 'world' ? '#FFE5A4' : '#C9C3B8'} />
+            <SparkleIcon size={13} color={activeTab === 'world' ? 'var(--text-starlight)' : '#C9C3B8'} />
             <span>World</span>
           </button>
           <button
@@ -123,7 +123,7 @@ export function GuestShowcaseOverlay({
               onFocusView('cake');
             }}
           >
-            <CakeIcon size={13} color={activeTab === 'cake' ? '#FFE5A4' : '#C9C3B8'} />
+            <CakeIcon size={13} color={activeTab === 'cake' ? 'var(--text-starlight)' : '#C9C3B8'} />
             <span>Cake</span>
           </button>
           <button
@@ -133,7 +133,7 @@ export function GuestShowcaseOverlay({
               onFocusView('letter');
             }}
           >
-            <EnvelopeIcon size={13} color={activeTab === 'letter' ? '#FFE5A4' : '#C9C3B8'} />
+            <EnvelopeIcon size={13} color={activeTab === 'letter' ? 'var(--text-starlight)' : '#C9C3B8'} />
             <span>Letter</span>
           </button>
           <button
@@ -143,7 +143,7 @@ export function GuestShowcaseOverlay({
               onFocusView('flowers');
             }}
           >
-            <FlowerIcon size={13} color={activeTab === 'flowers' ? '#FFE5A4' : '#C9C3B8'} />
+            <FlowerIcon size={13} color={activeTab === 'flowers' ? 'var(--text-starlight)' : '#C9C3B8'} />
             <span>Garden</span>
           </button>
           <button
@@ -153,7 +153,7 @@ export function GuestShowcaseOverlay({
               onFocusView('gift');
             }}
           >
-            <GiftIcon size={13} color={activeTab === 'gift' ? '#FFE5A4' : '#C9C3B8'} />
+            <GiftIcon size={13} color={activeTab === 'gift' ? 'var(--text-starlight)' : '#C9C3B8'} />
             <span>Gift</span>
           </button>
           <button
@@ -163,7 +163,7 @@ export function GuestShowcaseOverlay({
               onFocusView('balloons');
             }}
           >
-            <BalloonIcon size={13} color={activeTab === 'balloons' ? '#FFE5A4' : '#C9C3B8'} />
+            <BalloonIcon size={13} color={activeTab === 'balloons' ? 'var(--text-starlight)' : '#C9C3B8'} />
             <span>Balloons</span>
           </button>
         </div>
@@ -181,7 +181,7 @@ export function GuestShowcaseOverlay({
           </button>
 
           <button className={styles.actionBtn} onClick={handleMusicPlay}>
-            <MusicIcon size={14} color="#FFE5A4" />
+            <MusicIcon size={14} color="var(--text-starlight)" />
             <span>Music</span>
           </button>
 
