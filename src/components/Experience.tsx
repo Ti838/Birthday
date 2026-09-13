@@ -101,9 +101,9 @@ function CameraController() {
       makeDefault
       enableDamping
       dampingFactor={0.05}
-      enablePan={false}
+      
       minDistance={2}
-      maxDistance={12}
+      maxDistance={25}
       maxPolarAngle={Math.PI / 2 - 0.05}
     />
   );
@@ -321,8 +321,8 @@ export default function Experience() {
     
     // Jump camera high into the sky instantly, then sweep down
     tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', () => {
-      const camPos: [number, number, number] = isMobile ? [-2.4, 2.2, 4.6] : [-2.4, 2.0, 4.2];
-      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut');
+      const camPos: [number, number, number] = isMobile ? [-1.2, 2.4, 5.0] : [-1.2, 2.0, 4.8];
+      tweenCam(camPos, [-1.2, 0.5, 0.6], 5.0, 'power2.inOut');
     });
     
     setTimeout(() => {
@@ -374,8 +374,8 @@ export default function Experience() {
     
     // Jump camera high into the sky instantly, then sweep down
     tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', () => {
-      const camPos: [number, number, number] = isMobile ? [-2.4, 2.2, 4.6] : [-2.4, 2.0, 4.2];
-      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut');
+      const camPos: [number, number, number] = isMobile ? [-1.2, 2.4, 5.0] : [-1.2, 2.0, 4.8];
+      tweenCam(camPos, [-1.2, 0.5, 0.6], 5.0, 'power2.inOut');
     });
     
     setTimeout(() => {
