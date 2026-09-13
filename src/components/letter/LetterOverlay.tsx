@@ -106,12 +106,12 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
 
                     {/* Highlight Box 1 */}
                     <div className={styles.highlightCard}>
-                      <p className={styles.highlightText}>A rare soul with an endless capacity for bringing smiles. 💫</p>
+                      <p className={styles.highlightText}>The real-life Doraemon with an endless pocket of smiles. 💫</p>
                     </div>
 
                     <div className={styles.paraBlock}>
                       <p className={styles.paraLine}>
-                        You have this natural superpower to turn ordinary moments into unforgettable memories, making everyone around you feel valued and joyful. Never lose that wonderful sparkle that makes you uniquely you.
+                        I don't think any nickname fits you more perfectly than <strong>"Doraemon"</strong>. Even without gadgets like an anywhere door or a bamboo-copter, you have this natural superpower to turn ordinary moments into unforgettable memories, and you never fail to make everyone around you laugh with pure joy.
                       </p>
                     </div>
 
@@ -196,7 +196,7 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
                       </p>
                     </div>
 
-                    <p className={styles.closingWish}>Have an extraordinary and magical birthday, Tithi!</p>
+                    <p className={styles.closingWish}>Have an extraordinary and magical birthday, my Doraemon! ✨</p>
 
                     {/* Signature */}
                     <div className={styles.signatureWrap}>
