@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStoryStore } from '../../store/useStoryStore';
 import { GARDEN_FLOWERS } from '../../utils/constants';
 import { playFlowerBloomSound, playChime } from '../../utils/music';
-import { FlowerIcon } from '../icons/CustomIcons';
+import { FlowerIcon, CakeIcon } from '../icons/CustomIcons';
 import styles from './SecretGardenOverlay.module.css';
 
 interface SecretGardenOverlayProps {
@@ -17,21 +18,40 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
     if (!gardenBloomed.includes(idx)) {
       bloomFlower(idx);
       playFlowerBloomSound(idx);
-
-      if (gardenBloomed.length + 1 >= GARDEN_FLOWERS.length) {
-        setTimeout(() => {
-          playChime(1.4);
-          onComplete();
-        }, 1800);
-      }
     }
+  };
+
+  const handleBloomAll = () => {
+    GARDEN_FLOWERS.forEach((_, i) => {
+      if (!gardenBloomed.includes(i)) {
+        setTimeout(() => {
+          bloomFlower(i);
+          playFlowerBloomSound(i);
+        }, i * 150);
+      }
+    });
+    playChime(1.5);
+    setTimeout(() => {
+      onComplete();
+    }, 1600);
   };
 
   const isAllBloomed = gardenBloomed.length === GARDEN_FLOWERS.length;
 
+  // Auto-advance when all 5 flowers are bloomed (from either 3D clicking or dock clicking)
+  useEffect(() => {
+    if (isAllBloomed) {
+      const timer = setTimeout(() => {
+        playChime(1.4);
+        onComplete();
+      }, 2400);
+      return () => clearTimeout(timer);
+    }
+  }, [isAllBloomed, onComplete]);
+
   return (
     <div className={styles.container}>
-      {/* Top Instructions Banner */}
+      {/* Top Instructions Header */}
       <motion.div
         className={styles.headerCard}
         initial={{ opacity: 0, y: -20 }}
@@ -41,11 +61,11 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
         <span className={styles.badge}>✦ THE SECRET GARDEN ✦</span>
         <h2 className={styles.title}>Tap the Flowers to Bloom</h2>
         <p className={styles.subtitle}>
-          Click the flowers in the vase or tap the cards below to reveal 5 gentle reminders ({gardenBloomed.length} / {GARDEN_FLOWERS.length})
+          Click the glowing garden blooms or tap the cards below ({gardenBloomed.length} / {GARDEN_FLOWERS.length} bloomed)
         </p>
       </motion.div>
 
-      {/* Sleek Bottom Flower Dock */}
+      {/* Sleek Bottom Flower Dock & Cake Action Button */}
       <div className={styles.bottomDock}>
         <div className={styles.flowersGrid}>
           {GARDEN_FLOWERS.map((flower, idx) => {
@@ -55,7 +75,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
                 key={flower.id}
                 className={`${styles.flowerCard} ${isBloomed ? styles.bloomed : ''}`}
                 onClick={() => handleBloom(idx)}
-                whileHover={{ scale: 1.06, y: -4 }}
+                whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
                   borderColor: isBloomed ? flower.color : 'rgba(232, 200, 114, 0.25)',
@@ -84,8 +104,25 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
             );
           })}
         </div>
+
+        {/* Quick Action Button: Proceed to Cake */}
+        <motion.div
+          className={styles.actionRow}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
+          <button
+            className={styles.cakeProceedBtn}
+            onClick={isAllBloomed ? onComplete : handleBloomAll}
+          >
+            <CakeIcon size={18} color="#070913" />
+            <span>{isAllBloomed ? 'PROCEED TO BIRTHDAY CAKE 🎂 ✦' : 'BLOOM ALL & GO TO CAKE 🎂 ✦'}</span>
+          </button>
+        </motion.div>
       </div>
 
+      {/* Celebratory Full Bloom Toast */}
       <AnimatePresence>
         {isAllBloomed && (
           <div className={styles.allBloomedToastWrapper}>
@@ -95,7 +132,7 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0 }}
             >
-              ✦ The secret garden is in full bloom! Moving to your birthday cake… ✦
+              ✦ The garden is in full bloom! Lighting your birthday cake candles… ✦
             </motion.div>
           </div>
         )}
@@ -103,4 +140,3 @@ export function SecretGardenOverlay({ onComplete }: SecretGardenOverlayProps) {
     </div>
   );
 }
-
