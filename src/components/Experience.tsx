@@ -45,6 +45,7 @@ import {
 } from '../utils/music';
 
 // ─── Camera controller with GSAP Choreography ─────────────────────
+// oxlint-disable react/immutability -- camera.position mutation is the standard R3F useFrame pattern
 function CameraController() {
   const { camera } = useThree();
   const parallax = useParallax();
@@ -107,6 +108,7 @@ function CameraController() {
 
   return null;
 }
+// oxlint-enable react/immutability
 
 // ─── Real-Time Weather & Time-of-Day Scene Lighting ───────────────────
 function SceneLighting() {
