@@ -16,8 +16,8 @@ function JoyStarIcon({ active }: { active: boolean }) {
     <svg className={styles.starSvg} viewBox="0 0 48 48" fill="none">
       <defs>
         <radialGradient id="joyGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color={active ? '#FFFBEB' : '#E8C872'} />
-          <stop offset="100%" stop-color={active ? '#F59E0B' : '#B4882F'} />
+          <stop offset="0%" stopColor={active ? '#FFFBEB' : '#E8C872'} />
+          <stop offset="100%" stopColor={active ? '#F59E0B' : '#B4882F'} />
         </radialGradient>
       </defs>
       {/* 8-Point Starlight */}
@@ -132,9 +132,9 @@ export function ConstellationOverlay({ onComplete }: ConstellationOverlayProps) 
       {/* Constellation Celestial Map Area */}
       <div className={styles.constellationMap}>
         {/* Dynamic Glowing Starlight Lines linking the 5 nodes */}
-        <svg className={styles.connectionsSvg}>
+        <svg className={styles.connectionsSvg} viewBox="0 0 1000 200" preserveAspectRatio="none">
           <polyline
-            points="10% 45%, 28% 20%, 50% 12%, 72% 26%, 90% 50%"
+            points="100,90 280,40 500,24 720,52 900,100"
             className={`${styles.starlightTrack} ${isComplete ? styles.starlightTrackComplete : ''}`}
           />
         </svg>

@@ -91,47 +91,47 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
                     <div className={styles.headerCenter}>
                       <div className={styles.monogram}>T</div>
                       <h2 className={styles.greeting}>Dear Tithi,</h2>
-                      <p className={styles.titleTag}>Happy Birthday! ✦</p>
+                      <p className={styles.titleTag}>a.k.a. Doraemon ✦ Happy Birthday!</p>
                     </div>
 
                     {/* Section 1 */}
                     <div className={styles.paraBlock}>
-                      <p className={styles.paraLine}>Today is your day, so first things first...</p>
+                      <p className={styles.paraLine}>Today is entirely your day, so first things first — <strong>Happy Birthday!</strong></p>
                       <p className={styles.paraLine}>
-                        I hope your day is filled with good food, good laughs, good people, and absolutely no unnecessary stress.
+                        Another year unlocked, another level achieved, and without a doubt, equipped with even more chaotic energy and brilliant ideas.
                       </p>
                     </div>
 
                     {/* Highlight Box 1 */}
                     <div className={styles.highlightCard}>
-                      <p className={styles.highlightText}>Another year unlocked. ✦</p>
-                    </div>
-
-                    {/* Checklist 1 */}
-                    <p className={styles.subHeading}>Which means:</p>
-                    <div className={styles.checklistBlock}>
-                      <div className={styles.checklistItem}>
-                        <span className={styles.checkIcon}>✦</span>
-                        <span>More adventures.</span>
-                      </div>
-                      <div className={styles.checklistItem}>
-                        <span className={styles.checkIcon}>✦</span>
-                        <span>More random moments.</span>
-                      </div>
-                      <div className={styles.checklistItem}>
-                        <span className={styles.checkIcon}>✦</span>
-                        <span>More things to learn.</span>
-                      </div>
-                      <div className={styles.checklistItem}>
-                        <span className={styles.checkIcon}>✦</span>
-                        <span>More reasons to laugh.</span>
-                      </div>
+                      <p className={styles.highlightText}>A true real-life Doraemon. ✦</p>
                     </div>
 
                     <div className={styles.paraBlock}>
                       <p className={styles.paraLine}>
-                        And hopefully... fewer "I should have started earlier" moments.
+                        I still find it hilarious how well the nickname "Doraemon" fits you. Maybe you don’t pull bamboo-copters or anywhere doors out of a 4D pocket, but you certainly have an uncanny magic of bringing spontaneous smiles, wild enthusiasm, and warmth wherever you go.
                       </p>
+                    </div>
+
+                    {/* Checklist 1 */}
+                    <p className={styles.subHeading}>Unlocked this year:</p>
+                    <div className={styles.checklistBlock}>
+                      <div className={styles.checklistItem}>
+                        <span className={styles.checkIcon}>✦</span>
+                        <span>Master of unexpected solutions.</span>
+                      </div>
+                      <div className={styles.checklistItem}>
+                        <span className={styles.checkIcon}>✦</span>
+                        <span>Spreader of endless contagious laughter.</span>
+                      </div>
+                      <div className={styles.checklistItem}>
+                        <span className={styles.checkIcon}>✦</span>
+                        <span>Guardian of chaotic yet brilliant plans.</span>
+                      </div>
+                      <div className={styles.checklistItem}>
+                        <span className={styles.checkIcon}>✦</span>
+                        <span>And officially another year more awesome.</span>
+                      </div>
                     </div>
 
                     {/* Elegant Divider */}
@@ -144,60 +144,61 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
                     {/* Section 2: Checkpoint */}
                     <div className={styles.paraBlock}>
                       <p className={styles.paraLine}>
-                        Birthdays are basically life's way of giving you a little checkpoint.
+                        Birthdays are basically life’s favorite checkpoint.
                       </p>
                       <p className={styles.paraLine}>
-                        So forget everything for a moment. No deadlines. No overthinking. Just enjoy your day.
+                        A moment to pause the endless to-do lists, silence all the deadlines, put away the overthinking, and just soak in being celebrated.
                       </p>
                     </div>
 
-                    {/* Birthday Girl Checklist */}
+                    {/* Birthday Protocol Checklist */}
+                    <p className={styles.subHeading}>The Official Birthday Protocol:</p>
                     <div className={styles.checklistBlock}>
                       <div className={styles.checklistItem}>
                         <span className={styles.checkIcon}>✦</span>
-                        <span>Eat something nice.</span>
+                        <span>Eat something truly delicious (zero guilt today).</span>
                       </div>
                       <div className={styles.checklistItem}>
                         <span className={styles.checkIcon}>✦</span>
-                        <span>Laugh a little louder.</span>
+                        <span>Laugh until your stomach hurts.</span>
                       </div>
                       <div className={styles.checklistItem}>
                         <span className={styles.checkIcon}>✦</span>
-                        <span>Take too many pictures.</span>
+                        <span>Take way too many aesthetic pictures.</span>
                       </div>
                       <div className={styles.checklistItem}>
                         <span className={styles.checkIcon}>✦</span>
-                        <span>Make a ridiculous wish.</span>
+                        <span>Make a secret, audacious birthday wish.</span>
                       </div>
                       <div className={styles.checklistItem}>
                         <span className={styles.checkIcon}>✦</span>
-                        <span>And enjoy being the birthday girl.</span>
+                        <span>And enjoy every second of being the star today.</span>
                       </div>
                     </div>
 
                     {/* Highlight Box 2 */}
                     <div className={styles.highlightCard}>
-                      <p className={styles.highlightText}>Happy Birthday once again, Tithi. ✦</p>
+                      <p className={styles.highlightText}>Happy Birthday once again, Doraemon! ✦</p>
                     </div>
 
                     {/* Closing wishes */}
                     <div className={styles.paraBlock}>
                       <p className={styles.paraLine}>
-                        I hope this year brings you: more happiness, more adventures, more peaceful days, more reasons to laugh, and plenty of good memories.
+                        As you step into this exciting new chapter, I hope this year brings you: unshakeable peace of mind, boundless joy, radiant health, exciting adventures, and fewer "I should have started earlier" moments.
                       </p>
                       <p className={styles.paraLine}>
-                        Whatever this new year brings, I hope there are lots of little moments that make you think:
+                        May life gift you countless little moments where you pause, smile, and think:
                       </p>
                       <p className={styles.quoteLine}>
-                        "Yep, that was a good day."
+                        "Yep, this is going to be a legendary year."
                       </p>
                     </div>
 
-                    <p className={styles.closingWish}>Have an amazing birthday!</p>
+                    <p className={styles.closingWish}>Have the brightest & happiest birthday!</p>
 
                     {/* Signature */}
                     <div className={styles.signatureWrap}>
-                      <span className={styles.signatureLabel}>With thoughts,</span>
+                      <span className={styles.signatureLabel}>Always cheering for you,</span>
                       <p className={styles.signatureAuthor}>Timon ✦</p>
                     </div>
                   </div>

@@ -67,32 +67,32 @@ export const SIGNATURE_NAME = 'Timon ✦';
 export const LETTER_PAGES = [
   // Page 1
   [
-    { type: 'greeting', text: 'Dear Tithi,' },
+    { type: 'greeting', text: 'Dear Tithi (a.k.a. Doraemon ✦),' },
     { type: 'title_tag', text: 'Happy Birthday! ✦' },
     {
       type: 'para',
       lines: [
-        'Today is your day, so first things first...',
-        'I hope your day is filled with good food, good laughs, good people, and absolutely no unnecessary stress.',
+        'Today is entirely your day, so first things first — Happy Birthday!',
+        'Another year unlocked, another level achieved, and without a doubt, equipped with even more chaotic energy and brilliant ideas.',
       ],
     },
     {
       type: 'highlight',
-      lines: ['Another year unlocked. ✦'],
-    },
-    {
-      type: 'checklist',
-      items: [
-        'More adventures.',
-        'More random moments.',
-        'More things to learn.',
-        'More reasons to laugh.',
-      ],
+      lines: ['A true real-life Doraemon. ✦'],
     },
     {
       type: 'para',
       lines: [
-        'And hopefully... fewer "I should have started earlier" moments.',
+        'I still find it hilarious how well the nickname "Doraemon" fits you. Maybe you don’t pull bamboo-copters or anywhere doors out of a 4D pocket, but you certainly have an uncanny magic of bringing spontaneous smiles, wild enthusiasm, and warmth wherever you go.',
+      ],
+    },
+    {
+      type: 'checklist',
+      items: [
+        'Master of unexpected solutions.',
+        'Spreader of endless contagious laughter.',
+        'Guardian of chaotic yet brilliant plans.',
+        'And officially another year more awesome.',
       ],
     },
   ],
@@ -104,25 +104,23 @@ export const LETTER_PAGES = [
     {
       type: 'para',
       lines: [
-        "Birthdays are basically life's way of giving you a little checkpoint.",
-        'So forget everything for a moment.',
-        'No deadlines. No overthinking.',
-        'Just enjoy your day.',
+        "Birthdays are basically life’s favorite checkpoint.",
+        'A moment to pause the endless to-do lists, silence all the deadlines, put away the overthinking, and just soak in being celebrated.',
       ],
     },
     {
       type: 'checklist',
       items: [
-        'Eat something nice.',
-        'Laugh a little louder.',
-        'Take too many pictures.',
-        'Make a ridiculous wish.',
-        'And enjoy being the birthday girl.',
+        'Eat something truly delicious (zero guilt today).',
+        'Laugh until your stomach hurts.',
+        'Take way too many aesthetic pictures.',
+        'Make a secret, audacious birthday wish.',
+        'And enjoy every second of being the star today.',
       ],
     },
     {
       type: 'highlight',
-      lines: ['Happy Birthday once again, Tithi. ✦'],
+      lines: ['Happy Birthday once again, Doraemon! ✦'],
     },
     {
       type: 'divider',
@@ -130,15 +128,15 @@ export const LETTER_PAGES = [
     {
       type: 'closing_para',
       lines: [
-        'I hope this year brings you:',
-        'more happiness, more adventures, more peaceful days, more reasons to laugh, and plenty of good memories.',
-        'Whatever this new year brings, I hope there are lots of little moments that make you think:',
-        '"Yep, that was a good day."',
+        'As you step into this exciting new chapter, I hope this year brings you:',
+        'unshakeable peace of mind, boundless joy, radiant health, exciting adventures, and fewer "I should have started earlier" moments.',
+        'May life gift you countless little moments where you pause, smile, and think:',
+        '"Yep, this is going to be a legendary year."',
       ],
     },
     {
       type: 'closing',
-      text: 'Have an amazing birthday!',
+      text: 'Have the brightest & happiest birthday!',
     },
     {
       type: 'signature',
