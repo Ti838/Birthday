@@ -184,7 +184,8 @@ export function Envelope({ onOpen, interactive }: EnvelopeProps) {
     }
   });
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback((e?: any) => {
+    if (e?.stopPropagation) e.stopPropagation();
     if (opened.current || !interactive) return;
     opened.current = true;
 
@@ -218,7 +219,14 @@ export function Envelope({ onOpen, interactive }: EnvelopeProps) {
   }, [interactive, onOpen]);
 
   return (
-    <group ref={groupRef} position={[0.0, 0.42, 1.4]} rotation={[-0.15, 0, 0]}>
+    <group 
+      ref={groupRef} 
+      position={[0.0, 0.42, 1.4]} 
+      rotation={[-0.15, 0, 0]}
+      onClick={interactive ? handleClick : undefined}
+      onPointerOver={() => { if (interactive && !opened.current) document.body.style.cursor = 'pointer'; }}
+      onPointerOut={() => { document.body.style.cursor = 'default'; }}
+    >
       {/* ── Antique Writing Desk Tabletop ── */}
       <mesh position={[0, -0.14, 0]} castShadow receiveShadow>
         <boxGeometry args={[1.3, 0.08, 0.9]} />
@@ -315,19 +323,6 @@ export function Envelope({ onOpen, interactive }: EnvelopeProps) {
         </group>
       )}
 
-      {/* ── Invisible Touch / Click Hitbox ── */}
-      {interactive && (
-        <mesh
-          onClick={handleClick}
-          visible={false}
-          position={[0, 0.05, 0]}
-          onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
-          onPointerOut={() => { document.body.style.cursor = 'default'; }}
-        >
-          <boxGeometry args={[0.9, 0.35, 0.65]} />
-        </mesh>
-      )}
     </group>
   );
 }
-
