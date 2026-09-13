@@ -185,7 +185,7 @@ export function GiftBox({ onOpen }: GiftBoxProps) {
   return (
     <group
       ref={groupRef}
-      position={[-2.6, 0.0, 1.5]}
+      position={[-2.4, 0.0, 1.2]}
       onClick={handleClick}
       onPointerOver={() => {
         if (!opened.current) {

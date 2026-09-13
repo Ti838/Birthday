@@ -18,6 +18,37 @@ export type Stage =
 
 export type Theme = 'day' | 'night';
 
+export type WeatherCondition =
+  | 'clear'
+  | 'partly-cloudy'
+  | 'cloudy'
+  | 'rain'
+  | 'heavy-rain'
+  | 'storm'
+  | 'fog'
+  | 'snow'
+  | 'wind';
+
+export type TimeOfDay = 'dawn' | 'day' | 'sunset' | 'dusk' | 'night';
+
+export interface WorldWeatherState {
+  condition: WeatherCondition;
+  timeOfDay: TimeOfDay;
+  cityName: string;
+  temperature: number;
+  humidity: number;
+  cloudCoverage: number; // 0 to 1
+  precipitation: number; // mm/h
+  rainIntensity: number; // 0 to 1
+  windSpeed: number; // m/s
+  windNormalized: number; // 0 to 1
+  fogDensity: number; // 0 to 1
+  sunrise: string;
+  sunset: string;
+  isDay: boolean;
+  lastUpdated?: number;
+}
+
 export interface CameraWaypoint {
   pos: [number, number, number];
   look: [number, number, number];
@@ -36,4 +67,3 @@ export interface Palette {
   giftBody: string;
   ribbon: string;
 }
-

@@ -467,13 +467,13 @@ function GardenEntrancePathway() {
     []
   );
 
-  // Curved cobblestone stepping stones from main table disc toward secret garden
+  // Curved cobblestone stepping stones from central courtyard toward secret garden
   const steppingStones = useMemo(
     () => [
-      { x: -0.25, y: 0.015, z: -0.15, rx: 0.22, rz: 0.16, rot: 0.2 },
-      { x: -0.42, y: 0.018, z: -0.35, rx: 0.24, rz: 0.17, rot: -0.15 },
-      { x: -0.62, y: 0.020, z: -0.58, rx: 0.26, rz: 0.18, rot: 0.3 },
-      { x: -0.80, y: 0.022, z: -0.80, rx: 0.28, rz: 0.20, rot: -0.1 },
+      { x: 1.35, y: 0.015, z: 0.85, rx: 0.22, rz: 0.16, rot: 0.2 },
+      { x: 1.0, y: 0.018, z: 0.60, rx: 0.24, rz: 0.17, rot: -0.15 },
+      { x: 0.65, y: 0.020, z: 0.38, rx: 0.26, rz: 0.18, rot: 0.3 },
+      { x: 0.30, y: 0.022, z: 0.16, rx: 0.28, rz: 0.20, rot: -0.1 },
     ],
     []
   );
@@ -492,8 +492,8 @@ function GardenEntrancePathway() {
         </group>
       ))}
 
-      {/* Miniature Wrought-Stone Garden Arch Gate at [-0.68, 0, -0.65] */}
-      <group position={[-0.68, 0.0, -0.65]} rotation={[0, Math.PI / 4, 0]}>
+      {/* Miniature Wrought-Stone Garden Arch Gate at [0.65, 0.0, 0.38] */}
+      <group position={[0.65, 0.0, 0.38]} rotation={[0, Math.PI / 4, 0]}>
         {/* Left Stone Pillar */}
         <mesh position={[-0.32, 0.35, 0]} material={archStoneMat} castShadow>
           <boxGeometry args={[0.09, 0.7, 0.09]} />
@@ -797,7 +797,7 @@ export function Flowers() {
   const leafTexture = useMemo(() => createLeafTexture(), []);
 
   return (
-    <group position={[-1.0, 0.01, -1.0]}>
+    <group position={[-2.2, 0.01, -1.4]}>
       {/* Warm Ambient Starlight for the Garden */}
       <pointLight color="#FFE5A4" intensity={1.15} distance={5.5} position={[0, 1.3, 0]} />
 

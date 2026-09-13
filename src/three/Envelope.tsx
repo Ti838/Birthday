@@ -218,7 +218,20 @@ export function Envelope({ onOpen, interactive }: EnvelopeProps) {
   }, [interactive, onOpen]);
 
   return (
-    <group ref={groupRef} position={[0.0, 0.42, 0.25]} rotation={[-0.15, 0, 0]}>
+    <group ref={groupRef} position={[0.0, 0.42, 1.4]} rotation={[-0.15, 0, 0]}>
+      {/* ── Antique Writing Desk Tabletop ── */}
+      <mesh position={[0, -0.14, 0]} castShadow receiveShadow>
+        <boxGeometry args={[1.3, 0.08, 0.9]} />
+        <meshStandardMaterial color="#3A2214" roughness={0.75} />
+      </mesh>
+      {/* Desk legs */}
+      {[[-0.55, -0.35], [0.55, -0.35], [-0.55, 0.35], [0.55, 0.35]].map(([x, z], i) => (
+        <mesh key={i} position={[x, -0.28, z]} castShadow>
+          <cylinderGeometry args={[0.035, 0.028, 0.28, 8]} />
+          <meshStandardMaterial color="#2B180D" roughness={0.85} />
+        </mesh>
+      ))}
+
       {/* ── Desk Mat / Presentation Tray ── */}
       <mesh position={[0, -0.016, 0]} receiveShadow>
         <boxGeometry args={[0.96, 0.014, 0.68]} />

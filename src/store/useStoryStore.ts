@@ -1,9 +1,12 @@
 import { create } from 'zustand';
-import type { Stage, Theme } from '../types';
+import type { Stage, Theme, WorldWeatherState } from '../types';
+import { getDefaultWeatherState } from '../services/weatherService';
 
 interface StoryState {
   stage: Stage;
   theme: Theme;
+  weather: WorldWeatherState;
+  weatherModalOpen: boolean;
   soundEnabled: boolean;
   musicOn: boolean;
   isVIP: boolean;
@@ -27,6 +30,8 @@ interface StoryState {
 
   setStage: (s: Stage) => void;
   setTheme: (t: Theme) => void;
+  setWeather: (w: Partial<WorldWeatherState>) => void;
+  setWeatherModalOpen: (open: boolean) => void;
   toggleSound: () => void;
   setSoundEnabled: (v: boolean) => void;
   setVIP: (v: boolean) => void;
@@ -54,6 +59,8 @@ interface StoryState {
 export const useStoryStore = create<StoryState>((set) => ({
   stage: '01_night',
   theme: 'night',
+  weather: getDefaultWeatherState('Dhaka'),
+  weatherModalOpen: false,
   soundEnabled: true,
   musicOn: true,
   isVIP: false,
@@ -77,6 +84,12 @@ export const useStoryStore = create<StoryState>((set) => ({
 
   setStage: (stage) => set({ stage }),
   setTheme: (theme) => set({ theme }),
+  setWeather: (w) =>
+    set((s) => ({
+      weather: { ...s.weather, ...w },
+      theme: (w.isDay ?? s.weather.isDay) ? 'day' : 'night',
+    })),
+  setWeatherModalOpen: (weatherModalOpen) => set({ weatherModalOpen }),
   toggleSound: () => set((s) => ({ soundEnabled: !s.soundEnabled, musicOn: !s.soundEnabled })),
   setSoundEnabled: (soundEnabled) => set({ soundEnabled, musicOn: soundEnabled }),
   setVIP: (isVIP) => set({ isVIP }),
@@ -125,6 +138,8 @@ export const useStoryStore = create<StoryState>((set) => ({
     set({
       stage: '01_night',
       theme: 'night',
+      weather: getDefaultWeatherState('Dhaka'),
+      weatherModalOpen: false,
       isVIP: false,
       giftOpened: false,
       letterOpened: false,

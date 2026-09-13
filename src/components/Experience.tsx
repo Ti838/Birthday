@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 import * as THREE from 'three';
@@ -13,6 +13,7 @@ import { Fireworks } from '../three/Fireworks';
 import { Environment } from '../three/Environment';
 import { Flowers } from '../three/Flowers';
 import { Chocolates } from '../three/Chocolates';
+import { WeatherSystem } from '../three/WeatherSystem';
 
 import {
   CaptionLayer,
@@ -33,7 +34,7 @@ import { FinalHiddenSurprise } from './ui/FinalHiddenSurprise';
 import { useStoryStore } from '../store/useStoryStore';
 import { useParallax } from '../hooks/useParallax';
 import { useResponsive } from '../hooks/useResponsive';
-import { PALETTE } from '../utils/constants';
+import { fetchLiveWeather } from '../services/weatherService';
 import {
   unlockAudio,
   startMusic,
@@ -106,24 +107,106 @@ function CameraController() {
   return null;
 }
 
-// ─── Scene Lighting (Environmental Day / Night) ───────────────────
+// ─── Real-Time Weather & Time-of-Day Scene Lighting ───────────────────
 function SceneLighting({ isNight }: { isNight: boolean }) {
-  const pal = isNight ? PALETTE.night : PALETTE.day;
+  const weather = useStoryStore((s) => s.weather);
+  const timeOfDay = weather.timeOfDay;
+  const cloudCoverage = weather.cloudCoverage ?? 0.15;
+  const fogDensity = weather.fogDensity ?? 0.05;
+
+  const lighting = useMemo(() => {
+    // Night / Darkness
+    if (isNight || timeOfDay === 'night') {
+      return {
+        sky: '#070913',
+        fog: '#0e1225',
+        fogDensity: 0.024 + fogDensity * 0.035,
+        ambientColor: '#8FA5D8',
+        ambientIntensity: 0.75,
+        sunColor: '#FFE5A4',
+        sunIntensity: 0.85 * (1 - cloudCoverage * 0.3),
+        fillColor: '#7A8CDE',
+        fillIntensity: 0.35,
+        hemiSky: '#8EA4E8',
+        hemiGround: '#0E1225',
+      };
+    }
+    // Dusk / Twilight
+    if (timeOfDay === 'dusk') {
+      return {
+        sky: '#121630',
+        fog: '#161c38',
+        fogDensity: 0.026 + fogDensity * 0.035,
+        ambientColor: '#9575CD',
+        ambientIntensity: 0.72,
+        sunColor: '#D1C4E9',
+        sunIntensity: 0.8,
+        fillColor: '#7E57C2',
+        fillIntensity: 0.38,
+        hemiSky: '#9FA8DA',
+        hemiGround: '#1A237E',
+      };
+    }
+    // Golden Sunset
+    if (timeOfDay === 'sunset') {
+      return {
+        sky: '#2C1826',
+        fog: '#331B2A',
+        fogDensity: 0.028 + fogDensity * 0.035,
+        ambientColor: '#FFCCBC',
+        ambientIntensity: 0.82,
+        sunColor: '#FFA07A',
+        sunIntensity: 1.25 * (1 - cloudCoverage * 0.4),
+        fillColor: '#FF8A65',
+        fillIntensity: 0.48,
+        hemiSky: '#FFE0B2',
+        hemiGround: '#4E342E',
+      };
+    }
+    // Dawn
+    if (timeOfDay === 'dawn') {
+      return {
+        sky: '#181E3B',
+        fog: '#222340',
+        fogDensity: 0.028 + fogDensity * 0.035,
+        ambientColor: '#E1BEE7',
+        ambientIntensity: 0.76,
+        sunColor: '#FFD194',
+        sunIntensity: 1.15 * (1 - cloudCoverage * 0.4),
+        fillColor: '#CE93D8',
+        fillIntensity: 0.42,
+        hemiSky: '#E8EAF6',
+        hemiGround: '#311B92',
+      };
+    }
+    // Clear / Cloudy Daytime
+    return {
+      sky: cloudCoverage > 0.5 ? '#242C3D' : '#141E33',
+      fog: cloudCoverage > 0.5 ? '#283142' : '#1A253C',
+      fogDensity: 0.025 + fogDensity * 0.035,
+      ambientColor: cloudCoverage > 0.5 ? '#D7CCC8' : '#FFE8D0',
+      ambientIntensity: cloudCoverage > 0.5 ? 0.7 : 0.88,
+      sunColor: '#FFF3DD',
+      sunIntensity: 1.35 * (1 - cloudCoverage * 0.5),
+      fillColor: '#FFE0B2',
+      fillIntensity: 0.45,
+      hemiSky: '#E0F2F1',
+      hemiGround: '#5D4037',
+    };
+  }, [isNight, timeOfDay, cloudCoverage, fogDensity]);
+
   return (
     <>
-      <color attach="background" args={[pal.sky]} />
-      <fogExp2 attach="fog" args={[pal.fog, isNight ? 0.024 : 0.036]} />
+      <color attach="background" args={[lighting.sky]} />
+      <fogExp2 attach="fog" args={[lighting.fog, lighting.fogDensity]} />
 
       {/* Ambient lighting */}
-      <ambientLight
-        color={isNight ? '#8FA5D8' : '#FFE8D0'}
-        intensity={isNight ? 0.85 : 0.72}
-      />
+      <ambientLight color={lighting.ambientColor} intensity={lighting.ambientIntensity} />
 
       {/* Key light */}
       <directionalLight
-        color={isNight ? '#FFE5A4' : '#FFF0D8'}
-        intensity={isNight ? 0.95 : 1.38}
+        color={lighting.sunColor}
+        intensity={lighting.sunIntensity}
         position={[5, 11, 6]}
         castShadow
         shadow-mapSize-width={2048}
@@ -134,23 +217,23 @@ function SceneLighting({ isNight }: { isNight: boolean }) {
 
       {/* Warm Fill Light */}
       <directionalLight
-        color={isNight ? '#FFE5A4' : '#FFD8A8'}
-        intensity={isNight ? 0.45 : 0.44}
+        color={lighting.fillColor}
+        intensity={lighting.fillIntensity}
         position={[-5, 4, 8]}
       />
 
       {/* Back rim */}
       <directionalLight
-        color={isNight ? '#7A8CDE' : '#E8F0FF'}
-        intensity={isNight ? 0.35 : 0.2}
+        color="#7A8CDE"
+        intensity={0.3}
         position={[-4, 3, -8]}
       />
 
       {/* Hemisphere Light */}
       <hemisphereLight
-        color={isNight ? '#8EA4E8' : '#FFF3E0'}
-        groundColor={isNight ? '#0E1225' : '#B8914A'}
-        intensity={isNight ? 0.45 : 0.35}
+        color={lighting.hemiSky}
+        groundColor={lighting.hemiGround}
+        intensity={0.4}
       />
     </>
   );
@@ -162,6 +245,7 @@ export default function Experience() {
   const isVIP = useStoryStore((s) => s.isVIP);
   const setVIP = useStoryStore((s) => s.setVIP);
   const theme = useStoryStore((s) => s.theme);
+  const weather = useStoryStore((s) => s.weather);
   const setStage = useStoryStore((s) => s.setStage);
   const setCaption = useStoryStore((s) => s.setCaption);
   const setHint = useStoryStore((s) => s.setHint);
@@ -178,6 +262,7 @@ export default function Experience() {
 
   const isNight =
     theme === 'night' ||
+    !weather.isDay ||
     stage === '12_fireworks' ||
     stage === '13_hidden_surprise' ||
     stage === '14_quiet_night';
@@ -209,7 +294,7 @@ export default function Experience() {
     [setCaption]
   );
 
-  // ─── Stage Handlers ──────────────────────────────────────────
+  // ─── Stage Handlers with Harmonious Spatial Coordinates ──────────────
 
   // Stage 01 -> Unlocked: Handles either VIP or Guest View
   const handleCountdownUnlock = useCallback(async () => {
@@ -220,16 +305,16 @@ export default function Experience() {
     if (!currentIsVIP) {
       // Guest View: Cinematic framing right in front of cake and celebration
       setStage('guest_showcase');
-      const camPos: [number, number, number] = isMobile ? [0.0, 2.2, 5.2] : [0.0, 2.0, 4.2];
-      tweenCam(camPos, [0.0, 0.85, 0.0], 3.2, 'power2.inOut', 0.25);
+      const camPos: [number, number, number] = isMobile ? [0.0, 2.4, 5.2] : [0.0, 2.2, 4.6];
+      tweenCam(camPos, [0.0, 0.85, -0.2], 3.2, 'power2.inOut', 0.25);
       setHint('');
       return;
     }
 
-    // Tithi VIP View: Start personalized gift opening & journey
+    // Tithi VIP View: Start personalized gift opening
     setStage('02_gift');
-    const camPos: [number, number, number] = isMobile ? [-2.0, 1.9, 4.4] : [-1.2, 2.0, 4.8];
-    tweenCam(camPos, [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
+    const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
+    tweenCam(camPos, [-2.4, 0.5, 1.2], 2.8, 'power2.inOut', 0.18);
     showCaption('Every birthday needs a present... ✦', 2000);
     setHint('Tap the glowing gift box to open ✦');
   }, [setStage, isMobile, tweenCam, showCaption, setHint]);
@@ -239,23 +324,23 @@ export default function Experience() {
     (view: 'world' | 'cake' | 'flowers' | 'balloons') => {
       switch (view) {
         case 'world': {
-          const camPos: [number, number, number] = isMobile ? [0.0, 2.2, 5.0] : [0.0, 2.0, 4.4];
-          tweenCam(camPos, [0.0, 0.95, 0.0], 2.4, 'power2.inOut', 0.25);
+          const camPos: [number, number, number] = isMobile ? [0.0, 2.6, 5.2] : [0.0, 2.2, 4.6];
+          tweenCam(camPos, [0.0, 0.85, -0.2], 2.4, 'power2.inOut', 0.25);
           break;
         }
         case 'cake': {
-          const camPos: [number, number, number] = isMobile ? [0.0, 1.7, 2.9] : [0.0, 1.55, 2.4];
-          tweenCam(camPos, [0.0, 0.95, 0.0], 2.4, 'power2.inOut', 0.18);
+          const camPos: [number, number, number] = isMobile ? [0.0, 1.6, 2.2] : [0.0, 1.5, 1.8];
+          tweenCam(camPos, [0.0, 0.95, -0.4], 2.4, 'power2.inOut', 0.18);
           break;
         }
         case 'flowers': {
-          const camPos: [number, number, number] = isMobile ? [-1.0, 1.45, 0.7] : [-1.0, 1.3, 0.4];
-          tweenCam(camPos, [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
+          const camPos: [number, number, number] = isMobile ? [-2.2, 1.5, 0.4] : [-2.2, 1.35, 0.0];
+          tweenCam(camPos, [-2.2, 0.85, -1.4], 2.4, 'power2.inOut', 0.18);
           break;
         }
         case 'balloons': {
-          const camPos: [number, number, number] = isMobile ? [1.8, 1.85, 3.4] : [1.8, 1.8, 2.8];
-          tweenCam(camPos, [1.8, 1.55, 0.8], 2.4, 'power2.inOut', 0.22);
+          const camPos: [number, number, number] = isMobile ? [2.2, 1.85, 3.2] : [2.2, 1.75, 2.6];
+          tweenCam(camPos, [2.2, 1.55, 0.8], 2.4, 'power2.inOut', 0.22);
           break;
         }
       }
@@ -271,8 +356,8 @@ export default function Experience() {
   const handleGuestUnlockVIP = useCallback(async () => {
     setVIP(true);
     setStage('02_gift');
-    const camPos: [number, number, number] = isMobile ? [-2.0, 1.9, 4.4] : [-1.2, 2.0, 4.8];
-    tweenCam(camPos, [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
+    const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
+    tweenCam(camPos, [-2.4, 0.5, 1.2], 2.8, 'power2.inOut', 0.18);
     showCaption('Every birthday needs a present... ✦', 2000);
     setHint('Tap the glowing gift box to open ✦');
   }, [setVIP, setStage, isMobile, tweenCam, showCaption, setHint]);
@@ -285,9 +370,9 @@ export default function Experience() {
     setHint('');
     playChime(1.1);
 
-    // Push smoothly into writing desk with centered letter envelope
-    const camPos: [number, number, number] = isMobile ? [0.0, 1.45, 1.75] : [0.0, 1.35, 1.55];
-    tweenCam(camPos, [0.0, 0.42, 0.25], 3.0, 'power2.inOut', 0.18, () => {
+    // Push smoothly into dedicated writing desk with centered letter envelope
+    const camPos: [number, number, number] = isMobile ? [0.0, 1.45, 2.8] : [0.0, 1.35, 2.5];
+    tweenCam(camPos, [0.0, 0.42, 1.4], 3.0, 'power2.inOut', 0.18, () => {
       setStage('04_letter');
       setHint('Tap the sealed letter on the desk to read ✦');
       setEnvelopeInteractive(true);
@@ -322,8 +407,8 @@ export default function Experience() {
     setStage('06_balloons');
     setWishes([]);
     setCaption('');
-    const camPos: [number, number, number] = isMobile ? [1.8, 1.85, 3.4] : [1.8, 1.8, 2.8];
-    tweenCam(camPos, [1.8, 1.55, 0.8], 2.4, 'power2.inOut', 0.25, () => {
+    const camPos: [number, number, number] = isMobile ? [2.2, 1.85, 3.2] : [2.2, 1.75, 2.6];
+    tweenCam(camPos, [2.2, 1.55, 0.8], 2.4, 'power2.inOut', 0.25, () => {
       setBalloonsInteractive(true);
       setHint('Tap and pop the floating balloons to reveal your wishes ✦');
       setTimeout(() => setShowContinue(true), 3500);
@@ -346,8 +431,8 @@ export default function Experience() {
     setWishes([]);
     setCaption('');
     setHint('');
-    const camPos: [number, number, number] = isMobile ? [-1.0, 1.5, 0.8] : [-1.0, 1.3, 0.4];
-    tweenCam(camPos, [-1.0, 0.85, -1.0], 2.8, 'power2.inOut', 0.2);
+    const camPos: [number, number, number] = isMobile ? [-2.2, 1.5, 0.4] : [-2.2, 1.35, 0.0];
+    tweenCam(camPos, [-2.2, 0.85, -1.4], 2.8, 'power2.inOut', 0.2);
     showCaption('✦ ENTERING THE SECRET GARDEN ✦', 2000);
   }, [setStage, isMobile, setHint, setCaption, tweenCam, showCaption]);
 
@@ -357,8 +442,8 @@ export default function Experience() {
     setWishes([]);
     setCaption('');
     setHint('');
-    const camPos: [number, number, number] = isMobile ? [0.0, 1.7, 2.9] : [0.0, 1.55, 2.4];
-    const lookPos: [number, number, number] = [0.0, 0.95, 0.0];
+    const camPos: [number, number, number] = isMobile ? [0.0, 1.6, 2.2] : [0.0, 1.5, 1.8];
+    const lookPos: [number, number, number] = [0.0, 0.95, -0.4];
 
     tweenCam(camPos, lookPos, 2.8, 'power2.inOut', 0.2, () => {
       setStage('10_wish');
@@ -395,8 +480,13 @@ export default function Experience() {
     window.location.reload();
   }, [resetExperience]);
 
-  // Boot & first touch unlock & balloon wish event listener with auto-cleanup
+  // Boot & live weather fetch & touch listener
   useEffect(() => {
+    // Initial live weather fetch
+    fetchLiveWeather().then((data) => {
+      useStoryStore.getState().setWeather(data);
+    });
+
     const onFirstTouch = () => {
       unlockAudio();
       startMusic();
@@ -449,9 +539,10 @@ export default function Experience() {
         <SceneLighting isNight={isNight} />
 
         <Environment isNight={isNight} />
+        <WeatherSystem />
         <Fireworks active={fireworksActive} />
 
-        {/* 3D Visual World Objects (Visible in both VIP & Guest showcase mode) */}
+        {/* 3D Visual World Objects (Separated across distinct spatial zones with ZERO clipping) */}
         <Flowers />
         <Chocolates />
         <Balloons

@@ -19,3 +19,4 @@ This document tracks all 3D asset specifications, open-source references, and te
 - **Scale:** Miniature diorama scale (1 unit = ~0.8m world scale).
 - **Lighting Language:** Real scene lighting with ACESFilmic tone mapping, warm key lights, and night ambient skylight.
 - **Color Palette:** Midnight Indigo (`#0d1124`), Champagne Gold (`#FFE5A4`), Dusty Rose (`#F2B5A5`), Muted Sage (`#7BB886`), Royal Lavender (`#9B80D9`), Ivory Cream (`#FFFDF8`).
+

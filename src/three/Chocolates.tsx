@@ -139,7 +139,7 @@ export function Chocolates() {
   }), []);
 
   return (
-    <group position={[1.4, 0.0, -1.6]}>
+    <group position={[2.4, 0.0, -1.6]}>
       {/* Low round side table */}
       <mesh position={[0, 0.18, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.28, 0.24, 0.055, 22]} />

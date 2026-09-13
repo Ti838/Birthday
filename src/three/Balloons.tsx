@@ -129,12 +129,15 @@ export function Balloons({ interactive, onAllPopped }: BalloonsProps) {
     sceneRef.current = scene;
     const t = clock.getElapsedTime();
 
-    // Bob balloons
+    // Bob and wind sway balloons
+    const windSpeed = useStoryStore.getState().weather.windSpeed ?? 3.5;
+    const windNorm = Math.min(1.0, windSpeed / 20.0);
     balloonData.forEach((data, i) => {
       const g = balloonRefs.current[i];
       if (!g || poppedBalloons.includes(i)) return;
       g.position.y = data.baseY + Math.sin(t * 0.9 + data.phase) * 0.08;
-      g.rotation.z = Math.sin(t * 0.7 + data.phase) * 0.045;
+      g.rotation.z = Math.sin(t * (0.7 + windNorm * 0.5) + data.phase) * (0.045 + windNorm * 0.08);
+      g.rotation.x = Math.cos(t * (0.6 + windNorm * 0.4) + data.phase) * (0.03 + windNorm * 0.06);
     });
 
     // Update burst particles
@@ -153,7 +156,7 @@ export function Balloons({ interactive, onAllPopped }: BalloonsProps) {
   });
 
   return (
-    <group ref={groupRef} position={[1.8, 0, 0.8]}>
+    <group ref={groupRef} position={[2.2, 0, 0.8]}>
       {BALLOON_COLORS.map((color, i) => (
         <group
           key={i}
