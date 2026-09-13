@@ -71,9 +71,19 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
       params.get('preview') === 'timon' ||
       params.get('test') === 'true';
 
+    const isGuestParam = params.get('guest') === 'true';
+
     // Master preview for Timon (bypasses countdown anytime)
     if (isVipParam || (pass && MASTER_PASSCODES.includes(pass))) {
       setVIP(true);
+      setUnlocked(true);
+      onUnlock();
+      return;
+    }
+
+    // Direct guest showcase preview
+    if (isGuestParam) {
+      setVIP(false);
       setUnlocked(true);
       onUnlock();
       return;
