@@ -30,6 +30,7 @@ import { StarChallengeOverlay } from './ui/StarChallengeOverlay';
 import { SecretGardenOverlay } from './ui/SecretGardenOverlay';
 import { CakeWishOverlay } from './ui/CakeWishOverlay';
 import { FinalHiddenSurprise } from './ui/FinalHiddenSurprise';
+import { ThemeSync } from './ThemeSync';
 
 import { useStoryStore } from '../store/useStoryStore';
 import { useParallax } from '../hooks/useParallax';
@@ -531,6 +532,9 @@ export default function Experience() {
 
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
+      {/* Real-time weather+time CSS variable sync — no UI, pure side-effect */}
+      <ThemeSync />
+
       {/* 3D WebGL Canvas */}
       <Canvas
         camera={{ position: isMobile ? [0, 4.4, 13.5] : [0, 4.6, 12], fov: isMobile ? 54 : 45, near: 0.1, far: 80 }}

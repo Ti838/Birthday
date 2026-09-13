@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, rgba(14, 18, 37, 0.9) 0%, rgba(7, 9, 19, 0.98) 100%);
+  background: radial-gradient(circle at center, var(--glass-surface-2) 0%, rgba(7, 9, 19, 0.98) 100%);
   backdrop-filter: blur(28px);
   padding: clamp(12px, 3vw, 28px);
 }
@@ -26,7 +26,7 @@
   position: relative;
   width: min(640px, 94vw);
   max-height: 88vh;
-  background: rgba(14, 18, 37, 0.92);
+  background: var(--glass-surface-2);
   border: 1px solid rgba(232, 200, 114, 0.4);
   border-radius: 26px;
   box-shadow:
@@ -47,7 +47,7 @@
   justify-content: space-between;
   padding: 14px 22px;
   border-bottom: 1px solid rgba(232, 200, 114, 0.18);
-  background: rgba(9, 13, 32, 0.6);
+  background: var(--glass-surface-1);
   flex-shrink: 0;
 }
 
@@ -109,7 +109,7 @@
 }
 
 .parchmentPaper {
-  background: rgba(9, 13, 32, 0.55);
+  background: var(--glass-surface-1);
   border: 1px solid rgba(232, 200, 114, 0.22);
   border-radius: 20px;
   padding: clamp(22px, 4vw, 36px);
@@ -134,7 +134,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 200, 114, 0.3) 0%, rgba(14, 18, 37, 0.9) 100%);
+  background: radial-gradient(circle, rgba(232, 200, 114, 0.3) 0%, var(--glass-surface-2) 100%);
   border: 1.5px solid rgba(232, 200, 114, 0.55);
   font-family: 'Bodoni Moda', Georgia, serif;
   font-size: 20px;
@@ -296,7 +296,7 @@
   justify-content: space-between;
   padding: 14px 22px;
   border-top: 1px solid rgba(232, 200, 114, 0.18);
-  background: rgba(9, 13, 32, 0.6);
+  background: var(--glass-surface-1);
   flex-shrink: 0;
 }
 
@@ -319,7 +319,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: #070913;
+  color: var(--ink);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;

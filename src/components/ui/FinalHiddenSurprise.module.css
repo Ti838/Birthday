@@ -13,7 +13,7 @@
   pointer-events: auto;
   position: relative;
   width: min(540px, 92vw);
-  background: rgba(14, 18, 37, 0.9);
+  background: var(--glass-surface-2);
   border: 1px solid rgba(232, 200, 114, 0.4);
   backdrop-filter: blur(36px);
   border-radius: 28px;
@@ -86,7 +86,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 14px;
   font-weight: 700;
-  color: #070913;
+  color: var(--ink);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
@@ -98,7 +98,7 @@
   pointer-events: auto;
   position: relative;
   width: min(580px, 94vw);
-  background: rgba(14, 18, 37, 0.85);
+  background: var(--glass-surface-2);
   border: 1px solid rgba(232, 200, 114, 0.35);
   backdrop-filter: blur(36px);
   border-radius: 28px;
@@ -114,7 +114,7 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 200, 114, 0.25) 0%, rgba(14, 18, 37, 0.85) 100%);
+  background: radial-gradient(circle, rgba(232, 200, 114, 0.25) 0%, var(--glass-surface-2) 100%);
   border: 1px solid rgba(232, 200, 114, 0.5);
   margin-bottom: 14px;
   color: #ffe5a4;
@@ -192,7 +192,7 @@
   font-family: 'Manrope', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: #070913;
+  color: var(--ink);
   cursor: pointer;
   transition: all 0.25s ease;
 }

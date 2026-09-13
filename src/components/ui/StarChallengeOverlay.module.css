@@ -14,7 +14,7 @@
   pointer-events: auto;
   position: relative;
   text-align: center;
-  background: rgba(14, 18, 37, 0.88);
+  background: var(--glass-surface-2);
   border: 1px solid rgba(232, 200, 114, 0.38);
   border-radius: 24px;
   padding: 14px 28px;
@@ -137,7 +137,7 @@
   pointer-events: auto;
   position: relative;
   text-align: center;
-  background: rgba(14, 18, 37, 0.94);
+  background: var(--glass-surface-2);
   border: 1.5px solid #ffe5a4;
   border-radius: 28px;
   padding: 26px 34px;

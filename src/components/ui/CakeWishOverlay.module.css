@@ -12,7 +12,7 @@
 .wishCard {
   pointer-events: auto;
   text-align: center;
-  background: rgba(14, 18, 37, 0.85);
+  background: var(--glass-surface-2);
   border: 1px solid rgba(232, 200, 114, 0.38);
   border-radius: 28px;
   padding: clamp(28px, 4vw, 40px) clamp(22px, 4vw, 44px);
@@ -94,7 +94,7 @@
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #070913;
+  color: var(--ink);
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0 8px 30px rgba(232, 200, 114, 0.45);
@@ -121,7 +121,7 @@
 }
 
 .starWishTag {
-  background: rgba(14, 18, 37, 0.8);
+  background: var(--glass-surface-2);
   border: 1px solid rgba(232, 200, 114, 0.4);
   border-radius: 999px;
   padding: 8px 22px;
@@ -137,7 +137,7 @@
 .wishSentBadge {
   margin-top: 30px;
   text-align: center;
-  background: rgba(14, 18, 37, 0.9);
+  background: var(--glass-surface-2);
   border: 1px solid #ffe5a4;
   border-radius: 24px;
   padding: 16px 28px;

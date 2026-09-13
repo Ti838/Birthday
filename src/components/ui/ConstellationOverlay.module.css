@@ -208,7 +208,7 @@
 .completedToast {
   pointer-events: auto;
   background: linear-gradient(135deg, #ffe5a4 0%, #e8c872 50%, #f2b5a5 100%);
-  color: #070913;
+  color: var(--ink);
   font-family: 'Manrope', sans-serif;
   font-size: 13.5px;
   font-weight: 700;

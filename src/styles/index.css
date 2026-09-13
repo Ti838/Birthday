@@ -42,6 +42,107 @@
   --transition-smooth:    0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ─── Real-time Day/Night & Weather Theme Overrides ─────────────────
+   ThemeSync.tsx sets data-timeofday and data-weather on <html>.
+   These selectors override :root variables for full UI reactivity.
+   All transitions are handled by ThemeSync via inline style injection.
+──────────────────────────────────────────────────────────────────── */
+
+/* ── DAY: warm ivory, open airy sunlit world ── */
+[data-timeofday="day"] {
+  --bg-obsidian:          #f0e9d8;
+  --bg-velvet:            #e8dcc8;
+  --bg-surface-lowest:    #ede4d0;
+  --bg-surface-low:       #ede4d0;
+  --bg-surface-mid:       #e2d7c1;
+  --bg-surface-high:      #d6ccb2;
+  --text-starlight:       #2a1f0f;
+  --text-muted:           #4a3820;
+  --text-subtle:          #6b5035;
+  --glass-surface-1:      rgba(240, 233, 216, 0.72);
+  --glass-surface-2:      rgba(232, 220, 200, 0.88);
+  --glass-border-gold:    rgba(200, 160, 80, 0.35);
+  --starlight-glow:       0 20px 50px -10px rgba(140, 100, 40, 0.25), 0 0 30px 0 rgba(232, 200, 114, 0.18);
+  --ink:                  #2a1f0f;
+  --caption-color:        #2a1f0f;
+}
+
+/* ── DAWN: lavender-rose misty morning ── */
+[data-timeofday="dawn"] {
+  --bg-obsidian:          #1e1530;
+  --bg-velvet:            #2a1e40;
+  --bg-surface-lowest:    #251840;
+  --bg-surface-low:       #251840;
+  --bg-surface-mid:       #2e2048;
+  --bg-surface-high:      #3a2858;
+  --text-starlight:       #fde8f5;
+  --text-muted:           #e8d0f0;
+  --text-subtle:          #c0a0d0;
+  --glass-surface-1:      rgba(30, 21, 48, 0.70);
+  --glass-surface-2:      rgba(42, 30, 64, 0.85);
+  --glass-border-gold:    rgba(240, 160, 200, 0.30);
+  --starlight-glow:       0 20px 50px -10px rgba(10, 5, 20, 0.75), 0 0 30px 0 rgba(240, 160, 200, 0.18);
+  --ink:                  #1e1530;
+  --caption-color:        #fde8f5;
+}
+
+/* ── SUNSET: warm coral-amber golden hour ── */
+[data-timeofday="sunset"] {
+  --bg-obsidian:          #1a0f0a;
+  --bg-velvet:            #261610;
+  --bg-surface-lowest:    #221408;
+  --bg-surface-low:       #221408;
+  --bg-surface-mid:       #2e1c10;
+  --bg-surface-high:      #3c2416;
+  --text-starlight:       #fff0e0;
+  --text-muted:           #f0d0b0;
+  --text-subtle:          #d0a878;
+  --glass-surface-1:      rgba(26, 15, 10, 0.70);
+  --glass-surface-2:      rgba(38, 22, 16, 0.86);
+  --glass-border-gold:    rgba(255, 160, 60, 0.38);
+  --starlight-glow:       0 20px 50px -10px rgba(10, 4, 2, 0.80), 0 0 30px 0 rgba(255, 160, 60, 0.20);
+  --ink:                  #1a0f0a;
+  --caption-color:        #fff0e0;
+}
+
+/* ── DUSK: deep violet-indigo evening ── */
+[data-timeofday="dusk"] {
+  --bg-obsidian:          #0e0a1a;
+  --bg-velvet:            #160e28;
+  --bg-surface-lowest:    #120c22;
+  --bg-surface-low:       #120c22;
+  --bg-surface-mid:       #1a1230;
+  --bg-surface-high:      #22183c;
+  --text-starlight:       #ece8ff;
+  --text-muted:           #c8c0f0;
+  --text-subtle:          #9888c8;
+  --glass-surface-1:      rgba(14, 10, 26, 0.72);
+  --glass-surface-2:      rgba(22, 14, 40, 0.87);
+  --glass-border-gold:    rgba(160, 120, 255, 0.28);
+  --starlight-glow:       0 20px 50px -10px rgba(5, 3, 12, 0.82), 0 0 30px 0 rgba(160, 120, 255, 0.16);
+  --ink:                  #0e0a1a;
+  --caption-color:        #ece8ff;
+}
+
+/* ── NIGHT: deep obsidian (default — no override needed, :root handles) ── */
+
+/* ─── Weather condition tint overlays ─────────────────────────────── */
+
+/* Storm: desaturate + darken all glass */
+[data-weather="storm"] {
+  --glass-surface-1: color-mix(in srgb, var(--glass-surface-1) 80%, rgba(20,25,40,0.9) 20%);
+}
+
+/* Rain: slight cool blue tint */
+[data-weather="rain"] {
+  --glass-border-gold: rgba(120, 160, 220, 0.28);
+}
+
+/* Fog: soften border brightness */
+[data-weather="fog"] {
+  --glass-border-gold: rgba(200, 210, 220, 0.20);
+}
+
 /* ─── Reset ──────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -60,6 +161,8 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  /* Smooth weather/time-of-day theme transitions */
+  transition: background 3s ease, color 3s ease;
 }
 
 /* Allow letter text selection */
