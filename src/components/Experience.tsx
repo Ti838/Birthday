@@ -527,7 +527,7 @@ export default function Experience() {
         setWishes((prev) => prev.filter((w) => w.id !== id));
       }, 2400);
     };
-    window.addEventListener('balloonPopped', onBalloonPopped);
+    window.addEventListener('balloonPopped', onBalloonPopped as EventListener);
 
     const timer = setTimeout(() => {
       setLoaded(true);
@@ -536,7 +536,7 @@ export default function Experience() {
     return () => {
       clearTimeout(timer);
       window.removeEventListener('pointerdown', onFirstTouch);
-      window.removeEventListener('balloonPopped', onBalloonPopped);
+      window.removeEventListener('balloonPopped', onBalloonPopped as EventListener);
     };
   }, []);
 
