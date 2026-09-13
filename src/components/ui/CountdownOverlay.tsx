@@ -10,15 +10,20 @@ interface CountdownOverlayProps {
   onUnlock: () => void;
 }
 
-function getTargetBirthday(): number {
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const targetThisYear = new Date(currentYear, 8, 18, 0, 0, 0).getTime();
+let timeOffsetMs = 0; // Difference between real internet time and local device time
+let hasSyncedTime = false;
+
+function getTargetBirthday(nowTime: number): number {
+  const d = new Date(nowTime);
+  const currentYear = d.getUTCFullYear();
+  // Target: September 18, 00:00:00 Bangladesh Time (UTC+6) => September 17, 18:00:00 UTC
+  let target = new Date(`${currentYear}-09-17T18:00:00Z`).getTime();
   
-  if (now.getTime() > targetThisYear + 24 * 60 * 60 * 1000) {
-    return new Date(currentYear + 1, 8, 18, 0, 0, 0).getTime();
+  // If we are more than 24 hours past the birthday, target next year
+  if (nowTime > target + 24 * 60 * 60 * 1000) {
+    target = new Date(`${currentYear + 1}-09-17T18:00:00Z`).getTime();
   }
-  return targetThisYear;
+  return target;
 }
 
 // Valid secret passcodes for Tithi (case-insensitive & trimmed)
@@ -36,8 +41,8 @@ interface TimeLeft {
 }
 
 function calculateTimeLeft(): TimeLeft {
-  const now = new Date().getTime();
-  const target = getTargetBirthday();
+  const now = Date.now() + timeOffsetMs;
+  const target = getTargetBirthday(now);
   const diff = target - now;
 
   if (diff <= 0) {
@@ -63,6 +68,23 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
   const setVIP = useStoryStore((s) => s.setVIP);
 
   useEffect(() => {
+    // 1. Sync real internet time exactly once to prevent device-time cheating
+    if (!hasSyncedTime) {
+      fetch('https://worldtimeapi.org/api/timezone/Asia/Dhaka')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.unixtime) {
+            const realTimeMs = data.unixtime * 1000;
+            timeOffsetMs = realTimeMs - Date.now();
+            hasSyncedTime = true;
+            setTimeLeft(calculateTimeLeft());
+          }
+        })
+        .catch(() => {
+          console.warn('Network time sync failed, falling back to local device time.');
+        });
+    }
+
     const params = new URLSearchParams(window.location.search);
     const pass = params.get('pass')?.toLowerCase().trim();
     const isVipParam =
