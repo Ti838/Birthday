@@ -6,7 +6,7 @@ import {
   playFireworksBoom,
   playChime,
   playHappyBirthdaySong,
-  startMusic,
+  stopMusic,
 } from '../../utils/music';
 import {
   SparkleIcon,
@@ -38,6 +38,7 @@ export function GuestShowcaseOverlay({
   const [passInput, setPassInput] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [activeTab, setActiveTab] = useState<'world' | 'cake' | 'flowers' | 'balloons'>('world');
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
   if (isVIP) return null;
 
@@ -55,8 +56,15 @@ export function GuestShowcaseOverlay({
   };
 
   const handleMusicPlay = () => {
-    playHappyBirthdaySong();
-    startMusic();
+    if (isPlayingMusic) {
+      stopMusic();
+      setIsPlayingMusic(false);
+    } else {
+      stopMusic();
+      playHappyBirthdaySong();
+      setIsPlayingMusic(true);
+      setTimeout(() => setIsPlayingMusic(false), 17000);
+    }
   };
 
   const handlePasscodeSubmit = (e: React.FormEvent) => {
