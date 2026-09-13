@@ -101,9 +101,10 @@ function CameraController() {
       makeDefault
       enableDamping
       dampingFactor={0.05}
-      minDistance={1.5}
-      maxDistance={35}
-      maxPolarAngle={Math.PI / 2 + 0.15}
+      enablePan={false}
+      minDistance={2}
+      maxDistance={12}
+      maxPolarAngle={Math.PI / 2 - 0.05}
     />
   );
 }
