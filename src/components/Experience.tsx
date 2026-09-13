@@ -321,7 +321,7 @@ export default function Experience() {
 
   // Guest Camera Controls
   const handleGuestFocusView = useCallback(
-    (view: 'world' | 'cake' | 'flowers' | 'balloons') => {
+    (view: 'world' | 'cake' | 'flowers' | 'balloons' | 'letter' | 'gift') => {
       switch (view) {
         case 'world': {
           const camPos: [number, number, number] = isMobile ? [0.0, 2.6, 5.2] : [0.0, 2.2, 4.6];
@@ -333,9 +333,19 @@ export default function Experience() {
           tweenCam(camPos, [0.0, 0.95, -0.4], 2.4, 'power2.inOut', 0.18);
           break;
         }
+        case 'letter': {
+          const camPos: [number, number, number] = isMobile ? [0.0, 1.45, 2.8] : [0.0, 1.35, 2.5];
+          tweenCam(camPos, [0.0, 0.42, 1.4], 2.4, 'power2.inOut', 0.18);
+          break;
+        }
         case 'flowers': {
           const camPos: [number, number, number] = isMobile ? [-2.2, 1.5, 0.4] : [-2.2, 1.35, 0.0];
           tweenCam(camPos, [-2.2, 0.85, -1.4], 2.4, 'power2.inOut', 0.18);
+          break;
+        }
+        case 'gift': {
+          const camPos: [number, number, number] = isMobile ? [-2.4, 1.8, 3.8] : [-2.4, 1.6, 3.2];
+          tweenCam(camPos, [-2.4, 0.5, 1.2], 2.4, 'power2.inOut', 0.18);
           break;
         }
         case 'balloons': {
@@ -551,16 +561,12 @@ export default function Experience() {
         />
         <Cake />
 
-        {/* Private Story Objects - ONLY for Tithi VIP Mode */}
-        {isVIP && (
-          <>
-            <GiftBox onOpen={handleGiftBoxClick} />
-            <Envelope
-              interactive={envelopeInteractive}
-              onOpen={handleEnvelopeClick}
-            />
-          </>
-        )}
+        {/* Story Gift Box & Antique Letter Writing Desk */}
+        <GiftBox onOpen={handleGiftBoxClick} />
+        <Envelope
+          interactive={isVIP ? envelopeInteractive : false}
+          onOpen={handleEnvelopeClick}
+        />
 
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />

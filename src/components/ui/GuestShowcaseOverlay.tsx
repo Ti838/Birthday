@@ -16,12 +16,14 @@ import {
   BalloonIcon,
   MusicIcon,
   CrownIcon,
+  EnvelopeIcon,
+  GiftIcon,
 } from '../icons/CustomIcons';
 import styles from './GuestShowcaseOverlay.module.css';
 
 interface GuestShowcaseOverlayProps {
   onUnlockVIP: () => void;
-  onFocusView: (view: 'world' | 'cake' | 'flowers' | 'balloons') => void;
+  onFocusView: (view: 'world' | 'cake' | 'flowers' | 'balloons' | 'letter' | 'gift') => void;
   onTriggerFireworks: () => void;
 }
 
@@ -37,7 +39,7 @@ export function GuestShowcaseOverlay({
   const [showPassModal, setShowPassModal] = useState(false);
   const [passInput, setPassInput] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [activeTab, setActiveTab] = useState<'world' | 'cake' | 'flowers' | 'balloons'>('world');
+  const [activeTab, setActiveTab] = useState<'world' | 'cake' | 'flowers' | 'balloons' | 'letter' | 'gift'>('world');
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
   if (isVIP) return null;
@@ -125,6 +127,16 @@ export function GuestShowcaseOverlay({
             <span>Cake</span>
           </button>
           <button
+            className={`${styles.viewTab} ${activeTab === 'letter' ? styles.viewTabActive : ''}`}
+            onClick={() => {
+              setActiveTab('letter');
+              onFocusView('letter');
+            }}
+          >
+            <EnvelopeIcon size={13} color={activeTab === 'letter' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Letter</span>
+          </button>
+          <button
             className={`${styles.viewTab} ${activeTab === 'flowers' ? styles.viewTabActive : ''}`}
             onClick={() => {
               setActiveTab('flowers');
@@ -133,6 +145,16 @@ export function GuestShowcaseOverlay({
           >
             <FlowerIcon size={13} color={activeTab === 'flowers' ? '#FFE5A4' : '#C9C3B8'} />
             <span>Garden</span>
+          </button>
+          <button
+            className={`${styles.viewTab} ${activeTab === 'gift' ? styles.viewTabActive : ''}`}
+            onClick={() => {
+              setActiveTab('gift');
+              onFocusView('gift');
+            }}
+          >
+            <GiftIcon size={13} color={activeTab === 'gift' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Gift</span>
           </button>
           <button
             className={`${styles.viewTab} ${activeTab === 'balloons' ? styles.viewTabActive : ''}`}
