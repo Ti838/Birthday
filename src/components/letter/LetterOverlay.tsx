@@ -90,28 +90,28 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
                     {/* Header */}
                     <div className={styles.headerCenter}>
                       <div className={styles.monogram}>T</div>
-                      <h2 className={styles.greeting}>Dear Doraemon (Tithi ✦)</h2>
+                      <h2 className={styles.greeting}>Dear Tithi,</h2>
                       <p className={styles.titleTag}>Wishing You the Happiest Birthday! 🎂✨</p>
                     </div>
 
                     {/* Section 1 */}
                     <div className={styles.paraBlock}>
                       <p className={styles.paraLine}>
-                        Today is all about celebrating you, your existence, and the special light you bring into the world.
+                        Today is all about celebrating you, your beautiful existence, and the special light you bring into the world.
                       </p>
                       <p className={styles.paraLine}>
-                        <strong>Happy Birthday, Doraemon!</strong> Another chapter begins today, and with every passing year, you bring even more warmth, uncontrollable laughter, and your own brand of brilliant magic.
+                        <strong>Happy Birthday!</strong> Another remarkable chapter begins today. With every passing year, you bring even more warmth, pure joy, and your own brand of brilliant magic to everything you do.
                       </p>
                     </div>
 
                     {/* Highlight Box 1 */}
                     <div className={styles.highlightCard}>
-                      <p className={styles.highlightText}>The real-life Doraemon with an endless pocket of smiles. ✦</p>
+                      <p className={styles.highlightText}>A rare soul with an endless capacity for bringing smiles. 💫</p>
                     </div>
 
                     <div className={styles.paraBlock}>
                       <p className={styles.paraLine}>
-                        I don’t think any nickname fits you more perfectly than <strong>"Doraemon"</strong>. Even without gadgets like an anywhere door or a bamboo-copter, you have this natural superpower to turn ordinary moments into unforgettable memories and make everyone around you laugh with pure joy.
+                        You have this natural superpower to turn ordinary moments into unforgettable memories, making everyone around you feel valued and joyful. Never lose that wonderful sparkle that makes you uniquely you.
                       </p>
                     </div>
 
@@ -196,7 +196,7 @@ export function LetterOverlay({ visible, onClose }: LetterOverlayProps) {
                       </p>
                     </div>
 
-                    <p className={styles.closingWish}>Have an extraordinary and magical birthday, Doraemon!</p>
+                    <p className={styles.closingWish}>Have an extraordinary and magical birthday, Tithi!</p>
 
                     {/* Signature */}
                     <div className={styles.signatureWrap}>

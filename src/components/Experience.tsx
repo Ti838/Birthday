@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import { AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
+import { Canvas, useThree } from '@react-three/fiber';
+import { AdaptiveDpr, AdaptiveEvents, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { AnimatePresence } from 'framer-motion';
@@ -34,7 +34,7 @@ import { FinalHiddenSurprise } from './ui/FinalHiddenSurprise';
 import { ThemeSync } from './ThemeSync';
 
 import { useStoryStore } from '../store/useStoryStore';
-import { useParallax } from '../hooks/useParallax';
+
 import { useResponsive } from '../hooks/useResponsive';
 import { fetchLiveWeather } from '../services/weatherService';
 import {
@@ -49,65 +49,63 @@ import {
 // oxlint-disable react/immutability -- camera.position mutation is the standard R3F useFrame pattern
 function CameraController() {
   const { camera } = useThree();
-  const parallax = useParallax();
-  const basePos = useRef(new THREE.Vector3(0, 4.6, 12));
-  const lookTarget = useRef(new THREE.Vector3(0, 0.6, 0));
-  const parallaxStrength = useRef(0.25);
+  const controlsRef = useRef<any>(null);
 
   useEffect(() => {
+    // Initial position
+    camera.position.set(0, 4.6, 12);
+
     (window as any).__tweenCamera = (
       pos: [number, number, number],
       look: [number, number, number],
       duration = 2.6,
       ease = 'power2.inOut',
-      strength = 0.28,
       onComplete?: () => void
     ) => {
-      const from = {
-        x: camera.position.x,
-        y: camera.position.y,
-        z: camera.position.z,
-        lx: lookTarget.current.x,
-        ly: lookTarget.current.y,
-        lz: lookTarget.current.z,
-      };
-      gsap.to(from, {
-        x: pos[0],
-        y: pos[1],
-        z: pos[2],
-        lx: look[0],
-        ly: look[1],
-        lz: look[2],
-        duration,
-        ease,
-        onUpdate: () => {
-          camera.position.set(from.x, from.y, from.z);
-          lookTarget.current.set(from.lx, from.ly, from.lz);
-        },
-        onComplete: () => {
-          basePos.current.set(pos[0], pos[1], pos[2]);
-          parallaxStrength.current = strength;
-          onComplete?.();
-        },
-      });
+      if (controlsRef.current) {
+        controlsRef.current.enabled = false;
+        const from = {
+          x: camera.position.x,
+          y: camera.position.y,
+          z: camera.position.z,
+          lx: controlsRef.current.target.x,
+          ly: controlsRef.current.target.y,
+          lz: controlsRef.current.target.z,
+        };
+        gsap.to(from, {
+          x: pos[0],
+          y: pos[1],
+          z: pos[2],
+          lx: look[0],
+          ly: look[1],
+          lz: look[2],
+          duration,
+          ease,
+          onUpdate: () => {
+            camera.position.set(from.x, from.y, from.z);
+            controlsRef.current.target.set(from.lx, from.ly, from.lz);
+            controlsRef.current.update();
+          },
+          onComplete: () => {
+            controlsRef.current.enabled = true;
+            onComplete?.();
+          },
+        });
+      }
     };
-    camera.position.set(0, 4.6, 12);
-    camera.lookAt(0, 0.6, 0);
   }, [camera]);
 
-  useFrame(() => {
-    if (!gsap.isTweening(camera.position)) {
-      const px = parallax.current.x;
-      const py = parallax.current.y;
-      const s = parallaxStrength.current;
-      camera.position.x += (basePos.current.x + px * s - camera.position.x) * 0.04;
-      camera.position.y += (basePos.current.y + py * s * 0.5 - camera.position.y) * 0.04;
-      camera.position.z += (basePos.current.z - camera.position.z) * 0.04;
-    }
-    camera.lookAt(lookTarget.current);
-  });
-
-  return null;
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      makeDefault
+      enableDamping
+      dampingFactor={0.05}
+      minDistance={1.5}
+      maxDistance={35}
+      maxPolarAngle={Math.PI / 2 + 0.15}
+    />
+  );
 }
 // oxlint-enable react/immutability
 
@@ -280,10 +278,9 @@ export default function Experience() {
       look: [number, number, number],
       dur = 2.6,
       ease = 'power2.inOut',
-      strength = 0.28,
       cb?: () => void
     ) => {
-      (window as any).__tweenCamera?.(pos, look, dur, ease, strength, cb);
+      (window as any).__tweenCamera?.(pos, look, dur, ease, cb);
     },
     []
   );
@@ -313,7 +310,7 @@ export default function Experience() {
       // Guest View: Cinematic framing right in front of cake and celebration
       setStage('guest_showcase');
       const camPos: [number, number, number] = isMobile ? [0.0, 2.4, 6.0] : [0.0, 2.2, 5.5];
-      tweenCam(camPos, [0.0, 0.85, -0.2], 3.2, 'power2.inOut', 0.25);
+      tweenCam(camPos, [0.0, 0.85, -0.2], 3.2, 'power2.inOut');
       setHint('');
       return;
     }
@@ -322,9 +319,9 @@ export default function Experience() {
     setStage('01_intro_cinematic');
     
     // Jump camera high into the sky instantly, then sweep down
-    tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', 0, () => {
+    tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', () => {
       const camPos: [number, number, number] = isMobile ? [-2.4, 2.2, 4.6] : [-2.4, 2.0, 4.2];
-      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut', 0.18);
+      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut');
     });
     
     setTimeout(() => {
@@ -343,20 +340,20 @@ export default function Experience() {
           tweenCam(isMobile ? [0, 3.2, 6.8] : [0, 2.8, 6.2], [0, 0.6, 0], 2.4, 'power2.inOut');
           break;
         case 'cake':
-          tweenCam(isMobile ? [0, 1.2, 2.8] : [0, 1.0, 2.6], [0, 0.2, 0], 2.0, 'power2.out');
+          tweenCam(isMobile ? [0, 1.6, 4.0] : [0, 1.0, 2.6], [0, 0.2, 0], 2.0, 'power2.out');
           break;
         case 'letter':
-          tweenCam(isMobile ? [0, 1.65, 3.4] : [0, 1.55, 3.2], [0, 0.42, 1.4], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [0, 2.0, 4.5] : [0, 1.55, 3.2], [0, 0.42, 1.4], 2.4, 'power2.inOut');
           break;
         case 'flowers':
           // Angle camera from the far left so the open Gift Box doesn't occlude the view
-          tweenCam(isMobile ? [-4.0, 3.6, 2.5] : [-4.5, 3.2, 2.0], [-2.2, 0.4, -1.4], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [4.0, 3.6, 2.5] : [4.5, 3.2, 2.0], [-2.2, 0.4, -1.4], 2.4, 'power2.inOut');
           break;
         case 'gift':
-          tweenCam(isMobile ? [-2.4, 1.8, 4.2] : [-2.4, 1.6, 3.8], [-2.4, 0.2, 1.2], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [-2.4, 2.2, 5.5] : [-2.4, 1.6, 3.8], [-2.4, 0.2, 1.2], 2.4, 'power2.inOut');
           break;
         case 'balloons':
-          tweenCam(isMobile ? [2.5, 2.4, 3.0] : [2.5, 2.0, 2.8], [2.5, 0.8, -0.5], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [2.5, 2.8, 5.0] : [2.5, 2.0, 2.8], [2.5, 0.8, -0.5], 2.4, 'power2.inOut');
           break;
       }
     },
@@ -375,9 +372,9 @@ export default function Experience() {
     setStage('01_intro_cinematic');
     
     // Jump camera high into the sky instantly, then sweep down
-    tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', 0, () => {
+    tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', () => {
       const camPos: [number, number, number] = isMobile ? [-2.4, 2.2, 4.6] : [-2.4, 2.0, 4.2];
-      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut', 0.18);
+      tweenCam(camPos, [-2.4, 0.5, 1.2], 5.0, 'power2.inOut');
     });
     
     setTimeout(() => {
@@ -396,7 +393,7 @@ export default function Experience() {
 
     // Push smoothly into dedicated writing desk with centered letter envelope
     const camPos: [number, number, number] = isMobile ? [0.0, 1.65, 3.4] : [0.0, 1.55, 3.2];
-    tweenCam(camPos, [0.0, 0.42, 1.4], 3.0, 'power2.inOut', 0.18, () => {
+    tweenCam(camPos, [0.0, 0.42, 1.4], 3.0, 'power2.inOut', () => {
       setStage('04_letter');
       setHint('Tap the sealed letter on the desk to read ✦');
       setEnvelopeInteractive(true);
@@ -422,7 +419,7 @@ export default function Experience() {
     setTimeout(() => {
       setStage('05_constellation');
       const camPos: [number, number, number] = isMobile ? [0.0, 3.4, 6.2] : [0.0, 3.4, 5.8];
-      tweenCam(camPos, [0.0, 3.2, 0.0], 2.4, 'power2.inOut', 0.2);
+      tweenCam(camPos, [0.0, 3.2, 0.0], 2.4, 'power2.inOut');
     }, 300);
   }, [setStage, isMobile, setHint, setCaption, tweenCam]);
 
@@ -432,7 +429,7 @@ export default function Experience() {
     setWishes([]);
     setCaption('');
     const camPos: [number, number, number] = isMobile ? [2.2, 2.15, 3.8] : [2.2, 2.05, 3.4];
-    tweenCam(camPos, [2.2, 1.55, 0.8], 2.4, 'power2.inOut', 0.25, () => {
+    tweenCam(camPos, [2.2, 1.55, 0.8], 2.4, 'power2.inOut', () => {
       setBalloonsInteractive(true);
       setHint('Tap and pop the floating balloons to reveal your wishes ✦');
       setTimeout(() => setShowContinue(true), 3500);
@@ -456,8 +453,8 @@ export default function Experience() {
     setCaption('');
     setHint('');
     // Pull back & up, angled from the left so the open Gift Box doesn't occlude the view!
-    const camPos: [number, number, number] = isMobile ? [-4.0, 3.6, 2.5] : [-4.5, 3.2, 2.0];
-    tweenCam(camPos, [-2.2, 0.4, -1.4], 2.8, 'power2.inOut', 0.15);
+    const camPos: [number, number, number] = isMobile ? [4.0, 3.6, 2.5] : [4.5, 3.2, 2.0];
+    tweenCam(camPos, [-2.2, 0.4, -1.4], 2.8, 'power2.inOut');
     showCaption('✦ ENTERING THE SECRET GARDEN ✦', 2000);
   }, [setStage, isMobile, setHint, setCaption, tweenCam, showCaption]);
 
@@ -470,7 +467,7 @@ export default function Experience() {
     const camPos: [number, number, number] = isMobile ? [0.0, 1.9, 2.8] : [0.0, 1.8, 2.6];
     const lookPos: [number, number, number] = [0.0, 0.95, -0.4];
 
-    tweenCam(camPos, lookPos, 2.8, 'power2.inOut', 0.2, () => {
+    tweenCam(camPos, lookPos, 2.8, 'power2.inOut', () => {
       setStage('10_wish');
       setHint('Make a wish & tap the cake to blow out your candles ✦');
     });
@@ -483,7 +480,7 @@ export default function Experience() {
     setWishes([]);
     setHint('');
     const camPos: [number, number, number] = isMobile ? [0.0, 2.8, 6.8] : [0.0, 2.6, 6.0];
-    tweenCam(camPos, [0.0, 2.8, -2.5], 2.4, 'power2.inOut', 0.2);
+    tweenCam(camPos, [0.0, 2.8, -2.5], 2.4, 'power2.inOut');
     setFireworksActive(true);
     playFireworksBoom();
     playHappyBirthdaySong();
@@ -550,7 +547,7 @@ export default function Experience() {
 
       {/* 3D WebGL Canvas */}
       <Canvas
-        camera={{ position: isMobile ? [0, 4.4, 13.5] : [0, 4.6, 12], fov: isMobile ? 54 : 45, near: 0.1, far: 80 }}
+        camera={{ position: isMobile ? [0, 4.4, 13.5] : [0, 4.6, 12], fov: isMobile ? 70 : 45, near: 0.1, far: 80 }}
         shadows
         onCreated={({ gl }) => {
           gl.shadowMap.type = THREE.PCFShadowMap;
