@@ -285,9 +285,9 @@ export default function Experience() {
     setHint('');
     playChime(1.1);
 
-    // Push smoothly into writing desk with letter
-    const camPos: [number, number, number] = isMobile ? [0.4, 1.75, 1.8] : [0.5, 1.6, 1.8];
-    tweenCam(camPos, [0.4, 0.65, -0.5], 3.0, 'power2.inOut', 0.18, () => {
+    // Push smoothly into writing desk with centered letter envelope
+    const camPos: [number, number, number] = isMobile ? [0.0, 1.45, 1.75] : [0.0, 1.35, 1.55];
+    tweenCam(camPos, [0.0, 0.42, 0.25], 3.0, 'power2.inOut', 0.18, () => {
       setStage('04_letter');
       setHint('Tap the sealed letter on the desk to read ✦');
       setEnvelopeInteractive(true);
