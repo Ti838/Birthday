@@ -321,8 +321,8 @@ export default function Experience() {
     
     // Jump camera high into the sky instantly, then sweep down
     tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', () => {
-      const camPos: [number, number, number] = isMobile ? [-1.2, 2.4, 5.0] : [-1.2, 2.0, 4.8];
-      tweenCam(camPos, [-1.2, 0.5, 0.6], 5.0, 'power2.inOut');
+      const camPos: [number, number, number] = isMobile ? [0.0, 2.8, 6.0] : [0.0, 2.2, 5.5];
+      tweenCam(camPos, [0.0, 0.5, 0.0], 5.0, 'power2.inOut');
     });
     
     setTimeout(() => {
@@ -374,8 +374,8 @@ export default function Experience() {
     
     // Jump camera high into the sky instantly, then sweep down
     tweenCam([0, 18, 10], [0, 0, 0], 0, 'none', () => {
-      const camPos: [number, number, number] = isMobile ? [-1.2, 2.4, 5.0] : [-1.2, 2.0, 4.8];
-      tweenCam(camPos, [-1.2, 0.5, 0.6], 5.0, 'power2.inOut');
+      const camPos: [number, number, number] = isMobile ? [0.0, 2.8, 6.0] : [0.0, 2.2, 5.5];
+      tweenCam(camPos, [0.0, 0.5, 0.0], 5.0, 'power2.inOut');
     });
     
     setTimeout(() => {
