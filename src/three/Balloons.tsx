@@ -150,10 +150,24 @@ export function Balloons({ interactive, onAllPopped }: BalloonsProps) {
       p.mesh.scale.setScalar(1 - p.life * 0.4);
       if (p.life >= 1.0) {
         sceneRef.current?.remove(p.mesh);
+        p.mesh.geometry.dispose();
+        (p.mesh.material as THREE.Material).dispose();
         particles.current.splice(i, 1);
       }
     }
   });
+
+  // Cleanup particles on unmount
+  useEffect(() => {
+    return () => {
+      particles.current.forEach((p) => {
+        sceneRef.current?.remove(p.mesh);
+        p.mesh.geometry.dispose();
+        (p.mesh.material as THREE.Material).dispose();
+      });
+      particles.current = [];
+    };
+  }, []);
 
   return (
     <group ref={groupRef} position={[2.2, 0, 0.8]}>
