@@ -27,9 +27,7 @@ export function CaptionLayer() {
   );
 }
 
-import { WeatherIndicator } from './WeatherIndicator';
-
-// ─── Minimalist Top HUD Dock (Weather & Audio Control) ─────────────
+// ─── Minimalist Top HUD Dock (Audio Control Only) ─────────────
 export function TopControlsDock() {
   const soundEnabled = useStoryStore((s) => s.soundEnabled);
   const toggleSound = useStoryStore((s) => s.toggleSound);
@@ -42,9 +40,6 @@ export function TopControlsDock() {
 
   return (
     <div className={styles.topDock}>
-      {/* Real-Time Live Weather Badge & Preset Selector */}
-      <WeatherIndicator />
-
       {/* Sound Toggle */}
       <button
         className={styles.dockBtn}
