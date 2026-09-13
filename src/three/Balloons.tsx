@@ -32,17 +32,17 @@ export function Balloons({ interactive, onAllPopped }: BalloonsProps) {
   const particles = useRef<BalloonParticle[]>([]);
   const sceneRef = useRef<THREE.Scene | null>(null);
 
-  // Per-balloon data
+  // Per-balloon data with tight, harmonious fan cluster
   const balloonData = useMemo(
     () =>
       BALLOON_COLORS.map((_, i) => {
-        const angle = (i / 5) * Math.PI * 1.4 - 0.7;
-        const r = 0.9;
+        const angle = (i / 4) * Math.PI * 0.9 - 0.45; // balanced fan
+        const r = 0.55 + (i % 2) * 0.22;
         return {
-          baseX: Math.cos(angle) * r,
-          baseY: 1.5 + Math.sin(i * 1.7) * 0.15,
-          baseZ: Math.sin(angle) * r * 0.6,
-          phase: Math.random() * Math.PI * 2,
+          baseX: Math.sin(angle) * r,
+          baseY: 1.55 + (i % 3) * 0.2,
+          baseZ: Math.cos(angle) * r * 0.35,
+          phase: i * 1.2,
         };
       }),
     []
@@ -153,7 +153,7 @@ export function Balloons({ interactive, onAllPopped }: BalloonsProps) {
   });
 
   return (
-    <group ref={groupRef} position={[2.4, 0, 1.6]}>
+    <group ref={groupRef} position={[1.8, 0, 0.8]}>
       {BALLOON_COLORS.map((color, i) => (
         <group
           key={i}

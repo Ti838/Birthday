@@ -254,8 +254,8 @@ export default function Experience() {
           break;
         }
         case 'balloons': {
-          const camPos: [number, number, number] = isMobile ? [1.8, 2.3, 4.0] : [2.4, 2.2, 3.2];
-          tweenCam(camPos, [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.22);
+          const camPos: [number, number, number] = isMobile ? [1.8, 1.85, 3.4] : [1.8, 1.8, 2.8];
+          tweenCam(camPos, [1.8, 1.55, 0.8], 2.4, 'power2.inOut', 0.22);
           break;
         }
       }
@@ -322,8 +322,8 @@ export default function Experience() {
     setStage('06_balloons');
     setWishes([]);
     setCaption('');
-    const camPos: [number, number, number] = isMobile ? [1.8, 2.3, 4.0] : [2.4, 2.2, 3.2];
-    tweenCam(camPos, [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.25, () => {
+    const camPos: [number, number, number] = isMobile ? [1.8, 1.85, 3.4] : [1.8, 1.8, 2.8];
+    tweenCam(camPos, [1.8, 1.55, 0.8], 2.4, 'power2.inOut', 0.25, () => {
       setBalloonsInteractive(true);
       setHint('Tap and pop the floating balloons to reveal your wishes ✦');
       setTimeout(() => setShowContinue(true), 3500);
