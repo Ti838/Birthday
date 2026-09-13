@@ -239,17 +239,17 @@ export default function Experience() {
     (view: 'world' | 'cake' | 'flowers' | 'balloons') => {
       switch (view) {
         case 'world': {
-          const camPos: [number, number, number] = isMobile ? [0.0, 2.6, 5.6] : [0.0, 2.4, 4.8];
-          tweenCam(camPos, [0.0, 0.85, 0.0], 2.4, 'power2.inOut', 0.25);
+          const camPos: [number, number, number] = isMobile ? [0.0, 2.2, 5.0] : [0.0, 2.0, 4.4];
+          tweenCam(camPos, [0.0, 0.95, 0.0], 2.4, 'power2.inOut', 0.25);
           break;
         }
         case 'cake': {
-          const camPos: [number, number, number] = isMobile ? [0.0, 1.8, 3.2] : [0.0, 1.6, 2.6];
+          const camPos: [number, number, number] = isMobile ? [0.0, 1.7, 2.9] : [0.0, 1.55, 2.4];
           tweenCam(camPos, [0.0, 0.95, 0.0], 2.4, 'power2.inOut', 0.18);
           break;
         }
         case 'flowers': {
-          const camPos: [number, number, number] = isMobile ? [-1.0, 1.5, 0.8] : [-1.0, 1.3, 0.4];
+          const camPos: [number, number, number] = isMobile ? [-1.0, 1.45, 0.7] : [-1.0, 1.3, 0.4];
           tweenCam(camPos, [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
           break;
         }

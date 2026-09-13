@@ -336,7 +336,7 @@ export function Cake() {
   return (
     <group
       ref={groupRef}
-      position={[2.0, 0, -2.2]}
+      position={[0, 0, 0]}
       onClick={(e) => {
         e.stopPropagation();
         if (!blown.current) {

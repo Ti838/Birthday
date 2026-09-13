@@ -81,32 +81,28 @@ export function GuestShowcaseOverlay({
 
   return (
     <div className={styles.guestContainer}>
-      {/* Top Floating Guest Header */}
+      {/* Sleek Minimalist Top Pill Header */}
       <motion.header
         className={styles.guestHeader}
-        initial={{ opacity: 0, y: -25 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.7 }}
       >
-        <div className={styles.tagline}>
+        <div className={styles.headerContent}>
           <span className={styles.tagDot} />
-          <span>GUEST SHOWCASE MODE</span>
+          <h1 className={styles.title}>Tithi's Birthday Celebration ✦</h1>
           <span className={styles.tagDot} />
         </div>
-        <h1 className={styles.title}>Tithi's Birthday Celebration ✦</h1>
-        <p className={styles.subtitle}>
-          Explore the 3D universe, enjoy the fireworks, and celebrate Tithi's special day!
-        </p>
       </motion.header>
 
-      {/* Bottom Interactive Showcase Control Deck */}
+      {/* Sleek Bottom Interactive HUD */}
       <motion.footer
         className={styles.controlDeck}
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.15 }}
       >
-        {/* Camera Scenic Quick Switcher */}
+        {/* Camera Scenic Quick Switcher Tabs */}
         <div className={styles.viewRow}>
           <button
             className={`${styles.viewTab} ${activeTab === 'world' ? styles.viewTabActive : ''}`}
@@ -115,8 +111,8 @@ export function GuestShowcaseOverlay({
               onFocusView('world');
             }}
           >
-            <SparkleIcon size={14} color={activeTab === 'world' ? '#FFE5A4' : '#C9C3B8'} />
-            <span>Panoramic World</span>
+            <SparkleIcon size={13} color={activeTab === 'world' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>World</span>
           </button>
           <button
             className={`${styles.viewTab} ${activeTab === 'cake' ? styles.viewTabActive : ''}`}
@@ -125,8 +121,8 @@ export function GuestShowcaseOverlay({
               onFocusView('cake');
             }}
           >
-            <CakeIcon size={14} color={activeTab === 'cake' ? '#FFE5A4' : '#C9C3B8'} />
-            <span>Birthday Cake</span>
+            <CakeIcon size={13} color={activeTab === 'cake' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Cake</span>
           </button>
           <button
             className={`${styles.viewTab} ${activeTab === 'flowers' ? styles.viewTabActive : ''}`}
@@ -135,34 +131,44 @@ export function GuestShowcaseOverlay({
               onFocusView('flowers');
             }}
           >
-            <FlowerIcon size={14} color={activeTab === 'flowers' ? '#FFE5A4' : '#C9C3B8'} />
-            <span>Flower Garden</span>
+            <FlowerIcon size={13} color={activeTab === 'flowers' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Garden</span>
+          </button>
+          <button
+            className={`${styles.viewTab} ${activeTab === 'balloons' ? styles.viewTabActive : ''}`}
+            onClick={() => {
+              setActiveTab('balloons');
+              onFocusView('balloons');
+            }}
+          >
+            <BalloonIcon size={13} color={activeTab === 'balloons' ? '#FFE5A4' : '#C9C3B8'} />
+            <span>Balloons</span>
           </button>
         </div>
 
-        {/* Action Showcase Buttons */}
+        {/* Action Showcase Buttons Row */}
         <div className={styles.actionButtons}>
           <button className={styles.actionBtn} onClick={handleFireworks}>
-            <FireworksIcon size={16} color="#E8C872" />
-            <span>Launch Fireworks</span>
+            <FireworksIcon size={14} color="#E8C872" />
+            <span>Fireworks</span>
           </button>
 
           <button className={styles.actionBtn} onClick={handleConfettiBalloons}>
-            <BalloonIcon size={16} color="#F2B5A5" />
-            <span>Celebrate & Confetti</span>
+            <BalloonIcon size={14} color="#F2B5A5" />
+            <span>Confetti</span>
           </button>
 
           <button className={styles.actionBtn} onClick={handleMusicPlay}>
-            <MusicIcon size={16} color="#FFE5A4" />
-            <span>Birthday Symphony</span>
+            <MusicIcon size={14} color="#FFE5A4" />
+            <span>Music</span>
           </button>
 
           <button
             className={styles.vipSwitchBtn}
             onClick={() => setShowPassModal(true)}
           >
-            <CrownIcon size={16} color="#0B0E1D" />
-            <span>Are You Tithi? (VIP Unlock)</span>
+            <CrownIcon size={14} color="#0B0E1D" />
+            <span>VIP Unlock</span>
           </button>
         </div>
       </motion.footer>
@@ -175,6 +181,9 @@ export function GuestShowcaseOverlay({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowPassModal(false);
+            }}
           >
             <motion.div
               className={styles.passModal}
