@@ -32,21 +32,22 @@ interface PaletteTokens {
 }
 
 const DAY_PALETTE: PaletteTokens = {
-  // Warm ivory-cream background — open, airy, sunlit
-  bodyBg:           '#f0e9d8',
-  bgObsidian:       '#f0e9d8',
-  bgVelvet:         '#e8dcc8',
-  bgSurfaceLow:     '#ede4d0',
-  bgSurfaceMid:     '#e2d7c1',
-  bgSurfaceHigh:    '#d6ccb2',
-  textStarlight:    '#2a1f0f',
-  textMuted:        '#4a3820',
-  textSubtle:       '#6b5035',
-  glassSurface1:    'rgba(240, 233, 216, 0.72)',
-  glassSurface2:    'rgba(232, 220, 200, 0.88)',
-  glassBorderGold:  'rgba(200, 160, 80, 0.35)',
-  starlightGlow:    '0 20px 50px -10px rgba(140, 100, 40, 0.25), 0 0 30px 0 rgba(232, 200, 114, 0.18)',
-  inkColor:         '#2a1f0f',
+  // Warm sunlit world — light body bg, but cards/glass stay deep for readability
+  bodyBg:           '#c8bfae',
+  bgObsidian:       '#c8bfae',
+  bgVelvet:         '#b8af9e',
+  bgSurfaceLow:     '#c2b9a8',
+  bgSurfaceMid:     '#b5ac9b',
+  bgSurfaceHigh:    '#a89f8e',
+  // Cards/overlays stay dark so text is always readable
+  textStarlight:    '#fdf6e8',
+  textMuted:        '#f0e4c8',
+  textSubtle:       '#d4c4a0',
+  glassSurface1:    'rgba(18, 14, 8, 0.80)',
+  glassSurface2:    'rgba(26, 20, 12, 0.90)',
+  glassBorderGold:  'rgba(220, 170, 60, 0.45)',
+  starlightGlow:    '0 20px 50px -10px rgba(10, 6, 2, 0.70), 0 0 30px 0 rgba(220, 170, 60, 0.22)',
+  inkColor:         '#120d04',
 };
 
 const DAWN_PALETTE: PaletteTokens = {

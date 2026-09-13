@@ -343,8 +343,9 @@ export default function Experience() {
           break;
         }
         case 'flowers': {
-          const camPos: [number, number, number] = isMobile ? [-2.2, 1.5, 0.4] : [-2.2, 1.35, 0.0];
-          tweenCam(camPos, [-2.2, 0.85, -1.4], 2.4, 'power2.inOut', 0.18);
+          // Pull back & elevated so entire garden + pergola is beautifully visible
+          const camPos: [number, number, number] = isMobile ? [-2.2, 3.2, 3.2] : [-2.2, 2.8, 2.8];
+          tweenCam(camPos, [-2.2, 0.4, -1.4], 2.4, 'power2.inOut', 0.15);
           break;
         }
         case 'gift': {
@@ -445,8 +446,9 @@ export default function Experience() {
     setWishes([]);
     setCaption('');
     setHint('');
-    const camPos: [number, number, number] = isMobile ? [-2.2, 1.5, 0.4] : [-2.2, 1.35, 0.0];
-    tweenCam(camPos, [-2.2, 0.85, -1.4], 2.8, 'power2.inOut', 0.2);
+    // Pull back & up so the full botanical garden is beautifully framed
+    const camPos: [number, number, number] = isMobile ? [-2.2, 3.2, 3.2] : [-2.2, 2.8, 2.8];
+    tweenCam(camPos, [-2.2, 0.4, -1.4], 2.8, 'power2.inOut', 0.15);
     showCaption('✦ ENTERING THE SECRET GARDEN ✦', 2000);
   }, [setStage, isMobile, setHint, setCaption, tweenCam, showCaption]);
 

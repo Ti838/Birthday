@@ -48,23 +48,23 @@
    All transitions are handled by ThemeSync via inline style injection.
 ──────────────────────────────────────────────────────────────────── */
 
-/* ── DAY: warm ivory, open airy sunlit world ── */
+/* ── DAY: warm sandy world, dark glass cards for contrast ── */
 [data-timeofday="day"] {
-  --bg-obsidian:          #f0e9d8;
-  --bg-velvet:            #e8dcc8;
-  --bg-surface-lowest:    #ede4d0;
-  --bg-surface-low:       #ede4d0;
-  --bg-surface-mid:       #e2d7c1;
-  --bg-surface-high:      #d6ccb2;
-  --text-starlight:       #2a1f0f;
-  --text-muted:           #4a3820;
-  --text-subtle:          #6b5035;
-  --glass-surface-1:      rgba(240, 233, 216, 0.72);
-  --glass-surface-2:      rgba(232, 220, 200, 0.88);
-  --glass-border-gold:    rgba(200, 160, 80, 0.35);
-  --starlight-glow:       0 20px 50px -10px rgba(140, 100, 40, 0.25), 0 0 30px 0 rgba(232, 200, 114, 0.18);
-  --ink:                  #2a1f0f;
-  --caption-color:        #2a1f0f;
+  --bg-obsidian:          #c8bfae;
+  --bg-velvet:            #b8af9e;
+  --bg-surface-lowest:    #c2b9a8;
+  --bg-surface-low:       #c2b9a8;
+  --bg-surface-mid:       #b5ac9b;
+  --bg-surface-high:      #a89f8e;
+  --text-starlight:       #fdf6e8;
+  --text-muted:           #f0e4c8;
+  --text-subtle:          #d4c4a0;
+  --glass-surface-1:      rgba(18, 14, 8, 0.80);
+  --glass-surface-2:      rgba(26, 20, 12, 0.90);
+  --glass-border-gold:    rgba(220, 170, 60, 0.45);
+  --starlight-glow:       0 20px 50px -10px rgba(10, 6, 2, 0.70), 0 0 30px 0 rgba(220, 170, 60, 0.22);
+  --ink:                  #120d04;
+  --caption-color:        #fdf6e8;
 }
 
 /* ── DAWN: lavender-rose misty morning ── */
