@@ -347,7 +347,7 @@ export default function Experience() {
           break;
         case 'flowers':
           // Angle camera from the far left so the open Gift Box doesn't occlude the view
-          tweenCam(isMobile ? [4.0, 3.6, 2.5] : [4.5, 3.2, 2.0], [-2.2, 0.4, -1.4], 2.4, 'power2.inOut');
+          tweenCam(isMobile ? [-1.2, 3.6, 4.5] : [-1.2, 3.2, 3.5], [-2.2, 0.4, -1.4], 2.4, 'power2.inOut');
           break;
         case 'gift':
           tweenCam(isMobile ? [-2.4, 2.2, 5.5] : [-2.4, 1.6, 3.8], [-2.4, 0.2, 1.2], 2.4, 'power2.inOut');
@@ -453,7 +453,7 @@ export default function Experience() {
     setCaption('');
     setHint('');
     // Pull back & up, angled from the left so the open Gift Box doesn't occlude the view!
-    const camPos: [number, number, number] = isMobile ? [4.0, 3.6, 2.5] : [4.5, 3.2, 2.0];
+    const camPos: [number, number, number] = isMobile ? [-1.2, 3.6, 4.5] : [-1.2, 3.2, 3.5];
     tweenCam(camPos, [-2.2, 0.4, -1.4], 2.8, 'power2.inOut');
     showCaption('✦ ENTERING THE SECRET GARDEN ✦', 2000);
   }, [setStage, isMobile, setHint, setCaption, tweenCam, showCaption]);
