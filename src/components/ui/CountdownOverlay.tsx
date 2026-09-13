@@ -176,7 +176,7 @@ export function CountdownOverlay({ onUnlock }: CountdownOverlayProps) {
         setErrorMsg('A little more patience, Tithi ✦ Your birthday celebration is sealed until September 18 at midnight. Please wait for the countdown to complete! ✦');
       }
     } else {
-      setErrorMsg('Incorrect key ✦ Try your birthdate (1809) or special name (or "timon") ✦');
+      setErrorMsg('Incorrect passcode. Please try again ✨');
     }
   };
 
