@@ -218,4 +218,55 @@
   box-shadow: 0 10px 35px rgba(232, 200, 114, 0.55);
 }
 
+@media (max-width: 600px) {
+  .container {
+    padding: calc(14px + env(safe-area-inset-top, 0px)) 10px calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+  .promptCard {
+    padding: 10px 16px;
+    border-radius: 18px;
+    width: 94vw;
+  }
+  .badge {
+    font-size: 9px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .subtitle {
+    font-size: 11.5px;
+  }
+  .constellationMap {
+    width: 96vw;
+  }
+  .starsGrid {
+    gap: 8px;
+  }
+  .starNode {
+    width: clamp(86px, 28vw, 100px);
+    min-height: 96px;
+    padding: 8px 4px;
+    border-radius: 16px;
+  }
+  .iconWrapper {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 4px;
+  }
+  .starSvg {
+    width: 32px;
+    height: 32px;
+  }
+  .starLabel {
+    font-size: 10px;
+  }
+  .starSubtitle {
+    font-size: 8px;
+  }
+  .completedToast {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+}
+
 

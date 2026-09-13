@@ -332,3 +332,57 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(232, 200, 114, 0.5);
 }
+
+@media (max-width: 600px) {
+  .backdrop {
+    padding: 10px;
+  }
+  .letterContainer {
+    width: 96vw;
+    max-height: 92vh;
+    border-radius: 20px;
+  }
+  .cardTopBar {
+    padding: 10px 14px;
+  }
+  .topPill {
+    font-size: 9.5px;
+    padding: 4px 10px;
+  }
+  .scrollArea {
+    padding: 14px 10px;
+  }
+  .parchmentPaper {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+  .greeting {
+    font-size: 22px;
+  }
+  .titleTag {
+    font-size: 16px;
+  }
+  .paraLine {
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .highlightText {
+    font-size: 15px;
+  }
+  .checklistItem {
+    font-size: 12.5px;
+  }
+  .signatureAuthor {
+    font-size: 32px;
+  }
+  .cardBottomBar {
+    padding: 10px 14px;
+  }
+  .scrollHint {
+    font-size: 9.5px;
+  }
+  .continueBtn {
+    padding: 8px 18px;
+    font-size: 11.5px;
+  }
+}

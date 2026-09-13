@@ -220,37 +220,47 @@ export default function Experience() {
     if (!currentIsVIP) {
       // Guest View: Cinematic framing right in front of cake and celebration
       setStage('guest_showcase');
-      tweenCam([0.0, 2.0, 4.2], [0.0, 0.85, 0.0], 3.2, 'power2.inOut', 0.25);
+      const camPos: [number, number, number] = isMobile ? [0.0, 2.2, 5.2] : [0.0, 2.0, 4.2];
+      tweenCam(camPos, [0.0, 0.85, 0.0], 3.2, 'power2.inOut', 0.25);
       setHint('');
       return;
     }
 
     // Tithi VIP View: Start personalized gift opening & journey
     setStage('02_gift');
-    tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
+    const camPos: [number, number, number] = isMobile ? [-2.0, 1.9, 4.4] : [-1.2, 2.0, 4.8];
+    tweenCam(camPos, [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
     showCaption('Every birthday needs a present... ✦', 2000);
     setHint('Tap the glowing gift box to open ✦');
-  }, [setStage, tweenCam, showCaption, setHint]);
+  }, [setStage, isMobile, tweenCam, showCaption, setHint]);
 
   // Guest Camera Controls
   const handleGuestFocusView = useCallback(
     (view: 'world' | 'cake' | 'flowers' | 'balloons') => {
       switch (view) {
-        case 'world':
-          tweenCam([0.0, 2.4, 4.8], [0.0, 0.85, 0.0], 2.4, 'power2.inOut', 0.25);
+        case 'world': {
+          const camPos: [number, number, number] = isMobile ? [0.0, 2.6, 5.6] : [0.0, 2.4, 4.8];
+          tweenCam(camPos, [0.0, 0.85, 0.0], 2.4, 'power2.inOut', 0.25);
           break;
-        case 'cake':
-          tweenCam([0.0, 1.6, 2.6], [0.0, 0.95, 0.0], 2.4, 'power2.inOut', 0.18);
+        }
+        case 'cake': {
+          const camPos: [number, number, number] = isMobile ? [0.0, 1.8, 3.2] : [0.0, 1.6, 2.6];
+          tweenCam(camPos, [0.0, 0.95, 0.0], 2.4, 'power2.inOut', 0.18);
           break;
-        case 'flowers':
-          tweenCam([-1.0, 1.3, 0.4], [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
+        }
+        case 'flowers': {
+          const camPos: [number, number, number] = isMobile ? [-1.0, 1.5, 0.8] : [-1.0, 1.3, 0.4];
+          tweenCam(camPos, [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
           break;
-        case 'balloons':
-          tweenCam([2.4, 2.2, 3.2], [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.22);
+        }
+        case 'balloons': {
+          const camPos: [number, number, number] = isMobile ? [1.8, 2.3, 4.0] : [2.4, 2.2, 3.2];
+          tweenCam(camPos, [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.22);
           break;
+        }
       }
     },
-    [tweenCam]
+    [isMobile, tweenCam]
   );
 
   const handleGuestTriggerFireworks = useCallback(() => {
@@ -261,10 +271,11 @@ export default function Experience() {
   const handleGuestUnlockVIP = useCallback(async () => {
     setVIP(true);
     setStage('02_gift');
-    tweenCam([-1.2, 2.0, 4.8], [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
+    const camPos: [number, number, number] = isMobile ? [-2.0, 1.9, 4.4] : [-1.2, 2.0, 4.8];
+    tweenCam(camPos, [-2.6, 0.6, 1.5], 2.8, 'power2.inOut', 0.18);
     showCaption('Every birthday needs a present... ✦', 2000);
     setHint('Tap the glowing gift box to open ✦');
-  }, [setVIP, setStage, tweenCam, showCaption, setHint]);
+  }, [setVIP, setStage, isMobile, tweenCam, showCaption, setHint]);
 
   // Stage 02 -> 03: Gift Opened -> World Reveal & Push to Letter Desk
   const handleGiftBoxClick = useCallback(async () => {
@@ -275,13 +286,14 @@ export default function Experience() {
     playChime(1.1);
 
     // Push smoothly into writing desk with letter
-    tweenCam([0.5, 1.6, 1.8], [0.4, 0.65, -0.5], 3.0, 'power2.inOut', 0.18, () => {
+    const camPos: [number, number, number] = isMobile ? [0.4, 1.75, 1.8] : [0.5, 1.6, 1.8];
+    tweenCam(camPos, [0.4, 0.65, -0.5], 3.0, 'power2.inOut', 0.18, () => {
       setStage('04_letter');
       setHint('Tap the sealed letter on the desk to read ✦');
       setEnvelopeInteractive(true);
     });
     showCaption('WELCOME TO YOUR BIRTHDAY WORLD ✦', 2400);
-  }, [stage, setStage, setHint, tweenCam, showCaption, setCaption]);
+  }, [stage, isMobile, setStage, setHint, tweenCam, showCaption, setCaption]);
 
   // Stage 04: Envelope clicked -> Open Letter Modal
   const handleEnvelopeClick = useCallback(() => {
@@ -300,21 +312,23 @@ export default function Experience() {
     setHint('');
     setTimeout(() => {
       setStage('05_constellation');
-      tweenCam([0.0, 3.2, 5.0], [0.0, 3.2, 0.0], 2.4, 'power2.inOut', 0.2);
+      const camPos: [number, number, number] = isMobile ? [0.0, 3.2, 5.5] : [0.0, 3.2, 5.0];
+      tweenCam(camPos, [0.0, 3.2, 0.0], 2.4, 'power2.inOut', 0.2);
     }, 300);
-  }, [setStage, setHint, setCaption, tweenCam]);
+  }, [setStage, isMobile, setHint, setCaption, tweenCam]);
 
   // Stage 05 -> 06: Constellation Complete -> 5 Balloons Stage
   const handleConstellationComplete = useCallback(() => {
     setStage('06_balloons');
     setWishes([]);
     setCaption('');
-    tweenCam([2.4, 2.2, 3.2], [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.25, () => {
+    const camPos: [number, number, number] = isMobile ? [1.8, 2.3, 4.0] : [2.4, 2.2, 3.2];
+    tweenCam(camPos, [1.8, 1.6, 1.2], 2.4, 'power2.inOut', 0.25, () => {
       setBalloonsInteractive(true);
       setHint('Tap and pop the floating balloons to reveal your wishes ✦');
       setTimeout(() => setShowContinue(true), 3500);
     });
-  }, [setStage, tweenCam, setHint, setShowContinue, setCaption]);
+  }, [setStage, isMobile, tweenCam, setHint, setShowContinue, setCaption]);
 
   // Stage 06 -> 07: Balloons Done -> Mini Star Challenge
   const handleContinueToStarGame = useCallback(() => {
@@ -332,8 +346,9 @@ export default function Experience() {
     setWishes([]);
     setCaption('');
     setHint('');
-    tweenCam([-1.0, 1.3, 0.4], [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
-  }, [setStage, setHint, setCaption, tweenCam]);
+    const camPos: [number, number, number] = isMobile ? [-1.0, 1.5, 0.8] : [-1.0, 1.3, 0.4];
+    tweenCam(camPos, [-1.0, 0.85, -1.0], 2.4, 'power2.inOut', 0.18);
+  }, [setStage, isMobile, setHint, setCaption, tweenCam]);
 
   // Stage 08 -> 09: Garden Done -> Cake & Make a Wish
   const handleGardenComplete = useCallback(async () => {
@@ -356,7 +371,8 @@ export default function Experience() {
     setStage('12_fireworks');
     setWishes([]);
     setHint('');
-    tweenCam([0.0, 2.4, 4.8], [0.0, 2.8, -2.5], 2.4, 'power2.inOut', 0.2);
+    const camPos: [number, number, number] = isMobile ? [0.0, 2.6, 5.8] : [0.0, 2.4, 4.8];
+    tweenCam(camPos, [0.0, 2.8, -2.5], 2.4, 'power2.inOut', 0.2);
     setFireworksActive(true);
     playFireworksBoom();
     playHappyBirthdaySong();
@@ -370,7 +386,7 @@ export default function Experience() {
     setTimeout(() => {
       setStage('13_hidden_surprise');
     }, 1500);
-  }, [setStage, tweenCam, showCaption, setHint]);
+  }, [setStage, isMobile, tweenCam, showCaption, setHint]);
 
   // Stage 14: Replay whole experience
   const handleReplay = useCallback(() => {
@@ -415,7 +431,7 @@ export default function Experience() {
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
       {/* 3D WebGL Canvas */}
       <Canvas
-        camera={{ position: [0, 4.6, 12], fov: 45, near: 0.1, far: 80 }}
+        camera={{ position: isMobile ? [0, 4.4, 13.5] : [0, 4.6, 12], fov: isMobile ? 54 : 45, near: 0.1, far: 80 }}
         shadows="percentage"
         onCreated={({ gl }) => {
           gl.shadowMap.type = THREE.PCFShadowMap;
