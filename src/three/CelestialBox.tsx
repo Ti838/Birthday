@@ -71,11 +71,11 @@ function makeTagTexture(size = 256): THREE.CanvasTexture {
   ctx.font = `italic bold ${Math.floor(size * 0.13)}px "Playfair Display", Georgia, serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('For Tithi ✦', c.width / 2, c.height / 2);
+  ctx.fillText('Open Me ✦', c.width / 2, c.height / 2);
   return new THREE.CanvasTexture(c);
 }
 
-export function GiftBox({ onOpen }: GiftBoxProps) {
+export function CelestialBox({ onOpen }: GiftBoxProps) {
   const groupRef = useRef<THREE.Group>(null);
   const lidRef = useRef<THREE.Group>(null);
   const glowLightRef = useRef<THREE.PointLight>(null);
@@ -394,3 +394,5 @@ export function GiftBox({ onOpen }: GiftBoxProps) {
     </group>
   );
 }
+
+export const GiftBox = CelestialBox;

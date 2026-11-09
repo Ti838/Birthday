@@ -35,17 +35,17 @@ function makeCakeNamePlaqueTex(size = 512): THREE.CanvasTexture {
   ctx.fillRect(8, c.height - 8 - cornerSize, cornerSize, cornerSize);
   ctx.fillRect(c.width - 8 - cornerSize, c.height - 8 - cornerSize, cornerSize, cornerSize);
 
-  // Top line: "Happy Birthday"
+  // Top line: "Celebration"
   ctx.fillStyle = '#8B263E';
   ctx.font = 'italic bold 32px "Playfair Display", Georgia, serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('Happy Birthday', c.width / 2, c.height * 0.35);
+  ctx.fillText('Celebration', c.width / 2, c.height * 0.35);
 
-  // Main line: "TITHI ✦"
+  // Main line: "MAKE A WISH ✦"
   ctx.fillStyle = '#C5A15A';
-  ctx.font = 'bold 46px "Playfair Display", Georgia, serif';
-  ctx.fillText('TITHI  ✦', c.width / 2, c.height * 0.72);
+  ctx.font = 'bold 44px "Playfair Display", Georgia, serif';
+  ctx.fillText('MAKE A WISH ✦', c.width / 2, c.height * 0.72);
 
   return new THREE.CanvasTexture(c);
 }
@@ -434,7 +434,7 @@ export function Cake() {
       </mesh>
 
       {/* ══════════════════════════════════════════════════
-          PROMINENT NAME PLAQUE "HAPPY BIRTHDAY TITHI ✦"
+          PROMINENT EMBLEM PLAQUE "CELEBRATION - MAKE A WISH ✦"
       ═══════════════════════════════════════════════════ */}
       <mesh
         position={[0, 0.77, 0.53]}

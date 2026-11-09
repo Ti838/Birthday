@@ -61,38 +61,38 @@ export const FLOATING_STAR_WISHES = [
   'GOOD MEMORIES',
 ] as const;
 
-// ─── Exact Birthday Letter Content (Stage 04) ────────────────────
+// ─── Handcrafted Creator's Letter & Journal Note (Stage 04) ────────────────────
 export const SIGNATURE_NAME = 'Timon ✦';
 
 export const LETTER_PAGES = [
   // Page 1
   [
-    { type: 'greeting', text: 'Dear Doraemon (Tithi ✦),' },
-    { type: 'title_tag', text: 'Wishing You the Happiest Birthday! 🎂✨' },
+    { type: 'greeting', text: 'Dear Dreamer & Explorer,' },
+    { type: 'title_tag', text: 'Welcome to the Celestial World ✨' },
     {
       type: 'para',
       lines: [
-        'Today is all about celebrating you, your existence, and the special light you bring into the world.',
-        'Happy Birthday, Doraemon! Another chapter begins today, and with every passing year, you bring even more warmth, uncontrollable laughter, and your own brand of brilliant magic.',
+        'Welcome to this interactive space. This 3D world was crafted as an exploration of digital art, light, and atmosphere — a quiet corner of the web to pause, reflect, and experience wonder.',
+        'In a world that often moves too fast, this project is an invitation to slow down, gaze at the starlight, and appreciate the craftsmanship in subtle details.',
       ],
     },
     {
       type: 'highlight',
-      lines: ['The real-life Doraemon with an endless pocket of smiles. ✦'],
+      lines: ['A journey of curiosity, light, and boundless imagination. ✦'],
     },
     {
       type: 'para',
       lines: [
-        'I don’t think any nickname fits you more perfectly than "Doraemon". Even without gadgets like an anywhere door or a bamboo-copter, you have this natural superpower to turn ordinary moments into unforgettable memories and make everyone around you laugh with pure joy.',
+        'Every element you encounter here — from the procedural botanical flora and ambient weather system to the physics particle fireworks and interactive constellation — was built with deliberate care and passion for creative engineering.',
       ],
     },
     {
       type: 'checklist',
       items: [
-        'Mastermind of spontaneous, fun adventures.',
-        'The person who always brings positive energy and laughter.',
-        'The keeper of big dreams, great resilience, and pure kindness.',
-        'And officially, another year more wonderful and legendary.',
+        'Stay curious and embrace spontaneous adventures.',
+        'Find wonder in code, design, and creative expression.',
+        'Build things with genuine passion and attention to detail.',
+        'And always celebrate the milestones along your journey.',
       ],
     },
   ],
@@ -104,23 +104,23 @@ export const LETTER_PAGES = [
     {
       type: 'para',
       lines: [
-        "Birthdays are life's gentle way of reminding you to pause, breathe, and celebrate everything you are.",
-        'So today, leave all the deadlines, stress, and overthinking behind. Today belongs only to you.',
+        "Interactive experiences are a gentle reminder of the magic that happens when art and technology meet.",
+        'So take your time, explore every corner, and let yourself enjoy the atmosphere.',
       ],
     },
     {
       type: 'checklist',
       items: [
-        'Treat yourself to something delicious with zero guilt.',
-        'Laugh a little louder with the people who cherish you.',
-        'Capture plenty of beautiful memories and candid photos.',
-        'Make an audacious, secret wish when blowing out your candles.',
-        'And enjoy every single heartbeat of being the birthday star.',
+        'Pause to appreciate the craft in everyday things.',
+        'Dare to dream audaciously and build what inspires you.',
+        'Capture memories that bring warmth to your heart.',
+        'Never lose your sense of childlike curiosity and wonder.',
+        'And enjoy every single heartbeat of this journey.',
       ],
     },
     {
       type: 'highlight',
-      lines: ['May all your secret wishes find their way to reality. ✦'],
+      lines: ['May all your aspirations find their way into reality. ✦'],
     },
     {
       type: 'divider',
@@ -128,15 +128,15 @@ export const LETTER_PAGES = [
     {
       type: 'closing_para',
       lines: [
-        'As you step into this brand new year of your life, I truly wish you:',
-        'unshakeable peace of mind, vibrant health, exciting milestones, endless laughter, and days filled with quiet happiness.',
-        'May life surprise you with moments so special that you stop and whisper:',
-        '"Yep, this is truly a blessed chapter."',
+        'As you explore the different scenes in this world — the blooming secret garden, the constellation sky, and the midnight celebration — I hope you feel a spark of inspiration and quiet joy.',
+        'May your journey ahead be filled with vibrant health, exciting milestones, meaningful connections, and days of quiet happiness.',
+        'May life surprise you with moments so special that you stop and smile:',
+        '"Yep, this is truly a wonderful chapter."',
       ],
     },
     {
       type: 'closing',
-      text: 'Have an extraordinary and magical birthday, Doraemon!',
+      text: 'Thank you for exploring this world!',
     },
     {
       type: 'signature',

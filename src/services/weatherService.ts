@@ -1,6 +1,6 @@
 import type { WorldWeatherState } from '../types';
 
-const CACHE_KEY = 'tithi_weather_cache_v1';
+const CACHE_KEY = 'showcase_weather_cache_v1';
 const CACHE_DURATION_MS = 10 * 60 * 1000; // 10 minutes
 
 // Default fallback coordinates (Dhaka, Bangladesh)

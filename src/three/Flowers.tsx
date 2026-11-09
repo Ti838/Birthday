@@ -796,15 +796,15 @@ function GardenPlanterBed() {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   DORAEMON EASTER EGG (Miniature Handcrafted Blue Bell Charm)
-   Nestled subtly in the mossy rocks for Tithi to discover!
+   CELESTIAL BELL EASTER EGG (Miniature Handcrafted Blue & Gold Bell Charm)
+   Nestled subtly in the mossy rocks as an interactive easter egg charm!
 ══════════════════════════════════════════════════════════════ */
-function DoraemonEasterEggBell() {
+function CelestialEasterEggBell() {
   const bellRef = useRef<THREE.Group>(null);
   const bellMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#1E88E5'), // Vibrant Doraemon Sky Blue
+        color: new THREE.Color('#1E88E5'), // Vibrant Sky Blue
         metalness: 0.85,
         roughness: 0.25,
       }),
@@ -846,7 +846,7 @@ function DoraemonEasterEggBell() {
         document.body.style.cursor = 'default';
       }}
     >
-      {/* Small Doraemon Blue Sphere Bell */}
+      {/* Small Celestial Blue Sphere Bell */}
       <mesh material={bellMat} castShadow>
         <sphereGeometry args={[0.032, 16, 16]} />
       </mesh>
@@ -1004,8 +1004,8 @@ export function Flowers() {
       {/* Intelligent Golden Guide Firefly */}
       <GuideFirefly />
 
-      {/* Doraemon Easter Egg Blue Bell */}
-      <DoraemonEasterEggBell />
+      {/* Celestial Easter Egg Blue Bell */}
+      <CelestialEasterEggBell />
 
       {/* 5 Distinct Photorealistic Botanical Garden Blooms */}
       {/* 0. Blush Camellia (Velvet Rose Pink) — "Stay curious." */}

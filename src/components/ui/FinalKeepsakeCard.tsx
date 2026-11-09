@@ -24,12 +24,12 @@ export function FinalKeepsakeCard({ onReadLetterAgain, onReplay }: FinalKeepsake
       <div className={styles.card}>
         <div className={styles.monogramBadge}>✦</div>
 
-        <h2 className={styles.heading}>Happy Birthday, Doraemon!</h2>
-        <p className={styles.subheading}>For Tithi ✦ With all my warmest thoughts</p>
+        <h2 className={styles.heading}>The Celestial Journey</h2>
+        <p className={styles.subheading}>An Interactive 3D Showcase ✦ Designed & Developed by Timon</p>
 
         <p className={styles.message}>
-          May all the wishes you made under the fireworks tonight find their way into reality.
-          Keep smiling, keep shining, and have the most enchanting, brilliant year ahead!
+          May all the aspirations you set beneath the starlight find their way into reality.
+          Stay curious, keep creating, and enjoy every step of the journey!
         </p>
 
         <div className={styles.buttonGroup}>
@@ -39,7 +39,7 @@ export function FinalKeepsakeCard({ onReadLetterAgain, onReplay }: FinalKeepsake
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <EnvelopeIcon size={16} /> Read the Letter Again
+            <EnvelopeIcon size={16} /> Read Creator Note
           </motion.button>
           <motion.button
             className={styles.actionBtn}
@@ -47,7 +47,7 @@ export function FinalKeepsakeCard({ onReadLetterAgain, onReplay }: FinalKeepsake
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <MusicIcon size={16} /> Play Birthday Song
+            <MusicIcon size={16} /> Play Melody
           </motion.button>
           <motion.button
             className={styles.primaryBtn}

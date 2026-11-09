@@ -29,7 +29,7 @@ const SCORE = [
   [G4, G3, 1.0],
   [F4, F3, 2.0],
 
-  // Happy Birthday dear Tithi / Doraemon
+  // Phrase 3: Theme Melody / Celebration
   [C4, C3, 0.75],
   [C4, C3, 0.25],
   [C5, C4, 1.0],
@@ -142,7 +142,7 @@ for (let i = 0; i < totalSamples; i++) {
 const outDir = path.resolve('public', 'audio');
 if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
-fs.writeFileSync(path.join(outDir, 'birthday-song.mp3'), buffer);
-fs.writeFileSync(path.join(outDir, 'birthday-song.wav'), buffer);
+fs.writeFileSync(path.join(outDir, 'celestial-melody.mp3'), buffer);
+fs.writeFileSync(path.join(outDir, 'celestial-melody.wav'), buffer);
 
-console.log('Successfully generated full Happy Birthday song audio file at public/audio/birthday-song.mp3 and birthday-song.wav');
+console.log('Successfully generated full celestial melody audio file at public/audio/celestial-melody.mp3 and celestial-melody.wav');

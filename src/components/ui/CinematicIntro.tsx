@@ -59,7 +59,7 @@ export function CinematicIntro() {
         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         transition={{ duration: 1.8, delay: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
       >
-        Welcome, Tithi.
+        Welcome, Explorer.
       </motion.h1>
 
       <motion.p

@@ -64,7 +64,7 @@ export function TopControlsDock() {
   );
 }
 
-// ─── Floating Interactive Instruction Banner (Prominent Guide for Tithi) ──────
+// ─── Floating Interactive Instruction Banner ──────
 interface InstructionBannerProps {
   onContinue?: () => void;
 }
@@ -125,7 +125,7 @@ export function Loader() {
         <div className={styles.loaderMonogram}>
           <span className={styles.loaderMonogramLetter}>T</span>
         </div>
-        <p className={styles.loaderText}>Opening Tithi's Birthday Celebration… ✦</p>
+        <p className={styles.loaderText}>Opening 3D WebGL Experience… ✦</p>
         <div className={styles.loaderDots}>
           {[0, 1, 2].map((i) => (
             <motion.span

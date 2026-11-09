@@ -93,7 +93,7 @@ export function makeWaxTexture(size = 128): THREE.CanvasTexture {
   return tex;
 }
 
-/** Tag texture – small ivory card with "For Tithi ✦" */
+/** Tag texture – small ivory card with "Open Me ✦" */
 export function makeTagTexture(size = 256): THREE.CanvasTexture {
   const c = document.createElement('canvas');
   c.width = size; c.height = size * 0.7;
@@ -109,7 +109,7 @@ export function makeTagTexture(size = 256): THREE.CanvasTexture {
   ctx.font = `italic ${size * 0.13}px "Cormorant Garamond", Georgia, serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('For Tithi ✦', c.width / 2, c.height / 2);
+  ctx.fillText('Open Me ✦', c.width / 2, c.height / 2);
   const tex = new THREE.CanvasTexture(c);
   return tex;
 }

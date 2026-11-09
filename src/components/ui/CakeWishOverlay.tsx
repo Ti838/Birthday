@@ -142,7 +142,7 @@ export function CakeWishOverlay({ onWishComplete }: CakeWishOverlayProps) {
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.8 }}
           >
-            <span className={styles.badge}>✦ MAKE A BIRTHDAY WISH ✦</span>
+            <span className={styles.badge}>✦ MAKE A CELEBRATION WISH ✦</span>
             <h2 className={styles.title}>Make Your Wish & Blow Out the Candles</h2>
             <p className={styles.subtitle}>
               {micActive

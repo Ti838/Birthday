@@ -27,7 +27,7 @@ interface GuestShowcaseOverlayProps {
   onTriggerFireworks: () => void;
 }
 
-const VALID_PASSCODES = ['1809', 'tithi', 'doraemon', '18/09', '18-09'];
+const VALID_PASSCODES = ['timon', 'showcase', 'preview', 'admin', '1809', 'master'];
 
 export function GuestShowcaseOverlay({
   onUnlockVIP,
@@ -69,15 +69,19 @@ export function GuestShowcaseOverlay({
     }
   };
 
+  const handleDirectLaunchStory = () => {
+    setVIP(true);
+    playChime(1.5);
+    onUnlockVIP();
+  };
+
   const handlePasscodeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const clean = passInput.toLowerCase().trim();
     if (VALID_PASSCODES.includes(clean)) {
-      setVIP(true);
-      playChime(1.5);
-      onUnlockVIP();
+      handleDirectLaunchStory();
     } else {
-      setErrorMsg('Incorrect key ✦ Try birthdate (1809) or Tithi ✦');
+      setErrorMsg('Key not recognized ✦ Click Start Story Mode to begin directly!');
     }
   };
 
@@ -92,7 +96,7 @@ export function GuestShowcaseOverlay({
       >
         <div className={styles.headerContent}>
           <span className={styles.tagDot} />
-          <h1 className={styles.title}>Tithi's Birthday Celebration ✦</h1>
+          <h1 className={styles.title}>Celestial Diorama Showcase ✦</h1>
           <span className={styles.tagDot} />
         </div>
       </motion.header>
@@ -190,12 +194,12 @@ export function GuestShowcaseOverlay({
             onClick={() => setShowPassModal(true)}
           >
             <CrownIcon size={14} color="#0B0E1D" />
-            <span>VIP Unlock</span>
+            <span>Story Mode</span>
           </button>
         </div>
       </motion.footer>
 
-      {/* VIP Unlock Passcode Modal */}
+      {/* Story Mode Launch Modal */}
       <AnimatePresence>
         {showPassModal && (
           <motion.div
@@ -213,21 +217,33 @@ export function GuestShowcaseOverlay({
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
             >
-              <h3 className={styles.modalTitle}>Unlock Tithi's VIP Experience ✦</h3>
+              <h3 className={styles.modalTitle}>Enter Guided Story Mode ✦</h3>
               <p className={styles.modalDesc}>
-                Enter your secret key (e.g. <strong>1809</strong> or your name) to open your personalized letter and gifts.
+                Experience the full interactive journey from opening the mystery gift to constellation mapping and the grand fireworks finale.
               </p>
+
+              <button
+                type="button"
+                className={styles.submitBtn}
+                style={{ width: '100%', marginBottom: 16 }}
+                onClick={() => {
+                  setShowPassModal(false);
+                  handleDirectLaunchStory();
+                }}
+              >
+                Begin Story Journey ✦
+              </button>
+
               <form onSubmit={handlePasscodeSubmit} className={styles.formRow}>
                 <input
                   type="password"
-                  placeholder="Enter passcode..."
+                  placeholder="Or enter key..."
                   value={passInput}
                   onChange={(e) => {
                     setPassInput(e.target.value);
                     setErrorMsg('');
                   }}
                   className={styles.passInput}
-                  autoFocus
                 />
                 <button type="submit" className={styles.submitBtn}>
                   Unlock ✦

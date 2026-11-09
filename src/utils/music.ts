@@ -1,7 +1,7 @@
 /**
- * High-Fidelity Web Audio Engine for Tithi's Celestial Birthday World:
+ * High-Fidelity Web Audio Engine for Celestial 3D World:
  * - Polyphonic Celestial Music Box & Harpsichord sound generator
- * - Full Harmonized Polyphonic "Happy Birthday to You" Melody with warm chord accompaniment
+ * - Full Harmonized Polyphonic Celebration Melody with warm chord accompaniment
  * - Realistic Multi-Layered Fireworks Sound Design (Launch whoosh -> Deep sub-bass boom -> Golden crackle tails)
  * - Tactile sound effects (chimes, star collection, balloon pop, flower bloom, breath extinguish)
  */
@@ -407,14 +407,14 @@ export function playHappyBirthdaySong() {
       [G4, 5.9,  0.6,  0.34], // to
       [F4, 6.55, 1.1,  0.32], // you
 
-      // Phrase 3: "Happy Birthday dear Tithi"
-      [C4, 7.8,  0.35, 0.28], // Hap-
-      [C4, 8.2,  0.25, 0.28], // py
-      [C5, 8.5,  0.6,  0.36], // Birth-
-      [A4, 9.15, 0.6,  0.34], // day
-      [F4, 9.8,  0.6,  0.32], // dear
-      [E4, 10.45, 0.6, 0.30], // Ti-
-      [D4, 11.1, 1.0,  0.34], // thi
+      // Phrase 3: Celebration Melody Theme
+      [C4, 7.8,  0.35, 0.28],
+      [C4, 8.2,  0.25, 0.28],
+      [C5, 8.5,  0.6,  0.36],
+      [A4, 9.15, 0.6,  0.34],
+      [F4, 9.8,  0.6,  0.32],
+      [E4, 10.45, 0.6, 0.30],
+      [D4, 11.1, 1.0,  0.34],
 
       // Phrase 4: "Happy Birthday to you!"
       [Bb4, 12.3, 0.35, 0.32], // Hap-

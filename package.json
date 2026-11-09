@@ -1,7 +1,8 @@
 {
-  "name": "tithi-gift-react",
+  "name": "celestial-3d-showcase",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "An immersive, interactive 3D WebGL diorama and creative storytelling experience built with React Three Fiber, Three.js, and TypeScript by Timon.",
   "type": "module",
   "scripts": {
     "dev": "vite",

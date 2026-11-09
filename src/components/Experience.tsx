@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { AnimatePresence } from 'framer-motion';
 
-import { GiftBox } from '../three/GiftBox';
+import { CelestialBox } from '../three/CelestialBox';
 import { Envelope } from '../three/Envelope';
 import { Balloons } from '../three/Balloons';
 import { Cake } from '../three/Cake';
@@ -316,7 +316,7 @@ export default function Experience() {
       return;
     }
 
-    // Tithi VIP View: Grand Cinematic Intro from the sky
+    // Full Story Mode: Grand Cinematic Intro from the sky
     setStage('01_intro_cinematic');
     
     // Jump camera high into the sky instantly, then sweep down
@@ -326,7 +326,7 @@ export default function Experience() {
     });
     
     setTimeout(() => {
-      showCaption('Every birthday needs a present... ✦', 2000);
+      showCaption('A mysterious celestial gift awaits... ✦', 2000);
       setHint('Tap the glowing gift box to open ✦');
     }, 5500);
   }, [setStage, isMobile, tweenCam, showCaption, setHint]);
@@ -379,7 +379,7 @@ export default function Experience() {
     });
     
     setTimeout(() => {
-      showCaption('Every birthday needs a present... ✦', 2000);
+      showCaption('A mysterious celestial gift awaits... ✦', 2000);
       setHint('Tap the glowing gift box to open ✦');
     }, 5500);
   }, [setVIP, setStage, isMobile, tweenCam, showCaption, setHint, resetJourney]);
@@ -399,7 +399,7 @@ export default function Experience() {
       setHint('Tap the sealed letter on the desk to read ✦');
       setEnvelopeInteractive(true);
     });
-    showCaption('WELCOME TO YOUR BIRTHDAY WORLD ✦', 2400);
+    showCaption('WELCOME TO THE CELESTIAL WORLD ✦', 2400);
   }, [stage, isMobile, setStage, setHint, tweenCam, showCaption, setCaption]);
 
   // Stage 04: Envelope clicked -> Open Letter Modal
@@ -472,7 +472,7 @@ export default function Experience() {
       setStage('10_wish');
       setHint('Make a wish & tap the cake to blow out your candles ✦');
     });
-    showCaption('EVERY BIRTHDAY CAKE NEEDS A WISH ✦', 2200);
+    showCaption('MAKE A WISH UNDER THE STARS ✦', 2200);
   }, [setStage, isMobile, tweenCam, showCaption, setHint, setCaption]);
 
   // Stage 10 -> 11 -> 12: Wish Made -> Fireworks
@@ -486,9 +486,9 @@ export default function Experience() {
     playFireworksBoom();
     playHappyBirthdaySong();
 
-    await showCaption('HAPPY BIRTHDAY, TITHI! ✦', 3200);
+    await showCaption('CELEBRATE THE JOURNEY! ✦', 3200);
     await showCaption(
-      'May your year be full of good days, good people,\ngreat adventures, and plenty of reasons to smile. ✦',
+      'May your journey be full of good days, inspiration,\ngreat adventures, and plenty of reasons to smile. ✦',
       3800
     );
 
@@ -578,8 +578,8 @@ export default function Experience() {
         />
         <Cake key={`cake-${journeyId}`} />
 
-        {/* Story Gift Box & Antique Letter Writing Desk */}
-        <GiftBox key={`gift-${journeyId}`} onOpen={handleGiftBoxClick} />
+        {/* Story Celestial Box & Antique Letter Writing Desk */}
+        <CelestialBox key={`gift-${journeyId}`} onOpen={handleGiftBoxClick} />
         <Envelope
           key={`env-${journeyId}`}
           interactive={isVIP ? envelopeInteractive : false}
